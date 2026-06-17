@@ -15,10 +15,10 @@ import { Footer } from "@/components/Footer";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AUDAX Technology — Your Vision. Our Technology." },
-      { name: "description", content: "Local leader in cutting-edge computer, office, and electrical equipment. All-in-One systems, monitors and toner cartridges engineered for performance." },
-      { property: "og:title", content: "AUDAX Technology — Audacity drives innovation" },
-      { property: "og:description", content: "Local leader in cutting-edge computer, office, and electrical equipment." },
+      { title: "AUDAX Gaming — High-Performance Gear for Gamers" },
+      { name: "description", content: "AUDAX Gaming — équipement gaming haute performance : All-In-One, moniteurs, cartouches toner et accessoires bureautiques. Audacity drives innovation." },
+      { property: "og:title", content: "AUDAX Gaming — Audacity drives innovation" },
+      { property: "og:description", content: "Équipement gaming haute performance : All-In-One, moniteurs, accessoires." },
     ],
   }),
   component: Index,
