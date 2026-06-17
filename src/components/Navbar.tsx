@@ -4,10 +4,9 @@ import { Logo } from "./Logo";
 
 const links = [
   { label: "Home", href: "#home" },
-  { label: "Presentation", href: "#about" },
-  { label: "Sectors", href: "#categories" },
+  { label: "About", href: "#about" },
+  { label: "Categories", href: "#categories" },
   { label: "Products", href: "#products" },
-  { label: "Shop", href: "#shop" },
   { label: "Contact", href: "#contact" },
 ];
 
