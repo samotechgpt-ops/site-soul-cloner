@@ -1,17 +1,31 @@
 import { Logo } from "./Logo";
 
-const cols = [
+const cols: { title: string; links: { label: string; href: string }[] }[] = [
   {
-    title: "Sectors",
-    links: ["All-In-One", "Monitors", "Toner Cartridges", "Office Tools"],
+    title: "Categories",
+    links: [
+      { label: "All-In-One", href: "#categories" },
+      { label: "Monitors", href: "#products" },
+      { label: "Toner Cartridges", href: "#products" },
+      { label: "Office Tools", href: "#products" },
+    ],
   },
   {
     title: "Company",
-    links: ["Presentation", "About", "Sectors of Activity", "Contact"],
+    links: [
+      { label: "About", href: "#about" },
+      { label: "Quality", href: "#about" },
+      { label: "Categories", href: "#categories" },
+      { label: "Contact", href: "#contact" },
+    ],
   },
   {
     title: "Shop",
-    links: ["VAR N22", "VAR T24M", "VAR XPS22F", "View Cart"],
+    links: [
+      { label: "All Products", href: "#products" },
+      { label: "Featured", href: "#products" },
+      { label: "Order via WhatsApp", href: "#contact" },
+    ],
   },
 ];
 
@@ -42,10 +56,10 @@ export function Footer() {
               </h4>
               <ul className="space-y-3">
                 {col.links.map((l) => (
-                  <li key={l.label ?? l}>
-                    <a href={typeof l === "string" ? "#" : l.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors group inline-flex items-center gap-2">
+                  <li key={l.label}>
+                    <a href={l.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors group inline-flex items-center gap-2">
                       <span className="h-px w-0 bg-primary transition-all group-hover:w-3" />
-                      {typeof l === "string" ? l : l.label}
+                      {l.label}
                     </a>
                   </li>
                 ))}
