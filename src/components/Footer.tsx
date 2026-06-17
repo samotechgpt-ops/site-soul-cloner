@@ -42,10 +42,10 @@ export function Footer() {
               </h4>
               <ul className="space-y-3">
                 {col.links.map((l) => (
-                  <li key={l}>
-                    <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors group inline-flex items-center gap-2">
+                  <li key={l.label ?? l}>
+                    <a href={typeof l === "string" ? "#" : l.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors group inline-flex items-center gap-2">
                       <span className="h-px w-0 bg-primary transition-all group-hover:w-3" />
-                      {l}
+                      {typeof l === "string" ? l : l.label}
                     </a>
                   </li>
                 ))}
@@ -56,12 +56,12 @@ export function Footer() {
 
         <div className="mt-16 pt-8 border-t border-primary/10 flex flex-wrap items-center justify-between gap-4">
           <p className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
-            © 2026 Audax Technology — All Rights Reserved
+            © 2026 AUDAX Gaming — All Rights Reserved
           </p>
           <div className="flex gap-6 font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
-            <a href="#" className="hover:text-primary transition-colors">Privacy</a>
-            <a href="#" className="hover:text-primary transition-colors">Terms</a>
-            <a href="#" className="hover:text-primary transition-colors">Cookies</a>
+            <a href="#about" className="hover:text-primary transition-colors">About</a>
+            <a href="#products" className="hover:text-primary transition-colors">Products</a>
+            <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
           </div>
         </div>
 
