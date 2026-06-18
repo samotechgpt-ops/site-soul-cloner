@@ -9,10 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as CommanderRouteImport } from './routes/commander'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiAdminUploadRouteImport } from './routes/api/admin/upload'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommanderRoute = CommanderRouteImport.update({
+  id: '/commander',
+  path: '/commander',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -32,35 +44,68 @@ const ApiAdminUploadRoute = ApiAdminUploadRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/commander': typeof CommanderRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/admin/upload': typeof ApiAdminUploadRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/commander': typeof CommanderRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/admin/upload': typeof ApiAdminUploadRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/commander': typeof CommanderRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/admin/upload': typeof ApiAdminUploadRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/api/admin/upload'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/commander'
+    | '/sitemap.xml'
+    | '/api/admin/upload'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/api/admin/upload'
-  id: '__root__' | '/' | '/admin' | '/api/admin/upload'
+  to: '/' | '/admin' | '/commander' | '/sitemap.xml' | '/api/admin/upload'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/commander'
+    | '/sitemap.xml'
+    | '/api/admin/upload'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  CommanderRoute: typeof CommanderRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiAdminUploadRoute: typeof ApiAdminUploadRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commander': {
+      id: '/commander'
+      path: '/commander'
+      fullPath: '/commander'
+      preLoaderRoute: typeof CommanderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -88,6 +133,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  CommanderRoute: CommanderRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiAdminUploadRoute: ApiAdminUploadRoute,
 }
 export const routeTree = rootRouteImport

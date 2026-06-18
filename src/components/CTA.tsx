@@ -1,10 +1,10 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { MagneticButton } from "./MagneticButton";
-import { useCart } from "@/lib/stores";
 
 export function CTA() {
-  const openCart = useCart((state) => state.open);
+
 
   return (
     <section id="contact" className="relative py-32 overflow-hidden">
@@ -61,9 +61,9 @@ export function CTA() {
           transition={{ delay: 0.4 }}
           className="mt-12 flex flex-wrap justify-center gap-4"
         >
-          <MagneticButton onClick={openCart}>
-            Commander <ArrowRight className="w-4 h-4" />
-          </MagneticButton>
+          <Link to="/commander">
+            <MagneticButton>Commander en ligne <ArrowRight className="w-4 h-4" /></MagneticButton>
+          </Link>
           <MagneticButton variant="ghost" onClick={() => window.open("tel:+213555000000", "_self")}>Appeler</MagneticButton>
         </motion.div>
       </div>

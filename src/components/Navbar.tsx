@@ -54,6 +54,9 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-4">
+          <Link to="/commander" className="hidden sm:inline-flex bg-primary px-4 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-primary-foreground transition hover:opacity-90">
+            Commander
+          </Link>
           <Link to="/admin" className="hidden sm:inline-flex border border-primary/40 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-primary transition hover:bg-primary hover:text-primary-foreground">
             Admin
           </Link>
@@ -75,6 +78,7 @@ export function Navbar() {
         <div className="lg:hidden border-t border-primary/15 bg-background/95 px-6 py-4 backdrop-blur-xl">
           <div className="grid gap-2 font-mono text-xs uppercase tracking-[0.25em]">
             {links.map((link) => <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="py-3 text-muted-foreground hover:text-primary">{link.label}</a>)}
+            <Link to="/commander" onClick={() => setOpen(false)} className="py-3 text-primary">Commander</Link>
             <Link to="/admin" onClick={() => setOpen(false)} className="py-3 text-primary">Admin</Link>
           </div>
         </div>
