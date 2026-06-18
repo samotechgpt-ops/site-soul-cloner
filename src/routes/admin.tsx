@@ -1,15 +1,30 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useMemo, useState, type ChangeEvent } from "react";
-import { Boxes, ClipboardList, LogOut, Plus, RotateCcw, Save, Settings, ShieldCheck, Trash2, Upload } from "lucide-react";
-import { type Product } from "@/lib/data";
-import { formatPriceDzd, getAdminPassword, loadLocalOrders, loadManagedProducts, resetManagedProducts, saveManagedProducts, setAdminPassword, updateLocalOrderStatus, uid, type LocalOrder, type OrderStatus } from "@/lib/local-store";
+import { Boxes, ClipboardList, LogOut, Plus, RotateCcw, Save, Settings, ShieldCheck, Tag, Trash2, Upload } from "lucide-react";
+import { type Product, type Category } from "@/lib/data";
+import {
+  formatPriceDzd,
+  getAdminPassword,
+  loadLocalOrders,
+  loadManagedCategories,
+  loadManagedProducts,
+  resetManagedCategories,
+  resetManagedProducts,
+  saveManagedCategories,
+  saveManagedProducts,
+  setAdminPassword,
+  updateLocalOrderStatus,
+  uid,
+  type LocalOrder,
+  type OrderStatus,
+} from "@/lib/local-store";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
       { title: "Admin AUDAX Gaming — Produits et commandes" },
-      { name: "description", content: "Panel admin AUDAX Gaming pour gérer les produits, photos, prix et commandes clients." },
+      { name: "description", content: "Panel admin AUDAX Gaming pour gérer les produits, catégories, photos, prix et commandes clients." },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Admin AUDAX Gaming" },
       { property: "og:description", content: "Gestion produits et commandes AUDAX Gaming." },
@@ -18,11 +33,13 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-const blank: Product = { id: "", name: "", category: "monitor", categoryLabel: "Monitor", price: "Sur devis", priceValue: 0, inStock: true, image: "", code: "", description: "" };
-type AdminTab = "products" | "leads" | "settings";
+const blank: Product = { id: "", name: "", category: "monitor", categoryLabel: "Gaming Monitors", categoryId: "monitor", price: "Sur devis", priceValue: 0, inStock: true, image: "", code: "", description: "" };
+const blankCat: Category = { id: "", code: "", slug: "", title: "", desc: "", image: "" };
+type AdminTab = "products" | "categories" | "leads" | "settings";
 
 const tabs: Array<{ id: AdminTab; label: string; icon: typeof Boxes }> = [
   { id: "products", label: "Produits", icon: Boxes },
+  { id: "categories", label: "Catégories", icon: Tag },
   { id: "leads", label: "Leads", icon: ClipboardList },
   { id: "settings", label: "Paramètres", icon: Settings },
 ];
