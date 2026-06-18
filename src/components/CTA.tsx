@@ -63,7 +63,8 @@ export function CTA() {
           <a href="/commander">
             <MagneticButton>Commander en ligne <ArrowRight className="w-4 h-4" /></MagneticButton>
           </a>
-          <MagneticButton variant="ghost" onClick={() => window.open("tel:+213555000000", "_self")}>Appeler</MagneticButton>
+          <MagneticButton variant="ghost" onClick={() => window.open("tel:+213770741873", "_self")}>Appeler</MagneticButton>
+          <MagneticButton variant="ghost" onClick={() => window.open("https://wa.me/213770741873", "_blank")}>WhatsApp</MagneticButton>
         </motion.div>
       </div>
     </section>

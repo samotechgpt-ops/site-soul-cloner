@@ -32,7 +32,7 @@ export async function ensureAdminSeeded() {
     const hash = await bcrypt.hash(DEFAULT_PASSWORD, 10);
     await supabaseAdmin
       .from("admin_settings")
-      .upsert({ id: 1, password_hash: hash, whatsapp_number: data?.whatsapp_number ?? "213555000000" });
+      .upsert({ id: 1, password_hash: hash, whatsapp_number: data?.whatsapp_number ?? "213770741873" });
   }
 }
 

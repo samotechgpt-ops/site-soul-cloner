@@ -56,5 +56,5 @@ export const adminUpdateWhatsapp = createServerFn({ method: "POST" })
 export const getPublicWhatsapp = createServerFn({ method: "GET" }).handler(async () => {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data } = await supabaseAdmin.from("admin_settings").select("whatsapp_number").eq("id", 1).maybeSingle();
-  return { whatsapp_number: data?.whatsapp_number ?? "213555000000" };
+  return { whatsapp_number: data?.whatsapp_number ?? "213770741873" };
 });
