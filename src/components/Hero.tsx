@@ -74,8 +74,8 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-primary to-transparent animate-scan" />
 
       {/* HUD labels */}
-      <div className="absolute top-24 left-6 right-6 z-20 flex justify-between font-mono text-[10px] tracking-[0.35em] text-muted-foreground uppercase">
-        <motion.span initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 2.8 }}>
+      <div className="absolute top-20 left-4 right-4 z-20 flex justify-between gap-2 font-mono text-[9px] tracking-[0.3em] text-muted-foreground uppercase sm:top-24 sm:left-6 sm:right-6 sm:text-[10px] sm:tracking-[0.35em]">
+        <motion.span initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 2.8 }} className="truncate">
           <ScrambleText text="[ SYS.01 ] — VISION ENGINE V12" duration={1200} />
         </motion.span>
         <motion.span initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 2.8 }} className="hidden sm:inline">
@@ -86,15 +86,15 @@ export function Hero() {
       {/* Content */}
       <motion.div
         style={{ opacity, y: titleY }}
-        className="relative z-20 mx-auto flex min-h-screen max-w-[1400px] flex-col justify-center px-6 pt-32"
+        className="relative z-20 mx-auto flex min-h-screen max-w-[1400px] flex-col justify-center px-4 pt-28 pb-20 sm:px-6 sm:pt-32"
       >
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.3fr]">
+        <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-[1fr_1.3fr]">
           {/* Portrait card */}
           <motion.div
             initial={{ opacity: 0, x: -80, rotate: -5 }}
             animate={{ opacity: 1, x: 0, rotate: -2 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 2.4 }}
-            className="relative mx-auto w-full max-w-md lg:max-w-none"
+            className="relative mx-auto w-[88%] max-w-md sm:w-full lg:max-w-none"
           >
             <div className="relative aspect-[4/5] overflow-hidden border border-primary/30 clip-corner shadow-glow">
               <img src={soldierDisplay} alt="Soldat esport AUDAX Gaming devant un écran VAR" className="h-full w-full object-cover" />
@@ -142,7 +142,7 @@ export function Hero() {
               Next Generation Devices · Est. 2013
             </motion.div>
 
-            <h1 className="font-display text-5xl sm:text-7xl lg:text-[7rem] font-bold leading-[0.92] tracking-tighter">
+            <h1 className="font-display text-[2.5rem] leading-[0.95] tracking-tighter font-bold sm:text-7xl lg:text-[7rem] lg:leading-[0.92]">
               <AnimatedWord text="BOLD" delay={2.7} />{" "}
               <AnimatedWord text="VISION." delay={2.85} className="text-primary text-glow-crimson italic" />
               <br />
