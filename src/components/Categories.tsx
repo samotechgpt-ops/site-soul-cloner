@@ -1,29 +1,37 @@
 import { motion } from "motion/react";
-import { categories } from "@/lib/data";
+import { useEffect, useState } from "react";
+import { categories as defaultCategories, type Category } from "@/lib/data";
+import { CATEGORIES_CHANGED_EVENT, loadManagedCategories } from "@/lib/local-store";
 import { ScrambleText } from "./ScrambleText";
 import { ArrowUpRight } from "lucide-react";
 
-const categoryTargets = ["allinone", "monitor", "custom"] as const;
-
-function openSector(index: number) {
-  const target = categoryTargets[index] ?? "custom";
-  window.location.href = target === "custom" ? "/commander?mode=custom" : `/commander?category=${target}`;
+function openSector(cat: Category) {
+  window.location.href = `/commander?category=${encodeURIComponent(cat.slug || cat.id)}`;
 }
 
 export function Categories() {
+  const [cats, setCats] = useState<Category[]>(() => defaultCategories);
+
+  useEffect(() => {
+    setCats(loadManagedCategories());
+    const sync = () => setCats(loadManagedCategories());
+    window.addEventListener(CATEGORIES_CHANGED_EVENT, sync);
+    return () => window.removeEventListener(CATEGORIES_CHANGED_EVENT, sync);
+  }, []);
+
   return (
     <section id="categories" className="relative py-32 overflow-hidden">
       <div className="absolute -right-40 top-1/4 h-[500px] w-[500px] rounded-full gradient-glow blur-3xl opacity-50" />
 
       <div className="relative mx-auto max-w-[1400px] px-6">
-        <div className="mb-20 max-w-3xl">
+        <div className="mb-16 max-w-3xl">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="mb-4 font-mono text-xs tracking-[0.35em] text-primary uppercase"
           >
-            ▸ 02 — Sectors of Activity
+            ▸ 02 — Catégories Gaming
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -32,8 +40,7 @@ export function Categories() {
             transition={{ duration: 0.8 }}
             className="font-display text-4xl md:text-6xl font-bold tracking-tighter leading-[1]"
           >
-            Computers. Office. <br />
-            <span className="text-primary text-glow-crimson italic">Electrical equipment.</span>
+            Choisis ton <span className="text-primary text-glow-crimson italic">arsenal.</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
@@ -42,50 +49,48 @@ export function Categories() {
             transition={{ delay: 0.2 }}
             className="mt-6 max-w-xl text-muted-foreground leading-relaxed"
           >
-            A wide range of advanced products — from powerful computing systems to efficient office tools and durable electrical components — supporting businesses and individuals in achieving seamless productivity.
+            Chaque produit AUDAX Gaming est rattaché à une catégorie. Sélectionne la tienne pour explorer le matériel et commander directement.
           </motion.p>
         </div>
 
-        {/* Cards */}
-        <div className="space-y-px bg-primary/20 border border-primary/20">
-          {categories.map((cat, i) => (
-            <motion.div
-              key={cat.code}
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {cats.map((cat, i) => (
+            <motion.button
+              type="button"
+              key={cat.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ delay: i * 0.12, duration: 0.8 }}
-              className="esport-panel group relative bg-background p-8 md:p-12 cursor-pointer overflow-hidden"
-              role="button"
-              tabIndex={0}
-              onClick={() => openSector(i)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") openSector(i);
-              }}
+              transition={{ delay: i * 0.1, duration: 0.7 }}
+              onClick={() => openSector(cat)}
+              className="esport-panel group relative overflow-hidden border border-primary/25 bg-card/40 text-left clip-corner"
             >
-              {/* Hover fill */}
-              <div className="absolute inset-0 bg-primary/5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out" />
-
-              <div className="relative grid items-center gap-6 md:grid-cols-[80px_1fr_auto_60px]">
-                <div className="font-mono text-2xl font-bold text-primary/40 group-hover:text-primary transition-colors">
-                  {cat.code}
-                </div>
-                <div>
-                  <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight transition-transform group-hover:translate-x-2 duration-500">
-                    <ScrambleText text={cat.title} duration={800} />
+              <div className="relative aspect-[4/5] overflow-hidden">
+                {cat.image && (
+                  <img
+                    src={cat.image}
+                    alt={cat.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+                <div className="absolute inset-0 gaming-scanlines opacity-40 mix-blend-overlay" />
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent animate-scan" />
+                <span className="absolute top-3 left-3 font-mono text-[10px] tracking-[0.3em] text-primary border border-primary/40 bg-background/60 backdrop-blur px-2 py-1 uppercase">
+                  ◢ {cat.code}
+                </span>
+                <span className="absolute top-3 right-3 h-9 w-9 grid place-items-center border border-primary/40 bg-background/60 backdrop-blur group-hover:bg-primary group-hover:border-primary transition">
+                  <ArrowUpRight className="h-4 w-4 group-hover:rotate-45 transition-transform" />
+                </span>
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <h3 className="font-display text-2xl font-bold tracking-tight">
+                    <ScrambleText text={cat.title} duration={700} />
                   </h3>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-2xl">
-                    {cat.desc}
-                  </p>
-                </div>
-                <div className="hidden md:block font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
-                  ─── Sector
-                </div>
-                <div className="h-12 w-12 flex items-center justify-center border border-primary/40 group-hover:bg-primary group-hover:border-primary transition-all" aria-label={`Voir les produits ${cat.title}`}>
-                  <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                  <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-muted-foreground">{cat.desc}</p>
                 </div>
               </div>
-            </motion.div>
+            </motion.button>
           ))}
         </div>
       </div>
