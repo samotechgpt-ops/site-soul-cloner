@@ -237,15 +237,32 @@ function AdminPage() {
                   <div className="mt-4 grid gap-3">
                     <input value={editing.name} onChange={(e) => setEditing({ ...editing, name: e.target.value })} placeholder="Nom" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
                     <input value={editing.code} onChange={(e) => setEditing({ ...editing, code: e.target.value })} placeholder="Code" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
-                    <input type="number" value={editing.priceValue} onChange={(e) => setEditing({ ...editing, priceValue: Number(e.target.value) })} placeholder="Prix DZD — 0 = Sur devis" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    <div className="grid grid-cols-2 gap-3">
+                      <input type="number" min={0} value={editing.priceValue} onChange={(e) => setEditing({ ...editing, priceValue: Number(e.target.value) })} placeholder="Prix DZD" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                      <input type="number" min={0} value={editing.stock ?? 0} onChange={(e) => { const n = Number(e.target.value); setEditing({ ...editing, stock: n, inStock: n > 0 }); }} placeholder="Quantité" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    </div>
                     <select value={editing.categoryId || editing.category} onChange={(e) => setEditing({ ...editing, categoryId: e.target.value, category: e.target.value })} className="border border-input bg-background px-3 py-3 outline-none focus:border-primary">
                       {cats.length === 0 && <option value="">Aucune catégorie — créez-en une</option>}
                       {cats.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
                     </select>
-                    <label className="flex items-center gap-3 text-sm text-muted-foreground"><input type="checkbox" checked={editing.inStock} onChange={(e) => setEditing({ ...editing, inStock: e.target.checked })} className="h-4 w-4 accent-primary" /> En stock</label>
-                    <textarea value={editing.description} onChange={(e) => setEditing({ ...editing, description: e.target.value })} placeholder="Description" className="min-h-24 border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
-                    <label className="border border-dashed border-primary/40 p-4 text-sm text-muted-foreground"><Upload className="mb-2 h-5 w-5 text-primary" />Uploader photo<input type="file" accept="image/*" onChange={upload} className="mt-2 block w-full text-xs" /></label>
-                    {editing.image && <img src={editing.image} alt="Aperçu produit" className="h-44 w-full bg-foreground object-contain p-3" />}
+                    <label className="flex items-center gap-3 text-sm text-muted-foreground"><input type="checkbox" checked={editing.inStock} onChange={(e) => setEditing({ ...editing, inStock: e.target.checked })} className="h-4 w-4 accent-primary" /> Disponible à la vente</label>
+                    <div className="relative">
+                      <textarea value={editing.description} onChange={(e) => setEditing({ ...editing, description: e.target.value })} placeholder="Description (ou générez-la avec l'IA)" className="min-h-28 w-full border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                      <button type="button" onClick={aiDescribe} disabled={aiLoading || !editing.name} className="absolute right-2 top-2 inline-flex items-center gap-1 border border-primary/40 bg-background px-2 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-primary hover:bg-primary hover:text-primary-foreground disabled:opacity-40">
+                        <Sparkles className="h-3 w-3" /> {aiLoading ? "IA…" : "IA"}
+                      </button>
+                    </div>
+                    <label className="border border-dashed border-primary/40 p-4 text-sm text-muted-foreground"><Upload className="mb-2 h-5 w-5 text-primary" />Uploader photos (multi)<input type="file" accept="image/*" multiple onChange={upload} className="mt-2 block w-full text-xs" /></label>
+                    {(editing.images && editing.images.length > 0) && (
+                      <div className="grid grid-cols-4 gap-2">
+                        {editing.images.map((img, i) => (
+                          <div key={`${img.slice(0, 32)}-${i}`} className="relative group border border-primary/20 bg-white">
+                            <img src={img} alt={`Aperçu ${i + 1}`} className="h-20 w-full object-contain p-1" />
+                            <button type="button" onClick={() => removeImage(i)} className="absolute top-1 right-1 grid h-5 w-5 place-items-center bg-background/80 border border-primary/30 opacity-0 group-hover:opacity-100" aria-label="Supprimer image"><X className="h-3 w-3" /></button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                     <button type="button" onClick={save} disabled={!editing.name || !editing.image} className="inline-flex items-center justify-center gap-2 bg-primary px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"><Save className="h-4 w-4" /> Enregistrer</button>
                   </div>
                 </div>
