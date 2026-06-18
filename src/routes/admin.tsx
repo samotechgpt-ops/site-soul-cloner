@@ -234,17 +234,32 @@ function AdminPage() {
               <motion.div key="products" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-[420px_1fr]">
                 <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur">
                   <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3"><h2 className="truncate font-display text-2xl font-bold">{editing.id ? "Modifier produit" : "Ajouter produit"}</h2><button type="button" onClick={() => setEditing(blank)} className="grid h-10 w-10 place-items-center border border-primary/30"><Plus className="h-4 w-4" /></button></div>
-                  <div className="mt-4 grid gap-3">
-                    <input value={editing.name} onChange={(e) => setEditing({ ...editing, name: e.target.value })} placeholder="Nom" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
-                    <input value={editing.code} onChange={(e) => setEditing({ ...editing, code: e.target.value })} placeholder="Code" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
-                    <div className="grid grid-cols-2 gap-3">
-                      <input type="number" min={0} value={editing.priceValue} onChange={(e) => setEditing({ ...editing, priceValue: Number(e.target.value) })} placeholder="Prix DZD" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
-                      <input type="number" min={0} value={editing.stock ?? 0} onChange={(e) => { const n = Number(e.target.value); setEditing({ ...editing, stock: n, inStock: n > 0 }); }} placeholder="Quantité" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                  <div className="mt-4 grid gap-4">
+                    <label className="grid gap-1.5">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-primary">Nom du produit</span>
+                      <input value={editing.name} onChange={(e) => setEditing({ ...editing, name: e.target.value })} placeholder="Ex : VAR GS24 Pro" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    </label>
+                    <label className="grid gap-1.5">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-primary">Référence / SKU</span>
+                      <input value={editing.code} onChange={(e) => setEditing({ ...editing, code: e.target.value })} placeholder="Ex : GS-24P (code interne du produit)" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    </label>
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                      <label className="grid gap-1.5">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-primary">Prix (DZD)</span>
+                        <input type="number" min={0} value={editing.priceValue} onChange={(e) => setEditing({ ...editing, priceValue: Number(e.target.value) })} placeholder="Ex : 18700" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                      </label>
+                      <label className="grid gap-1.5">
+                        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-primary">Quantité en stock</span>
+                        <input type="number" min={0} value={editing.stock ?? 0} onChange={(e) => { const n = Number(e.target.value); setEditing({ ...editing, stock: n, inStock: n > 0 }); }} placeholder="Ex : 12" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                      </label>
                     </div>
-                    <select value={editing.categoryId || editing.category} onChange={(e) => setEditing({ ...editing, categoryId: e.target.value, category: e.target.value })} className="border border-input bg-background px-3 py-3 outline-none focus:border-primary">
-                      {cats.length === 0 && <option value="">Aucune catégorie — créez-en une</option>}
-                      {cats.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
-                    </select>
+                    <label className="grid gap-1.5">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-primary">Catégorie</span>
+                      <select value={editing.categoryId || editing.category} onChange={(e) => setEditing({ ...editing, categoryId: e.target.value, category: e.target.value })} className="border border-input bg-background px-3 py-3 outline-none focus:border-primary">
+                        {cats.length === 0 && <option value="">Aucune catégorie — créez-en une</option>}
+                        {cats.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
+                      </select>
+                    </label>
                     <label className="flex items-center gap-3 text-sm text-muted-foreground"><input type="checkbox" checked={editing.inStock} onChange={(e) => setEditing({ ...editing, inStock: e.target.checked })} className="h-4 w-4 accent-primary" /> Disponible à la vente</label>
                     <div className="relative">
                       <textarea value={editing.description} onChange={(e) => setEditing({ ...editing, description: e.target.value })} placeholder="Description (ou générez-la avec l'IA)" className="min-h-28 w-full border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
