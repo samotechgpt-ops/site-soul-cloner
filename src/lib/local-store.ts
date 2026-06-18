@@ -5,6 +5,8 @@ export const ORDERS_CHANGED_EVENT = "audax-orders-changed";
 
 const PRODUCTS_KEY = "audax-admin-products";
 const ORDERS_KEY = "audax-local-orders";
+const ADMIN_PASSWORD_KEY = "audax-admin-password";
+export const DEFAULT_ADMIN_PASSWORD = "Azerty2026";
 
 export type OrderStatus = "new" | "confirmed" | "processing" | "done" | "cancelled";
 
@@ -75,6 +77,16 @@ export function updateLocalOrderStatus(id: string, status: OrderStatus) {
   const next = loadLocalOrders().map((order) => (order.id === id ? { ...order, status } : order));
   window.localStorage.setItem(ORDERS_KEY, JSON.stringify(next));
   window.dispatchEvent(new Event(ORDERS_CHANGED_EVENT));
+}
+
+export function getAdminPassword() {
+  if (!isBrowser()) return DEFAULT_ADMIN_PASSWORD;
+  return window.localStorage.getItem(ADMIN_PASSWORD_KEY) || DEFAULT_ADMIN_PASSWORD;
+}
+
+export function setAdminPassword(nextPassword: string) {
+  if (!isBrowser()) return;
+  window.localStorage.setItem(ADMIN_PASSWORD_KEY, nextPassword);
 }
 
 export function uid(prefix = "audax") {
