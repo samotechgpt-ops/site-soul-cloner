@@ -30,7 +30,7 @@ const requestTypes = [
 const orbs = Array.from({ length: 14 }, (_, i) => ({ id: i, x: (i * 73) % 100, y: (i * 41) % 100, d: 14 + (i % 6) * 2 }));
 
 function LandingPage() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>(() => loadManagedProducts());
   const [selected, setSelected] = useState<Record<string, number>>({});
   const [mode, setMode] = useState<"products" | "custom">("products");
   const [customRequest, setCustomRequest] = useState("");
@@ -97,23 +97,23 @@ function LandingPage() {
     <main className="dark relative min-h-screen overflow-hidden bg-background text-foreground">
       <AnimatedBg />
       <div className="relative mx-auto max-w-[1300px] px-6 py-12 lg:py-20">
-        <motion.header initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-12 flex items-center justify-between gap-4">
+        <motion.header initial={false} animate={{ opacity: 1, y: 0 }} className="mb-12 flex items-center justify-between gap-4">
           <Link to="/" className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground hover:text-primary"><ArrowLeft className="h-3 w-3" /> Accueil</Link>
           <span className="animate-hud-flicker font-mono text-[10px] uppercase tracking-[0.35em] text-primary">◉ Live · Commande sécurisée</span>
         </motion.header>
 
         <div className="mb-12 text-center">
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="font-display text-5xl md:text-7xl font-bold tracking-tighter leading-[0.95]">
+          <motion.h1 initial={false} animate={{ opacity: 1, y: 0 }} className="font-display text-5xl md:text-7xl font-bold tracking-tighter leading-[0.95]">
             Configure ta <span className="text-primary text-glow-crimson italic">commande</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mx-auto mt-4 max-w-xl text-muted-foreground">
+          <motion.p initial={false} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mx-auto mt-4 max-w-xl text-muted-foreground">
             Sélectionne tes produits AUDAX ou décris ton besoin. Livraison 69 wilayas et zones premium.
           </motion.p>
         </div>
 
         <form onSubmit={submit} className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
           {/* Left: products */}
-          <motion.section initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} className="esport-panel border border-primary/25 bg-card/60 p-6 backdrop-blur clip-corner">
+          <motion.section initial={false} animate={{ opacity: 1, x: 0 }} className="esport-panel border border-primary/25 bg-card/60 p-6 backdrop-blur clip-corner">
             <div className="mb-5 flex flex-wrap gap-2">
               {requestTypes.map((r) => {
                 const Icon = r.icon;
@@ -160,7 +160,7 @@ function LandingPage() {
           </motion.section>
 
           {/* Right: form */}
-          <motion.aside initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} className="esport-panel border border-primary/25 bg-card/60 p-6 backdrop-blur clip-corner">
+          <motion.aside initial={false} animate={{ opacity: 1, x: 0 }} className="esport-panel border border-primary/25 bg-card/60 p-6 backdrop-blur clip-corner">
             <h2 className="font-display text-2xl font-bold">Tes coordonnées</h2>
             <div className="mt-4 grid gap-3">
               <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Nom complet *" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
