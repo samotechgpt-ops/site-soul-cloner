@@ -1,15 +1,30 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useMemo, useState, type ChangeEvent } from "react";
-import { Boxes, ClipboardList, LogOut, Plus, RotateCcw, Save, Settings, ShieldCheck, Trash2, Upload } from "lucide-react";
-import { type Product } from "@/lib/data";
-import { formatPriceDzd, getAdminPassword, loadLocalOrders, loadManagedProducts, resetManagedProducts, saveManagedProducts, setAdminPassword, updateLocalOrderStatus, uid, type LocalOrder, type OrderStatus } from "@/lib/local-store";
+import { Boxes, ClipboardList, LogOut, Plus, RotateCcw, Save, Settings, ShieldCheck, Tag, Trash2, Upload } from "lucide-react";
+import { type Product, type Category } from "@/lib/data";
+import {
+  formatPriceDzd,
+  getAdminPassword,
+  loadLocalOrders,
+  loadManagedCategories,
+  loadManagedProducts,
+  resetManagedCategories,
+  resetManagedProducts,
+  saveManagedCategories,
+  saveManagedProducts,
+  setAdminPassword,
+  updateLocalOrderStatus,
+  uid,
+  type LocalOrder,
+  type OrderStatus,
+} from "@/lib/local-store";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
       { title: "Admin AUDAX Gaming — Produits et commandes" },
-      { name: "description", content: "Panel admin AUDAX Gaming pour gérer les produits, photos, prix et commandes clients." },
+      { name: "description", content: "Panel admin AUDAX Gaming pour gérer les produits, catégories, photos, prix et commandes clients." },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Admin AUDAX Gaming" },
       { property: "og:description", content: "Gestion produits et commandes AUDAX Gaming." },
@@ -18,11 +33,13 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-const blank: Product = { id: "", name: "", category: "monitor", categoryLabel: "Monitor", price: "Sur devis", priceValue: 0, inStock: true, image: "", code: "", description: "" };
-type AdminTab = "products" | "leads" | "settings";
+const blank: Product = { id: "", name: "", category: "monitor", categoryLabel: "Gaming Monitors", categoryId: "monitor", price: "Sur devis", priceValue: 0, inStock: true, image: "", code: "", description: "" };
+const blankCat: Category = { id: "", code: "", slug: "", title: "", desc: "", image: "" };
+type AdminTab = "products" | "categories" | "leads" | "settings";
 
 const tabs: Array<{ id: AdminTab; label: string; icon: typeof Boxes }> = [
   { id: "products", label: "Produits", icon: Boxes },
+  { id: "categories", label: "Catégories", icon: Tag },
   { id: "leads", label: "Leads", icon: ClipboardList },
   { id: "settings", label: "Paramètres", icon: Settings },
 ];
@@ -32,8 +49,10 @@ function AdminPage() {
   const [tab, setTab] = useState<AdminTab>("products");
   const [password, setPassword] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
+  const [cats, setCats] = useState<Category[]>([]);
   const [orders, setOrders] = useState<LocalOrder[]>([]);
   const [editing, setEditing] = useState<Product>(blank);
+  const [editingCat, setEditingCat] = useState<Category>(blankCat);
   const [message, setMessage] = useState("");
   const [security, setSecurity] = useState({ current: "", next: "", confirm: "" });
 
@@ -47,6 +66,7 @@ function AdminPage() {
   useEffect(() => {
     setAuthed(window.localStorage.getItem("audax-admin-ok") === "1");
     setProducts(loadManagedProducts());
+    setCats(loadManagedCategories());
     setOrders(loadLocalOrders());
     const refreshOrders = () => setOrders(loadLocalOrders());
     window.addEventListener("audax-orders-changed", refreshOrders);
@@ -69,8 +89,27 @@ function AdminPage() {
     reader.readAsDataURL(file);
   };
 
+  const uploadCat = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setEditingCat((c) => ({ ...c, image: String(reader.result) }));
+    reader.readAsDataURL(file);
+  };
+
   const save = () => {
-    const nextProduct: Product = { ...editing, id: editing.id || uid("prod"), price: editing.priceValue ? formatPriceDzd(editing.priceValue) : "Sur devis", categoryLabel: editing.category === "monitor" ? "Monitor" : "All In One", code: editing.code || editing.name.slice(0, 8).toUpperCase() };
+    const cat = cats.find((c) => c.id === (editing.categoryId || editing.category));
+    const catId = cat?.id || editing.category || "monitor";
+    const catLabel = cat?.title || editing.categoryLabel || "Produit";
+    const nextProduct: Product = {
+      ...editing,
+      id: editing.id || uid("prod"),
+      price: editing.priceValue ? formatPriceDzd(editing.priceValue) : "Sur devis",
+      category: catId,
+      categoryId: catId,
+      categoryLabel: catLabel,
+      code: editing.code || editing.name.slice(0, 8).toUpperCase(),
+    };
     const next = products.some((p) => p.id === nextProduct.id) ? products.map((p) => (p.id === nextProduct.id ? nextProduct : p)) : [nextProduct, ...products];
     setProducts(next);
     saveManagedProducts(next);
@@ -82,6 +121,29 @@ function AdminPage() {
     const next = products.filter((p) => p.id !== id);
     setProducts(next);
     saveManagedProducts(next);
+  };
+
+  const saveCat = () => {
+    if (!editingCat.title) { setMessage("Titre catégorie requis"); return; }
+    const slug = (editingCat.slug || editingCat.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""));
+    const id = editingCat.id || `cat-${slug}-${Date.now().toString(36)}`;
+    const nextCat: Category = {
+      ...editingCat,
+      id,
+      slug,
+      code: editingCat.code || String(cats.length + 1).padStart(2, "0"),
+    };
+    const next = cats.some((c) => c.id === nextCat.id) ? cats.map((c) => (c.id === nextCat.id ? nextCat : c)) : [...cats, nextCat];
+    setCats(next);
+    saveManagedCategories(next);
+    setEditingCat(blankCat);
+    setMessage("Catégorie enregistrée");
+  };
+
+  const removeCat = (id: string) => {
+    const next = cats.filter((c) => c.id !== id);
+    setCats(next);
+    saveManagedCategories(next);
   };
 
   const setStatus = (id: string, status: OrderStatus) => {
@@ -96,14 +158,8 @@ function AdminPage() {
   };
 
   const changePassword = () => {
-    if (security.current !== getAdminPassword()) {
-      setMessage("Mot de passe actuel incorrect");
-      return;
-    }
-    if (security.next.length < 6 || security.next !== security.confirm) {
-      setMessage("Le nouveau mot de passe doit correspondre et contenir au moins 6 caractères");
-      return;
-    }
+    if (security.current !== getAdminPassword()) { setMessage("Mot de passe actuel incorrect"); return; }
+    if (security.next.length < 6 || security.next !== security.confirm) { setMessage("Le nouveau mot de passe doit correspondre et contenir au moins 6 caractères"); return; }
     setAdminPassword(security.next);
     setSecurity({ current: "", next: "", confirm: "" });
     setMessage("Mot de passe admin modifié");
@@ -134,14 +190,67 @@ function AdminPage() {
 
         <section className="min-w-0">
           <div className="grid gap-3 sm:grid-cols-4">
-            {[{ label: "Produits", value: dashboard.products }, { label: "Leads", value: dashboard.leads }, { label: "En cours", value: dashboard.pending }, { label: "Total", value: formatPriceDzd(dashboard.revenue) }].map((stat) => <motion.div key={stat.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="border border-primary/15 bg-card/70 p-4 backdrop-blur"><p className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">{stat.label}</p><strong className="mt-2 block font-display text-2xl text-primary">{stat.value}</strong></motion.div>)}
+            {[{ label: "Produits", value: dashboard.products }, { label: "Catégories", value: cats.length }, { label: "Leads", value: dashboard.leads }, { label: "Total", value: formatPriceDzd(dashboard.revenue) }].map((stat) => <motion.div key={stat.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="border border-primary/15 bg-card/70 p-4 backdrop-blur"><p className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">{stat.label}</p><strong className="mt-2 block font-display text-2xl text-primary">{stat.value}</strong></motion.div>)}
           </div>
 
           <AnimatePresence mode="wait">
             {tab === "products" && (
               <motion.div key="products" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-[420px_1fr]">
-                <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur"><div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3"><h2 className="truncate font-display text-2xl font-bold">{editing.id ? "Modifier produit" : "Ajouter produit"}</h2><button type="button" onClick={() => setEditing(blank)} className="grid h-10 w-10 place-items-center border border-primary/30"><Plus className="h-4 w-4" /></button></div><div className="mt-4 grid gap-3"><input value={editing.name} onChange={(e) => setEditing({ ...editing, name: e.target.value })} placeholder="Nom" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" /><input value={editing.code} onChange={(e) => setEditing({ ...editing, code: e.target.value })} placeholder="Code" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" /><input type="number" value={editing.priceValue} onChange={(e) => setEditing({ ...editing, priceValue: Number(e.target.value) })} placeholder="Prix DZD — 0 = Sur devis" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" /><select value={editing.category} onChange={(e) => setEditing({ ...editing, category: e.target.value as Product["category"] })} className="border border-input bg-background px-3 py-3 outline-none focus:border-primary"><option value="monitor">Monitor</option><option value="allinone">All In One</option></select><label className="flex items-center gap-3 text-sm text-muted-foreground"><input type="checkbox" checked={editing.inStock} onChange={(e) => setEditing({ ...editing, inStock: e.target.checked })} className="h-4 w-4 accent-primary" /> En stock</label><textarea value={editing.description} onChange={(e) => setEditing({ ...editing, description: e.target.value })} placeholder="Description" className="min-h-24 border border-input bg-background px-3 py-3 outline-none focus:border-primary" /><label className="border border-dashed border-primary/40 p-4 text-sm text-muted-foreground"><Upload className="mb-2 h-5 w-5 text-primary" />Uploader photo<input type="file" accept="image/*" onChange={upload} className="mt-2 block w-full text-xs" /></label>{editing.image && <img src={editing.image} alt="Aperçu produit" className="h-44 w-full bg-foreground object-contain p-3" />}<button type="button" onClick={save} disabled={!editing.name || !editing.image} className="inline-flex items-center justify-center gap-2 bg-primary px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"><Save className="h-4 w-4" /> Enregistrer</button></div></div>
-                <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur"><div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3"><h2 className="truncate font-display text-2xl font-bold">Catalogue</h2><button type="button" onClick={() => { resetManagedProducts(); setProducts(loadManagedProducts()); setMessage("Catalogue réinitialisé"); }} className="inline-flex shrink-0 items-center gap-2 text-xs text-muted-foreground underline"><RotateCcw className="h-3 w-3" /> Reset</button></div><div className="mt-4 grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">{products.map((p) => <article key={p.id} className="border border-primary/15 bg-background p-3"><img src={p.image} alt={p.name} className="h-32 w-full bg-foreground object-contain p-2" /><h3 className="mt-3 font-bold">{p.name}</h3><p className="font-mono text-xs text-primary">{formatPriceDzd(p.priceValue)}</p><p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{p.description}</p><div className="mt-3 flex gap-2"><button type="button" onClick={() => setEditing(p)} className="flex-1 border border-primary/30 px-3 py-2 text-xs hover:bg-primary/10"><Plus className="inline h-3 w-3" /> Modifier</button><button type="button" onClick={() => remove(p.id)} className="border border-primary/30 px-3 py-2 hover:bg-primary/10" aria-label={`Supprimer ${p.name}`}><Trash2 className="h-4 w-4" /></button></div></article>)}</div></div>
+                <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur">
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3"><h2 className="truncate font-display text-2xl font-bold">{editing.id ? "Modifier produit" : "Ajouter produit"}</h2><button type="button" onClick={() => setEditing(blank)} className="grid h-10 w-10 place-items-center border border-primary/30"><Plus className="h-4 w-4" /></button></div>
+                  <div className="mt-4 grid gap-3">
+                    <input value={editing.name} onChange={(e) => setEditing({ ...editing, name: e.target.value })} placeholder="Nom" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    <input value={editing.code} onChange={(e) => setEditing({ ...editing, code: e.target.value })} placeholder="Code" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    <input type="number" value={editing.priceValue} onChange={(e) => setEditing({ ...editing, priceValue: Number(e.target.value) })} placeholder="Prix DZD — 0 = Sur devis" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    <select value={editing.categoryId || editing.category} onChange={(e) => setEditing({ ...editing, categoryId: e.target.value, category: e.target.value })} className="border border-input bg-background px-3 py-3 outline-none focus:border-primary">
+                      {cats.length === 0 && <option value="">Aucune catégorie — créez-en une</option>}
+                      {cats.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
+                    </select>
+                    <label className="flex items-center gap-3 text-sm text-muted-foreground"><input type="checkbox" checked={editing.inStock} onChange={(e) => setEditing({ ...editing, inStock: e.target.checked })} className="h-4 w-4 accent-primary" /> En stock</label>
+                    <textarea value={editing.description} onChange={(e) => setEditing({ ...editing, description: e.target.value })} placeholder="Description" className="min-h-24 border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    <label className="border border-dashed border-primary/40 p-4 text-sm text-muted-foreground"><Upload className="mb-2 h-5 w-5 text-primary" />Uploader photo<input type="file" accept="image/*" onChange={upload} className="mt-2 block w-full text-xs" /></label>
+                    {editing.image && <img src={editing.image} alt="Aperçu produit" className="h-44 w-full bg-foreground object-contain p-3" />}
+                    <button type="button" onClick={save} disabled={!editing.name || !editing.image} className="inline-flex items-center justify-center gap-2 bg-primary px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"><Save className="h-4 w-4" /> Enregistrer</button>
+                  </div>
+                </div>
+                <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur"><div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3"><h2 className="truncate font-display text-2xl font-bold">Catalogue</h2><button type="button" onClick={() => { resetManagedProducts(); setProducts(loadManagedProducts()); setMessage("Catalogue réinitialisé"); }} className="inline-flex shrink-0 items-center gap-2 text-xs text-muted-foreground underline"><RotateCcw className="h-3 w-3" /> Reset</button></div><div className="mt-4 grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">{products.map((p) => { const cat = cats.find((c) => c.id === (p.categoryId || p.category)); return <article key={p.id} className="border border-primary/15 bg-background p-3"><img src={p.image} alt={p.name} className="h-32 w-full bg-foreground object-contain p-2" /><h3 className="mt-3 font-bold">{p.name}</h3><p className="font-mono text-[10px] text-muted-foreground uppercase tracking-[0.2em]">{cat?.title || p.categoryLabel}</p><p className="font-mono text-xs text-primary">{formatPriceDzd(p.priceValue)}</p><p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{p.description}</p><div className="mt-3 flex gap-2"><button type="button" onClick={() => setEditing({ ...p, categoryId: p.categoryId || p.category })} className="flex-1 border border-primary/30 px-3 py-2 text-xs hover:bg-primary/10"><Plus className="inline h-3 w-3" /> Modifier</button><button type="button" onClick={() => remove(p.id)} className="border border-primary/30 px-3 py-2 hover:bg-primary/10" aria-label={`Supprimer ${p.name}`}><Trash2 className="h-4 w-4" /></button></div></article>; })}</div></div>
+              </motion.div>
+            )}
+
+            {tab === "categories" && (
+              <motion.div key="categories" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-[420px_1fr]">
+                <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur">
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3"><h2 className="truncate font-display text-2xl font-bold">{editingCat.id ? "Modifier catégorie" : "Ajouter catégorie"}</h2><button type="button" onClick={() => setEditingCat(blankCat)} className="grid h-10 w-10 place-items-center border border-primary/30"><Plus className="h-4 w-4" /></button></div>
+                  <div className="mt-4 grid gap-3">
+                    <input value={editingCat.title} onChange={(e) => setEditingCat({ ...editingCat, title: e.target.value })} placeholder="Titre (ex: Gaming Monitors)" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    <input value={editingCat.code} onChange={(e) => setEditingCat({ ...editingCat, code: e.target.value })} placeholder="Code (01, 02, ...)" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    <input value={editingCat.slug} onChange={(e) => setEditingCat({ ...editingCat, slug: e.target.value })} placeholder="Slug (auto si vide)" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    <textarea value={editingCat.desc} onChange={(e) => setEditingCat({ ...editingCat, desc: e.target.value })} placeholder="Description" className="min-h-24 border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    <label className="border border-dashed border-primary/40 p-4 text-sm text-muted-foreground"><Upload className="mb-2 h-5 w-5 text-primary" />Image catégorie<input type="file" accept="image/*" onChange={uploadCat} className="mt-2 block w-full text-xs" /></label>
+                    {editingCat.image && <img src={editingCat.image} alt="Aperçu catégorie" className="h-44 w-full object-cover" />}
+                    <button type="button" onClick={saveCat} disabled={!editingCat.title} className="inline-flex items-center justify-center gap-2 bg-primary px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"><Save className="h-4 w-4" /> Enregistrer</button>
+                  </div>
+                </div>
+                <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur">
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3"><h2 className="truncate font-display text-2xl font-bold">Catégories</h2><button type="button" onClick={() => { resetManagedCategories(); setCats(loadManagedCategories()); setMessage("Catégories réinitialisées"); }} className="inline-flex shrink-0 items-center gap-2 text-xs text-muted-foreground underline"><RotateCcw className="h-3 w-3" /> Reset</button></div>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
+                    {cats.map((c) => {
+                      const count = products.filter((p) => (p.categoryId || p.category) === c.id).length;
+                      return (
+                        <article key={c.id} className="border border-primary/15 bg-background p-3">
+                          {c.image && <img src={c.image} alt={c.title} className="h-32 w-full object-cover" />}
+                          <h3 className="mt-3 font-bold">{c.title}</h3>
+                          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary">{c.code} · {count} produits</p>
+                          <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{c.desc}</p>
+                          <div className="mt-3 flex gap-2">
+                            <button type="button" onClick={() => setEditingCat(c)} className="flex-1 border border-primary/30 px-3 py-2 text-xs hover:bg-primary/10">Modifier</button>
+                            <button type="button" onClick={() => removeCat(c.id)} className="border border-primary/30 px-3 py-2 hover:bg-primary/10" aria-label={`Supprimer ${c.title}`}><Trash2 className="h-4 w-4" /></button>
+                          </div>
+                        </article>
+                      );
+                    })}
+                  </div>
+                </div>
               </motion.div>
             )}
 
@@ -150,7 +259,7 @@ function AdminPage() {
             )}
 
             {tab === "settings" && (
-              <motion.section key="settings" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-2"><div className="border border-primary/20 bg-card/70 p-5 backdrop-blur"><h2 className="font-display text-2xl font-bold">Sécurité</h2><div className="mt-4 grid gap-3"><input type="password" value={security.current} onChange={(e) => setSecurity({ ...security, current: e.target.value })} placeholder="Mot de passe actuel" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" /><input type="password" value={security.next} onChange={(e) => setSecurity({ ...security, next: e.target.value })} placeholder="Nouveau mot de passe" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" /><input type="password" value={security.confirm} onChange={(e) => setSecurity({ ...security, confirm: e.target.value })} placeholder="Confirmer" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" /><button type="button" onClick={changePassword} className="bg-primary px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] text-primary-foreground">Changer le mot de passe</button></div></div><div className="border border-primary/20 bg-card/70 p-5 backdrop-blur"><h2 className="font-display text-2xl font-bold">Actions rapides</h2><div className="mt-4 grid gap-3"><button type="button" onClick={() => { resetManagedProducts(); setProducts(loadManagedProducts()); setMessage("Produits restaurés"); }} className="border border-primary/30 px-4 py-3 text-left font-mono text-xs uppercase tracking-[0.2em] hover:bg-primary/10">Restaurer le catalogue</button><button type="button" onClick={logout} className="border border-primary/30 px-4 py-3 text-left font-mono text-xs uppercase tracking-[0.2em] hover:bg-primary/10">Déconnexion</button></div></div></motion.section>
+              <motion.section key="settings" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-2"><div className="border border-primary/20 bg-card/70 p-5 backdrop-blur"><h2 className="font-display text-2xl font-bold">Sécurité</h2><div className="mt-4 grid gap-3"><input type="password" value={security.current} onChange={(e) => setSecurity({ ...security, current: e.target.value })} placeholder="Mot de passe actuel" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" /><input type="password" value={security.next} onChange={(e) => setSecurity({ ...security, next: e.target.value })} placeholder="Nouveau mot de passe" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" /><input type="password" value={security.confirm} onChange={(e) => setSecurity({ ...security, confirm: e.target.value })} placeholder="Confirmer" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" /><button type="button" onClick={changePassword} className="bg-primary px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] text-primary-foreground">Changer le mot de passe</button></div></div><div className="border border-primary/20 bg-card/70 p-5 backdrop-blur"><h2 className="font-display text-2xl font-bold">Actions rapides</h2><div className="mt-4 grid gap-3"><button type="button" onClick={() => { resetManagedProducts(); setProducts(loadManagedProducts()); setMessage("Produits restaurés"); }} className="border border-primary/30 px-4 py-3 text-left font-mono text-xs uppercase tracking-[0.2em] hover:bg-primary/10">Restaurer le catalogue</button><button type="button" onClick={() => { resetManagedCategories(); setCats(loadManagedCategories()); setMessage("Catégories restaurées"); }} className="border border-primary/30 px-4 py-3 text-left font-mono text-xs uppercase tracking-[0.2em] hover:bg-primary/10">Restaurer les catégories</button><button type="button" onClick={logout} className="border border-primary/30 px-4 py-3 text-left font-mono text-xs uppercase tracking-[0.2em] hover:bg-primary/10">Déconnexion</button></div></div></motion.section>
             )}
           </AnimatePresence>
         </section>

@@ -38,13 +38,18 @@ function LandingPage() {
   const [sent, setSent] = useState(false);
 
   useEffect(() => {
-    setProducts(loadManagedProducts());
+    const list = loadManagedProducts();
+    setProducts(list);
     const params = new URLSearchParams(window.location.search);
     if (params.get("mode") === "custom") setMode("custom");
     const category = params.get("category");
-    if (category === "allinone" || category === "monitor") {
-      const first = loadManagedProducts().find((p) => p.category === category);
-      if (first) setSelected({ [first.id]: 1 });
+    if (category) {
+      const matches = list.filter((p) => (p.categoryId || p.category) === category);
+      if (matches.length) {
+        const pre: Record<string, number> = {};
+        for (const m of matches) pre[m.id] = 1;
+        setSelected(pre);
+      }
     }
   }, []);
 
