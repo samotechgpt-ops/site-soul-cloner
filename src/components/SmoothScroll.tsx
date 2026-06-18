@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 
+declare global {
+  interface Window {
+    __audaxScrollTo?: (selector: string) => void;
+  }
+}
+
 export function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
@@ -15,6 +21,13 @@ export function SmoothScroll() {
       rafId = requestAnimationFrame(raf);
     }
     rafId = requestAnimationFrame(raf);
+
+    window.__audaxScrollTo = (selector: string) => {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      lenis.scrollTo(el as HTMLElement, { offset: -80, duration: 1.1 });
+      if (selector.startsWith("#")) history.pushState(null, "", selector);
+    };
 
     // Intercept in-page anchor clicks so Lenis handles them
     const onClick = (e: MouseEvent) => {
@@ -33,6 +46,7 @@ export function SmoothScroll() {
 
     return () => {
       document.removeEventListener("click", onClick);
+      delete window.__audaxScrollTo;
       cancelAnimationFrame(rafId);
       lenis.destroy();
     };

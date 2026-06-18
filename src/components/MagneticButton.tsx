@@ -4,11 +4,12 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 interface Props {
   children: ReactNode;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
   variant?: "primary" | "ghost";
   className?: string;
 }
 
-export function MagneticButton({ children, onClick, variant = "primary", className = "" }: Props) {
+export function MagneticButton({ children, onClick, type = "button", variant = "primary", className = "" }: Props) {
   const ref = useRef<HTMLButtonElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -40,6 +41,7 @@ export function MagneticButton({ children, onClick, variant = "primary", classNa
 
   return (
     <motion.button
+      type={type}
       ref={ref}
       onClick={onClick}
       onMouseMove={handleMove}
