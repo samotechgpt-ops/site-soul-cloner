@@ -79,9 +79,7 @@ export function resetManagedCategories() {
   window.localStorage.removeItem(CATEGORIES_KEY);
   window.dispatchEvent(new Event(CATEGORIES_CHANGED_EVENT));
 }
-  window.localStorage.removeItem(PRODUCTS_KEY);
-  window.dispatchEvent(new Event(PRODUCTS_CHANGED_EVENT));
-}
+
 
 export function loadLocalOrders(): LocalOrder[] {
   if (!isBrowser()) return [];
