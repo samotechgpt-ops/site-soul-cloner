@@ -1,28 +1,20 @@
-import logoAsset from "@/assets/audax-gaming-logo.png.asset.json";
+import logoAsset from "@/assets/audax-technology-logo.png.asset.json";
 
 interface LogoProps {
   className?: string;
   showText?: boolean;
 }
 
-export function Logo({ className = "", showText = true }: LogoProps) {
+export function Logo({ className = "", showText = false }: LogoProps) {
+  // showText kept for prop compatibility; the new logo embeds its own wordmark.
+  void showText;
   return (
-    <div className={`inline-flex items-center gap-3 ${className}`}>
+    <div className={`inline-flex items-center ${className}`}>
       <img
         src={logoAsset.url}
-        alt="AUDAX Gaming"
-        className="h-10 w-10 shrink-0 drop-shadow-[0_0_12px_oklch(0.62_0.24_25_/_0.7)]"
+        alt="AUDAX Technology"
+        className="h-10 w-auto shrink-0 drop-shadow-[0_0_18px_oklch(0.62_0.24_25_/_0.45)]"
       />
-      {showText && (
-        <div className="flex flex-col leading-none">
-          <span className="font-display text-base font-bold tracking-[0.25em] text-foreground">
-            AUDAX
-          </span>
-          <span className="mt-0.5 font-mono text-[8px] tracking-[0.4em] text-primary uppercase">
-            Gaming
-          </span>
-        </div>
-      )}
     </div>
   );
 }

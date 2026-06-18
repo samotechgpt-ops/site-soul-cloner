@@ -1,6 +1,5 @@
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "motion/react";
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import { Logo } from "./Logo";
 import { scrollToSection } from "@/lib/scroll";
@@ -67,9 +66,6 @@ export function Navbar() {
             <a href="/commander" className="hidden sm:inline-flex bg-primary px-4 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-primary-foreground transition hover:opacity-90">
               Commander
             </a>
-            <Link to="/admin" className="hidden sm:inline-flex border border-primary/40 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-primary transition hover:bg-primary hover:text-primary-foreground">
-              Admin
-            </Link>
             <button
               type="button"
               onClick={() => setOpen(true)}
@@ -135,9 +131,6 @@ export function Navbar() {
                 <a href="/commander" className="bg-primary px-6 py-3 font-mono text-xs uppercase tracking-[0.25em] text-primary-foreground">
                   Commander maintenant
                 </a>
-                <Link to="/admin" onClick={() => setOpen(false)} className="border border-primary/40 px-6 py-3 font-mono text-xs uppercase tracking-[0.25em] text-primary hover:bg-primary hover:text-primary-foreground">
-                  Espace Admin
-                </Link>
               </div>
             </motion.nav>
           </motion.div>
