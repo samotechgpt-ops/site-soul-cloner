@@ -11,6 +11,7 @@ import { Quality } from "@/components/Quality";
 import { Products } from "@/components/Products";
 import { CTA } from "@/components/CTA";
 import { Footer } from "@/components/Footer";
+import { CartDrawer } from "@/components/CartDrawer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -41,6 +42,7 @@ function Index() {
         <CTA />
       </main>
       <Footer />
+      <CartDrawer />
     </div>
   );
 }

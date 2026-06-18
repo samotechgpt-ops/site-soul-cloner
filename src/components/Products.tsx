@@ -1,9 +1,21 @@
 import { motion } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
-import { products } from "@/lib/data";
+import { ArrowUpRight, ShoppingCart } from "lucide-react";
+import { useEffect, useState } from "react";
+import { type Product } from "@/lib/data";
+import { formatPriceDzd, loadManagedProducts, PRODUCTS_CHANGED_EVENT } from "@/lib/local-store";
+import { useCart } from "@/lib/stores";
 import { TiltCard } from "./TiltCard";
 
 export function Products() {
+  const [items, setItems] = useState<Product[]>(loadManagedProducts);
+  const add = useCart((s) => s.add);
+
+  useEffect(() => {
+    const sync = () => setItems(loadManagedProducts());
+    window.addEventListener(PRODUCTS_CHANGED_EVENT, sync);
+    return () => window.removeEventListener(PRODUCTS_CHANGED_EVENT, sync);
+  }, []);
+
   return (
     <section id="products" className="relative py-32 overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-6">
@@ -37,7 +49,7 @@ export function Products() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((p, i) => (
+          {items.map((p, i) => (
             <motion.div
               key={p.id}
               initial={{ opacity: 0, y: 60 }}
@@ -46,7 +58,7 @@ export function Products() {
               transition={{ delay: (i % 4) * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
               <TiltCard className="group">
-                <article className="relative border border-primary/20 bg-card/50 backdrop-blur clip-corner overflow-hidden cursor-pointer">
+                <article className="relative border border-primary/20 bg-card/50 backdrop-blur clip-corner overflow-hidden">
                   <div className="relative aspect-square overflow-hidden bg-white">
                     <img
                       src={p.image}
@@ -74,7 +86,16 @@ export function Products() {
                     </div>
 
                     {/* Arrow */}
-                    <div className="absolute bottom-3 right-3 h-9 w-9 flex items-center justify-center border border-primary/40 bg-background/60 backdrop-blur group-hover:bg-primary group-hover:border-primary transition-all">
+                    <button
+                      type="button"
+                      onClick={() => add({ id: p.id, slug: p.id, name: p.name, price: p.priceValue, image: p.image })}
+                      disabled={!p.inStock || p.priceValue <= 0}
+                      className="absolute bottom-3 right-3 h-10 w-10 flex items-center justify-center border border-primary/40 bg-background/80 backdrop-blur transition-all hover:bg-primary hover:border-primary disabled:cursor-not-allowed disabled:opacity-40"
+                      aria-label={`Ajouter ${p.name} au panier`}
+                    >
+                      <ShoppingCart className="w-4 h-4" />
+                    </button>
+                    <div className="absolute bottom-3 left-3 h-9 w-9 flex items-center justify-center border border-primary/40 bg-background/60 backdrop-blur group-hover:bg-primary group-hover:border-primary transition-all">
                       <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
                     </div>
                   </div>
@@ -84,8 +105,17 @@ export function Products() {
                       {p.categoryLabel}
                     </div>
                     <h3 className="font-display text-lg font-bold tracking-tight">{p.name}</h3>
-                    <div className="mt-3 flex items-center justify-between">
-                      <span className="font-mono text-sm text-primary tabular-nums">{p.price}</span>
+                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{p.description}</p>
+                    <div className="mt-3 flex items-center justify-between gap-3">
+                      <span className="font-mono text-sm text-primary tabular-nums">{p.priceValue ? formatPriceDzd(p.priceValue) : p.price}</span>
+                      <button
+                        type="button"
+                        onClick={() => add({ id: p.id, slug: p.id, name: p.name, price: p.priceValue, image: p.image })}
+                        disabled={!p.inStock || p.priceValue <= 0}
+                        className="border border-primary/40 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.2em] text-primary transition hover:bg-primary hover:text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"
+                      >
+                        Commander
+                      </button>
                     </div>
                     <div className="mt-4 h-px w-full bg-primary/20 overflow-hidden">
                       <div className="h-full w-0 bg-primary transition-all duration-700 group-hover:w-full" />
