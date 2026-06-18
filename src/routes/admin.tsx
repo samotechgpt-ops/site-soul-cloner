@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useMemo, useState, type ChangeEvent } from "react";
-import { Boxes, ClipboardList, LogOut, Plus, RotateCcw, Save, Settings, ShieldCheck, Tag, Trash2, Upload } from "lucide-react";
+import { Boxes, ClipboardList, LogOut, Plus, RotateCcw, Save, Settings, ShieldCheck, Sparkles, Tag, Trash2, Upload, X } from "lucide-react";
 import { type Product, type Category } from "@/lib/data";
+import { generateProductDescription } from "@/lib/ai.functions";
 import {
   formatPriceDzd,
   getAdminPassword,
@@ -33,7 +35,7 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-const blank: Product = { id: "", name: "", category: "monitor", categoryLabel: "Gaming Monitors", categoryId: "monitor", price: "Sur devis", priceValue: 0, inStock: true, image: "", code: "", description: "" };
+const blank: Product = { id: "", name: "", category: "monitor", categoryLabel: "Gaming Monitors", categoryId: "monitor", price: "Sur devis", priceValue: 0, inStock: true, stock: 0, image: "", images: [], code: "", description: "" };
 const blankCat: Category = { id: "", code: "", slug: "", title: "", desc: "", image: "" };
 type AdminTab = "products" | "categories" | "leads" | "settings";
 
@@ -54,7 +56,9 @@ function AdminPage() {
   const [editing, setEditing] = useState<Product>(blank);
   const [editingCat, setEditingCat] = useState<Category>(blankCat);
   const [message, setMessage] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
   const [security, setSecurity] = useState({ current: "", next: "", confirm: "" });
+  const callGenDesc = useServerFn(generateProductDescription);
 
   const dashboard = useMemo(() => ({
     products: products.length,
@@ -82,11 +86,43 @@ function AdminPage() {
   };
 
   const upload = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => setEditing((p) => ({ ...p, image: String(reader.result) }));
-    reader.readAsDataURL(file);
+    const files = Array.from(event.target.files || []);
+    if (!files.length) return;
+    const readers = files.map((file) => new Promise<string>((resolve) => {
+      const r = new FileReader();
+      r.onload = () => resolve(String(r.result));
+      r.readAsDataURL(file);
+    }));
+    Promise.all(readers).then((urls) => {
+      setEditing((p) => ({
+        ...p,
+        image: p.image || urls[0],
+        images: [...(p.images || []), ...urls],
+      }));
+    });
+  };
+
+  const removeImage = (idx: number) => {
+    setEditing((p) => {
+      const next = (p.images || []).filter((_, i) => i !== idx);
+      return { ...p, images: next, image: next[0] || "" };
+    });
+  };
+
+  const aiDescribe = async () => {
+    if (!editing.name) { setMessage("Indiquez d'abord le nom du produit"); return; }
+    setAiLoading(true);
+    try {
+      const cat = cats.find((c) => c.id === (editing.categoryId || editing.category));
+      const result = await callGenDesc({ data: { name: editing.name, category: cat?.title || editing.categoryLabel || "", price: editing.priceValue || 0, hints: editing.description } });
+      setEditing((p) => ({ ...p, description: result.description }));
+      setMessage("Description générée par IA");
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Erreur IA";
+      setMessage(msg);
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   const uploadCat = (event: ChangeEvent<HTMLInputElement>) => {
