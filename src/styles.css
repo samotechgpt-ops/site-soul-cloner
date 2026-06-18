@@ -44,6 +44,8 @@
   --animate-marquee: marquee 35s linear infinite;
   --animate-shimmer: shimmer 2.5s linear infinite;
   --animate-rotate-slow: rotate-slow 20s linear infinite;
+  --animate-esport-sweep: esport-sweep 3.8s ease-in-out infinite;
+  --animate-hud-flicker: hud-flicker 2.4s steps(3, end) infinite;
 
   @keyframes grid-pan {
     0% { background-position: 0 0; }
@@ -72,6 +74,18 @@
   @keyframes rotate-slow {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+  }
+  @keyframes esport-sweep {
+    0% { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+    20% { opacity: 0.75; }
+    55% { opacity: 0.15; }
+    100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+  }
+  @keyframes hud-flicker {
+    0%, 100% { opacity: 0.75; filter: drop-shadow(0 0 0 transparent); }
+    45% { opacity: 1; filter: drop-shadow(0 0 14px oklch(0.62 0.24 25 / 0.55)); }
+    52% { opacity: 0.35; }
+    60% { opacity: 1; }
   }
 }
 
@@ -174,5 +188,14 @@
 
   .clip-corner {
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+  }
+  .esport-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 -40%;
+    width: 38%;
+    background: linear-gradient(90deg, transparent, oklch(0.62 0.24 25 / 0.22), transparent);
+    animation: esport-sweep 4.2s ease-in-out infinite;
+    pointer-events: none;
   }
 }
