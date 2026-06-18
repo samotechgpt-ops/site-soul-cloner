@@ -5,6 +5,7 @@ import { type Product } from "@/lib/data";
 import { formatPriceDzd, loadManagedProducts, PRODUCTS_CHANGED_EVENT } from "@/lib/local-store";
 import { useCart } from "@/lib/stores";
 import { TiltCard } from "./TiltCard";
+import soldierDisplay from "@/assets/audax-soldier-display.jpg";
 
 export function Products() {
   const [items, setItems] = useState<Product[]>(loadManagedProducts);
@@ -18,6 +19,8 @@ export function Products() {
 
   return (
     <section id="products" className="relative py-32 overflow-hidden">
+      <span id="products-allinone" className="absolute -top-24" />
+      <span id="products-monitor" className="absolute -top-24" />
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="mb-20 flex items-end justify-between flex-wrap gap-6">
           <div>
@@ -48,14 +51,32 @@ export function Products() {
           </motion.p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((p, i) => (
+        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12 grid items-center gap-8 border border-primary/20 bg-card/40 p-6 backdrop-blur clip-corner lg:grid-cols-[0.95fr_1.05fr]">
+          <div className="relative overflow-hidden border border-primary/20 bg-background/60 clip-corner">
+            <img src={soldierDisplay} alt="Soldat esport AUDAX Gaming avec écran gaming" loading="lazy" width={1280} height={960} className="aspect-[4/3] h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent animate-scan" />
+          </div>
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">◢ Esport display protocol</p>
+            <h3 className="mt-4 font-display text-4xl font-bold leading-[0.95] tracking-tighter md:text-6xl">Bold vision.<br /><span className="text-primary text-glow-crimson italic">Smarter displays.</span></h3>
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground">Une expérience visuelle inspirée gaming : écrans VAR, All-In-One performants, animations HUD, scanlines et catalogue en mouvement pour retrouver l’énergie esport demandée.</p>
+            <button type="button" onClick={() => { window.location.href = "/commander"; }} className="mt-7 border border-primary px-6 py-3 font-mono text-xs uppercase tracking-[0.25em] text-primary transition hover:bg-primary hover:text-primary-foreground">Commander</button>
+          </div>
+        </motion.div>
+
+        <div className="relative overflow-hidden border border-primary/20 bg-background/50 py-6 clip-corner">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-background to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-background to-transparent" />
+          <div className="product-carousel-track flex w-max gap-6 px-6">
+            {[...items, ...items].map((p, i) => (
             <motion.div
-              key={p.id}
+              key={`${p.id}-${i}`}
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: (i % 4) * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="w-[280px] shrink-0 md:w-[320px]"
             >
               <TiltCard className="group">
                 <article className="esport-panel relative border border-primary/20 bg-card/50 backdrop-blur clip-corner overflow-hidden">
@@ -127,7 +148,8 @@ export function Products() {
                 </article>
               </TiltCard>
             </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

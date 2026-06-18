@@ -5,7 +5,7 @@ import { MagneticButton } from "./MagneticButton";
 import { ScrambleText } from "./ScrambleText";
 import { scrollToSection } from "@/lib/scroll";
 import heroBg from "@/assets/hero-bg.jpg";
-import heroPortrait from "@/assets/hero-portrait.jpg";
+import soldierDisplay from "@/assets/audax-soldier-display.jpg";
 
 const particles = Array.from({ length: 22 }, (_, i) => ({
   id: i,
@@ -86,14 +86,14 @@ export function Hero() {
             className="relative mx-auto w-full max-w-md lg:max-w-none"
           >
             <div className="relative aspect-[4/5] overflow-hidden border border-primary/30 clip-corner shadow-glow">
-              <img src={heroPortrait} alt="AI vision technology" className="h-full w-full object-cover" />
+              <img src={soldierDisplay} alt="Soldat esport AUDAX Gaming devant un écran VAR" className="h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 font-mono">
                 <div className="mb-2 h-px w-12 bg-primary" />
                 <p className="text-xs tracking-[0.3em] text-foreground uppercase">
-                  Audacity drives
+                  Every pixel
                 </p>
-                <p className="text-xs tracking-[0.3em] text-primary uppercase">innovations</p>
+                <p className="text-xs tracking-[0.3em] text-primary uppercase">combat ready</p>
               </div>
               <CornerBrackets />
               {/* Scan line on image */}
@@ -132,11 +132,11 @@ export function Hero() {
             </motion.div>
 
             <h1 className="font-display text-5xl sm:text-7xl lg:text-[7rem] font-bold leading-[0.92] tracking-tighter">
-              <AnimatedWord text="YOUR" delay={2.7} />{" "}
+              <AnimatedWord text="BOLD" delay={2.7} />{" "}
               <AnimatedWord text="VISION." delay={2.85} className="text-primary text-glow-crimson italic" />
               <br />
-              <AnimatedWord text="OUR" delay={3.0} />{" "}
-              <AnimatedWord text="TECHNOLOGY" delay={3.15} className="text-shimmer" />
+              <AnimatedWord text="SMARTER" delay={3.0} />{" "}
+              <AnimatedWord text="DISPLAYS" delay={3.15} className="text-shimmer" />
             </h1>
 
             <motion.div
@@ -152,7 +152,7 @@ export function Hero() {
               transition={{ delay: 3.6 }}
               className="mt-6 max-w-xl text-base text-muted-foreground leading-relaxed lg:mx-0 mx-auto"
             >
-              Local leader in cutting-edge computer, office, and electrical equipment. We create devices that offer sharper visuals, smarter integration, and dependable performance — pushing the boundaries of modern digital experiences.
+              Precision shapes every pixel. Moniteurs VAR et PC All-In-One AUDAX livrent la clarté, la réactivité et l’énergie gaming attendues pour travailler, streamer et jouer avec confiance.
             </motion.p>
 
             <motion.div
@@ -161,8 +161,8 @@ export function Hero() {
               transition={{ delay: 3.8 }}
               className="mt-10 flex flex-wrap gap-4 justify-center lg:justify-start"
             >
-              <MagneticButton onClick={() => scrollToSection("#products")}>
-                Discover <ArrowRight className="w-4 h-4" />
+              <MagneticButton onClick={() => { window.location.href = "/commander"; }}>
+                Commander <ArrowRight className="w-4 h-4" />
               </MagneticButton>
               <MagneticButton variant="ghost" onClick={() => scrollToSection("#categories")}>Browse Products</MagneticButton>
             </motion.div>

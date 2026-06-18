@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Minus, Plus, ShoppingCart, Trash2, X } from "lucide-react";
 import { useCart } from "@/lib/stores";
 import { formatPriceDzd, saveLocalOrder, uid } from "@/lib/local-store";
+import { WILAYAS } from "@/lib/wilayas";
 
 export function CartDrawer() {
   const { items, isOpen, close, remove, setQty, clear, total, count } = useCart();
@@ -85,7 +86,10 @@ export function CartDrawer() {
                     <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="Téléphone" className="border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary" />
                     <input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="Email optionnel" className="border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary" />
                     <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} placeholder="Adresse" className="border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary" />
-                    <input value={form.wilaya} onChange={(e) => setForm({ ...form, wilaya: e.target.value })} placeholder="Wilaya" className="border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary" />
+                    <select value={form.wilaya} onChange={(e) => setForm({ ...form, wilaya: e.target.value })} className="border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary">
+                      <option value="">Wilaya / zone AUDAX</option>
+                      {WILAYAS.map((wilaya) => <option key={wilaya} value={wilaya}>{wilaya}</option>)}
+                    </select>
                     <textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} placeholder="Note optionnelle" className="min-h-20 border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary" />
                     <button type="button" disabled={!canSubmit} onClick={submit} className="bg-primary px-4 py-4 font-mono text-xs uppercase tracking-[0.25em] text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">Valider la commande</button>
                   </div>

@@ -2,7 +2,13 @@ import { motion } from "motion/react";
 import { categories } from "@/lib/data";
 import { ScrambleText } from "./ScrambleText";
 import { ArrowUpRight } from "lucide-react";
-import { scrollToSection } from "@/lib/scroll";
+
+const categoryTargets = ["allinone", "monitor", "custom"] as const;
+
+function openSector(index: number) {
+  const target = categoryTargets[index] ?? "custom";
+  window.location.href = target === "custom" ? "/commander?mode=custom" : `/commander?category=${target}`;
+}
 
 export function Categories() {
   return (
@@ -52,9 +58,9 @@ export function Categories() {
               className="esport-panel group relative bg-background p-8 md:p-12 cursor-pointer overflow-hidden"
               role="button"
               tabIndex={0}
-              onClick={() => scrollToSection("#products")}
+              onClick={() => openSector(i)}
               onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") scrollToSection("#products");
+                if (event.key === "Enter" || event.key === " ") openSector(i);
               }}
             >
               {/* Hover fill */}

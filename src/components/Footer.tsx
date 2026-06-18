@@ -4,27 +4,27 @@ const cols: { title: string; links: { label: string; href: string }[] }[] = [
   {
     title: "Categories",
     links: [
-      { label: "All-In-One", href: "#categories" },
-      { label: "Monitors", href: "#products" },
-      { label: "Toner Cartridges", href: "#products" },
-      { label: "Office Tools", href: "#products" },
+      { label: "All-In-One", href: "/commander?category=allinone" },
+      { label: "Monitors", href: "/commander?category=monitor" },
+      { label: "Toner Cartridges", href: "/commander?mode=custom" },
+      { label: "Office Tools", href: "/commander?mode=custom" },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "About", href: "#about" },
-      { label: "Quality", href: "#about" },
-      { label: "Categories", href: "#categories" },
-      { label: "Contact", href: "#contact" },
+      { label: "About", href: "/#about" },
+      { label: "Quality", href: "/#about" },
+      { label: "Categories", href: "/#categories" },
+      { label: "Contact", href: "/#contact" },
     ],
   },
   {
     title: "Shop",
     links: [
-      { label: "All Products", href: "#products" },
-      { label: "Featured", href: "#products" },
-      { label: "Order via WhatsApp", href: "#contact" },
+      { label: "All Products", href: "/#products" },
+      { label: "Featured", href: "/#products" },
+      { label: "Order via WhatsApp", href: "/commander" },
     ],
   },
 ];
@@ -73,9 +73,9 @@ export function Footer() {
             © 2026 AUDAX Gaming — All Rights Reserved
           </p>
           <div className="flex gap-6 font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
-            <a href="#about" className="hover:text-primary transition-colors">About</a>
-            <a href="#products" className="hover:text-primary transition-colors">Products</a>
-            <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
+            <a href="/#about" className="hover:text-primary transition-colors">About</a>
+            <a href="/#products" className="hover:text-primary transition-colors">Products</a>
+            <a href="/commander" className="hover:text-primary transition-colors">Contact</a>
           </div>
         </div>
 

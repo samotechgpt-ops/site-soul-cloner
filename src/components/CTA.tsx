@@ -1,6 +1,5 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
-import { Link } from "@tanstack/react-router";
 import { MagneticButton } from "./MagneticButton";
 
 export function CTA() {
@@ -61,9 +60,9 @@ export function CTA() {
           transition={{ delay: 0.4 }}
           className="mt-12 flex flex-wrap justify-center gap-4"
         >
-          <Link to="/commander">
+          <a href="/commander">
             <MagneticButton>Commander en ligne <ArrowRight className="w-4 h-4" /></MagneticButton>
-          </Link>
+          </a>
           <MagneticButton variant="ghost" onClick={() => window.open("tel:+213555000000", "_self")}>Appeler</MagneticButton>
         </motion.div>
       </div>
