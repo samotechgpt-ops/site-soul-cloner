@@ -34,7 +34,7 @@ export function CartDrawer() {
       <button
         type="button"
         onClick={() => useCart.getState().open()}
-        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center border border-primary/50 bg-background/90 shadow-glow backdrop-blur clip-corner"
+        className="fixed bottom-24 right-5 z-50 flex h-14 w-14 items-center justify-center border border-primary/50 bg-background/90 shadow-glow backdrop-blur clip-corner sm:bottom-5"
         aria-label="Ouvrir le panier"
       >
         <ShoppingCart className="h-5 w-5 text-primary" />
