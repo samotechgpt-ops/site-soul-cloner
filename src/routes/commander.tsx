@@ -101,24 +101,24 @@ function LandingPage() {
   return (
     <main className="dark relative min-h-screen overflow-hidden bg-background text-foreground">
       <AnimatedBg />
-      <div className="relative mx-auto max-w-[1300px] px-6 py-12 lg:py-20">
-        <motion.header initial={false} animate={{ opacity: 1, y: 0 }} className="mb-12 flex items-center justify-between gap-4">
+      <div className="relative mx-auto max-w-[1300px] px-4 py-10 sm:px-6 sm:py-12 lg:py-20">
+        <motion.header initial={false} animate={{ opacity: 1, y: 0 }} className="mb-8 flex flex-wrap items-center justify-between gap-3 sm:mb-12">
           <Link to="/" className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground hover:text-primary"><ArrowLeft className="h-3 w-3" /> Accueil</Link>
           <span className="animate-hud-flicker font-mono text-[10px] uppercase tracking-[0.35em] text-primary">◉ Live · Commande sécurisée</span>
         </motion.header>
 
-        <div className="mb-12 text-center">
-          <motion.h1 initial={false} animate={{ opacity: 1, y: 0 }} className="font-display text-5xl md:text-7xl font-bold tracking-tighter leading-[0.95]">
+        <div className="mb-10 text-center sm:mb-12">
+          <motion.h1 initial={false} animate={{ opacity: 1, y: 0 }} className="font-display text-[2.25rem] sm:text-5xl md:text-7xl font-bold tracking-tighter leading-[0.95]">
             Configure ta <span className="text-primary text-glow-crimson italic">commande</span>
           </motion.h1>
-          <motion.p initial={false} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mx-auto mt-4 max-w-xl text-muted-foreground">
+          <motion.p initial={false} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mx-auto mt-4 max-w-xl text-sm sm:text-base text-muted-foreground">
             Sélectionne tes produits AUDAX ou décris ton besoin. Livraison 69 wilayas et zones premium.
           </motion.p>
         </div>
 
         <form onSubmit={submit} className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
           {/* Left: products */}
-          <motion.section initial={false} animate={{ opacity: 1, x: 0 }} className="esport-panel border border-primary/25 bg-card/60 p-6 backdrop-blur clip-corner">
+          <motion.section initial={false} animate={{ opacity: 1, x: 0 }} className="esport-panel border border-primary/25 bg-card/60 p-4 backdrop-blur clip-corner sm:p-6">
             <div className="mb-5 flex flex-wrap gap-2">
               {requestTypes.map((r) => {
                 const Icon = r.icon;
@@ -142,22 +142,24 @@ function LandingPage() {
                 const qty = selected[p.id] || 0;
                 const active = qty > 0;
                 return (
-                  <motion.div key={p.id} layout className={`grid grid-cols-[64px_1fr_auto] items-center gap-3 border p-3 transition ${active ? "border-primary bg-primary/5" : "border-primary/15 bg-background/60 hover:border-primary/40"}`}>
-                    <button type="button" onClick={() => toggle(p.id)} className="h-16 w-16 overflow-hidden bg-white"><img src={p.image} alt={p.name} className="h-full w-full object-contain p-1" /></button>
+                  <motion.div key={p.id} layout className={`grid grid-cols-[56px_minmax(0,1fr)] items-center gap-3 border p-3 transition sm:grid-cols-[64px_minmax(0,1fr)_auto] ${active ? "border-primary bg-primary/5" : "border-primary/15 bg-background/60 hover:border-primary/40"}`}>
+                    <button type="button" onClick={() => toggle(p.id)} className="h-14 w-14 overflow-hidden bg-white sm:h-16 sm:w-16"><img src={p.image} alt={p.name} className="h-full w-full object-contain p-1" /></button>
                     <button type="button" onClick={() => toggle(p.id)} className="min-w-0 text-left">
                       <p className="truncate font-bold">{p.name}</p>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{p.categoryLabel} · {p.code}</p>
-                      <p className="mt-1 font-mono text-xs text-primary">{p.priceValue ? formatPriceDzd(p.priceValue) : "Sur devis"} {!p.inStock && <span className="ml-2 text-muted-foreground">(rupture — sur commande)</span>}</p>
+                      <p className="truncate font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{p.categoryLabel} · {p.code}</p>
+                      <p className="mt-1 font-mono text-xs text-primary">{p.priceValue ? formatPriceDzd(p.priceValue) : "Sur devis"} {!p.inStock && <span className="ml-2 text-muted-foreground">(rupture)</span>}</p>
                     </button>
-                    {active ? (
-                      <div className="flex items-center border border-primary/40">
-                        <button type="button" onClick={() => setQty(p.id, qty - 1)} className="h-9 w-9 hover:bg-primary/10">−</button>
-                        <span className="w-10 text-center font-mono text-sm tabular-nums">{qty}</span>
-                        <button type="button" onClick={() => setQty(p.id, qty + 1)} className="h-9 w-9 hover:bg-primary/10">+</button>
-                      </div>
-                    ) : (
-                      <button type="button" onClick={() => toggle(p.id)} className="border border-primary/40 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-primary hover:bg-primary hover:text-primary-foreground">Ajouter</button>
-                    )}
+                    <div className="col-span-2 sm:col-span-1 sm:col-start-3">
+                      {active ? (
+                        <div className="flex w-full items-center justify-end border border-primary/40 sm:w-auto">
+                          <button type="button" onClick={() => setQty(p.id, qty - 1)} className="h-9 w-10 hover:bg-primary/10">−</button>
+                          <span className="w-10 text-center font-mono text-sm tabular-nums">{qty}</span>
+                          <button type="button" onClick={() => setQty(p.id, qty + 1)} className="h-9 w-10 hover:bg-primary/10">+</button>
+                        </div>
+                      ) : (
+                        <button type="button" onClick={() => toggle(p.id)} className="w-full border border-primary/40 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-primary hover:bg-primary hover:text-primary-foreground sm:w-auto">Ajouter</button>
+                      )}
+                    </div>
                   </motion.div>
                 );
               })}
@@ -165,7 +167,7 @@ function LandingPage() {
           </motion.section>
 
           {/* Right: form */}
-          <motion.aside initial={false} animate={{ opacity: 1, x: 0 }} className="esport-panel border border-primary/25 bg-card/60 p-6 backdrop-blur clip-corner">
+          <motion.aside initial={false} animate={{ opacity: 1, x: 0 }} className="esport-panel border border-primary/25 bg-card/60 p-4 backdrop-blur clip-corner sm:p-6">
             <h2 className="font-display text-2xl font-bold">Tes coordonnées</h2>
             <div className="mt-4 grid gap-3">
               <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Nom complet *" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
