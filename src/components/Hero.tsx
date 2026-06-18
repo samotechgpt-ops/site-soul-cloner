@@ -3,8 +3,19 @@ import { useRef } from "react";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { MagneticButton } from "./MagneticButton";
 import { ScrambleText } from "./ScrambleText";
+import { scrollToSection } from "@/lib/scroll";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroPortrait from "@/assets/hero-portrait.jpg";
+
+const particles = Array.from({ length: 22 }, (_, i) => ({
+  id: i,
+  left: `${(i * 37) % 100}%`,
+  top: `${100 + ((i * 19) % 20)}%`,
+  x: `${(i * 29) % 100}%`,
+  y: `${(i * 43) % 100}%`,
+  duration: 8 + (i % 7),
+  delay: (i % 6) * 0.55,
+}));
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -13,7 +24,6 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const titleY = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const goTo = (selector: string) => document.querySelector(selector)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
     <section ref={ref} id="home" className="relative min-h-screen overflow-hidden">
@@ -26,25 +36,25 @@ export function Hero() {
 
       {/* Floating particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(20)].map((_, i) => (
+        {particles.map((particle) => (
           <motion.span
-            key={i}
+            key={particle.id}
             className="absolute h-1 w-1 rounded-full bg-primary/60"
             initial={{
-              x: `${Math.random() * 100}%`,
-              y: `${Math.random() * 100}%`,
+              x: particle.x,
+              y: particle.y,
             }}
             animate={{
               y: ["0%", "-100%"],
               opacity: [0, 1, 0],
             }}
             transition={{
-              duration: 8 + Math.random() * 6,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: particle.delay,
               ease: "linear",
             }}
-            style={{ left: `${Math.random() * 100}%`, top: `${100 + Math.random() * 20}%` }}
+            style={{ left: particle.left, top: particle.top }}
           />
         ))}
       </div>
@@ -151,10 +161,10 @@ export function Hero() {
               transition={{ delay: 3.8 }}
               className="mt-10 flex flex-wrap gap-4 justify-center lg:justify-start"
             >
-              <MagneticButton onClick={() => goTo("#products")}>
+              <MagneticButton onClick={() => scrollToSection("#products")}>
                 Discover <ArrowRight className="w-4 h-4" />
               </MagneticButton>
-              <MagneticButton variant="ghost" onClick={() => goTo("#categories")}>Browse Products</MagneticButton>
+              <MagneticButton variant="ghost" onClick={() => scrollToSection("#categories")}>Browse Products</MagneticButton>
             </motion.div>
           </div>
         </div>
