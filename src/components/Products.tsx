@@ -20,7 +20,7 @@ export function Products() {
   }, []);
 
   return (
-    <section id="products" className="relative py-32 overflow-hidden">
+    <section id="products" className="relative py-20 md:py-32 overflow-hidden">
       <span id="products-allinone" className="absolute -top-24" />
       <span id="products-monitor" className="absolute -top-24" />
       <div className="mx-auto max-w-[1400px] px-6">

@@ -4,7 +4,7 @@ import { Counter } from "./Counter";
 
 export function Stats() {
   return (
-    <section className="relative py-24 border-y border-primary/20 bg-surface/30 overflow-hidden">
+    <section className="relative py-16 md:py-24 border-y border-primary/20 bg-surface/30 overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-20" />
       <div className="relative mx-auto max-w-[1400px] px-6">
         <div className="grid grid-cols-2 gap-px lg:grid-cols-4 bg-primary/20 border border-primary/20">
