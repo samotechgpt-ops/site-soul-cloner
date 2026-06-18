@@ -12,7 +12,7 @@ const stats = [
 
 export function Innovation() {
   return (
-    <section id="about" className="relative py-32 overflow-hidden">
+    <section id="about" className="relative py-20 md:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-30" />
       <div className="absolute -left-40 top-1/2 h-[500px] w-[500px] -translate-y-1/2 rounded-full gradient-glow blur-3xl" />
 

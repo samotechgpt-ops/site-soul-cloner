@@ -8,7 +8,7 @@ import { scrollToSection } from "@/lib/scroll";
 
 export function Quality() {
   return (
-    <section id="about" className="relative py-32 overflow-hidden">
+    <section id="about" className="relative py-20 md:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-20" />
       <div className="absolute -left-40 top-1/3 h-[500px] w-[500px] rounded-full gradient-glow blur-3xl" />
 

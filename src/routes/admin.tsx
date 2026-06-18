@@ -208,25 +208,25 @@ function AdminPage() {
   return (
     <main className="dark min-h-screen bg-background text-foreground">
       <div className="fixed inset-0 bg-grid opacity-20" />
-      <div className="relative mx-auto grid min-h-screen max-w-[1500px] gap-6 px-4 py-6 lg:grid-cols-[280px_1fr] lg:px-6">
+      <div className="relative mx-auto grid min-h-screen max-w-[1500px] gap-4 px-3 py-4 sm:gap-6 sm:px-4 sm:py-6 lg:grid-cols-[280px_1fr] lg:px-6">
         <aside className="border border-primary/20 bg-card/70 p-4 backdrop-blur clip-corner lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)]">
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-primary/15 pb-5">
-            <div className="min-w-0"><p className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">Panel admin</p><h1 className="truncate font-display text-2xl font-bold">AUDAX Gaming</h1></div>
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-primary/15 pb-4 sm:pb-5">
+            <div className="min-w-0"><p className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">Panel admin</p><h1 className="truncate font-display text-xl sm:text-2xl font-bold">AUDAX Gaming</h1></div>
             <button type="button" onClick={logout} className="grid h-10 w-10 shrink-0 place-items-center border border-primary/30 hover:bg-primary/10" aria-label="Déconnexion"><LogOut className="h-4 w-4" /></button>
           </div>
-          <nav className="mt-5 grid gap-2">
+          <nav className="-mx-1 mt-4 flex gap-2 overflow-x-auto px-1 pb-1 lg:mt-5 lg:grid lg:gap-2 lg:overflow-visible lg:px-0">
             {tabs.map((item) => {
               const Icon = item.icon;
-              return <button key={item.id} type="button" onClick={() => setTab(item.id)} className={`grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 border px-4 py-3 text-left font-mono text-xs uppercase tracking-[0.2em] transition ${tab === item.id ? "border-primary bg-primary text-primary-foreground" : "border-primary/20 text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}><Icon className="h-4 w-4 shrink-0" /><span className="truncate">{item.label}</span></button>;
+              return <button key={item.id} type="button" onClick={() => setTab(item.id)} className={`inline-flex shrink-0 items-center gap-2 border px-3 py-2 text-left font-mono text-[11px] uppercase tracking-[0.2em] transition lg:grid lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-3 lg:px-4 lg:py-3 lg:text-xs ${tab === item.id ? "border-primary bg-primary text-primary-foreground" : "border-primary/20 text-muted-foreground hover:border-primary/50 hover:text-foreground"}`}><Icon className="h-4 w-4 shrink-0" /><span className="truncate">{item.label}</span></button>;
             })}
           </nav>
-          <Link to="/" className="mt-5 inline-flex w-full justify-center border border-primary/40 px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] text-primary hover:bg-primary hover:text-primary-foreground">Retour site</Link>
+          <Link to="/" className="mt-4 inline-flex w-full justify-center border border-primary/40 px-4 py-3 font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-primary hover:bg-primary hover:text-primary-foreground lg:mt-5">Retour site</Link>
           {message && <p className="mt-4 border border-primary/20 bg-primary/10 p-3 text-sm text-primary">{message}</p>}
         </aside>
 
         <section className="min-w-0">
-          <div className="grid gap-3 sm:grid-cols-4">
-            {[{ label: "Produits", value: dashboard.products }, { label: "Catégories", value: cats.length }, { label: "Leads", value: dashboard.leads }, { label: "Total", value: formatPriceDzd(dashboard.revenue) }].map((stat) => <motion.div key={stat.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="border border-primary/15 bg-card/70 p-4 backdrop-blur"><p className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">{stat.label}</p><strong className="mt-2 block font-display text-2xl text-primary">{stat.value}</strong></motion.div>)}
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {[{ label: "Produits", value: dashboard.products }, { label: "Catégories", value: cats.length }, { label: "Leads", value: dashboard.leads }, { label: "Total", value: formatPriceDzd(dashboard.revenue) }].map((stat) => <motion.div key={stat.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="border border-primary/15 bg-card/70 p-4 backdrop-blur"><p className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">{stat.label}</p><strong className="mt-2 block break-words font-display text-lg sm:text-2xl text-primary">{stat.value}</strong></motion.div>)}
           </div>
 
           <AnimatePresence mode="wait">

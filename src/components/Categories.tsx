@@ -20,7 +20,7 @@ export function Categories() {
   }, []);
 
   return (
-    <section id="categories" className="relative py-32 overflow-hidden">
+    <section id="categories" className="relative py-20 md:py-32 overflow-hidden">
       <div className="absolute -right-40 top-1/4 h-[500px] w-[500px] rounded-full gradient-glow blur-3xl opacity-50" />
 
       <div className="relative mx-auto max-w-[1400px] px-6">
@@ -65,7 +65,7 @@ export function Categories() {
               onClick={() => openSector(cat)}
               className="esport-panel group relative overflow-hidden border border-primary/25 bg-card/40 text-left clip-corner"
             >
-              <div className="relative aspect-[4/5] overflow-hidden">
+              <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[4/5]">
                 {cat.image && (
                   <img
                     src={cat.image}

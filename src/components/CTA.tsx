@@ -6,7 +6,7 @@ export function CTA() {
 
 
   return (
-    <section id="contact" className="relative py-32 overflow-hidden">
+    <section id="contact" className="relative py-20 md:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-30" />
       <div className="absolute inset-0 gradient-glow opacity-60" />
 
