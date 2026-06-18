@@ -13,20 +13,22 @@ export interface Product {
   category: "allinone" | "monitor";
   categoryLabel: string;
   price: string;
+  priceValue: number;
   inStock: boolean;
   image: string;
   code: string;
+  description: string;
 }
 
 export const products: Product[] = [
-  { id: "gs24f", name: "VAR GS24F", category: "allinone", categoryLabel: "All In One", price: "Sold out", inStock: false, image: gs24f, code: "GS-24F" },
-  { id: "gs24plus", name: "VAR GS24PLUS", category: "allinone", categoryLabel: "All In One", price: "Sold out", inStock: false, image: gs24plus, code: "GS-24+" },
-  { id: "gs24pro", name: "VAR GS24PRO", category: "allinone", categoryLabel: "All In One", price: "Sold out", inStock: false, image: gs24pro, code: "GS-24P" },
-  { id: "gs24vb", name: "VAR GS24VB", category: "allinone", categoryLabel: "All In One", price: "Sold out", inStock: false, image: gs24vb, code: "GS-24VB" },
-  { id: "n22", name: "VAR N22", category: "monitor", categoryLabel: "Monitor", price: "13.000 د.ج", inStock: true, image: n22, code: "N-22" },
-  { id: "t24m", name: "VAR T24M", category: "monitor", categoryLabel: "Monitor", price: "18.700 د.ج", inStock: true, image: t24m, code: "T-24M" },
-  { id: "xps22f", name: "VAR XPS22F", category: "allinone", categoryLabel: "All In One", price: "65.000 د.ج", inStock: true, image: xps22f, code: "XPS-22F" },
-  { id: "xps22m", name: "VAR XPS22M", category: "allinone", categoryLabel: "All In One", price: "65.000 د.ج", inStock: true, image: xps22m, code: "XPS-22M" },
+  { id: "gs24f", name: "VAR GS24F", category: "allinone", categoryLabel: "All In One", price: "Sold out", priceValue: 0, inStock: false, image: gs24f, code: "GS-24F", description: "All-in-one AUDAX conçu pour les setups compacts, bureautique rapide et usage quotidien." },
+  { id: "gs24plus", name: "VAR GS24PLUS", category: "allinone", categoryLabel: "All In One", price: "Sold out", priceValue: 0, inStock: false, image: gs24plus, code: "GS-24+", description: "Version renforcée du GS24 avec écran intégré et châssis sobre pour postes professionnels." },
+  { id: "gs24pro", name: "VAR GS24PRO", category: "allinone", categoryLabel: "All In One", price: "Sold out", priceValue: 0, inStock: false, image: gs24pro, code: "GS-24P", description: "Station tout-en-un pro avec finition premium pour espace de travail moderne." },
+  { id: "gs24vb", name: "VAR GS24VB", category: "allinone", categoryLabel: "All In One", price: "Sold out", priceValue: 0, inStock: false, image: gs24vb, code: "GS-24VB", description: "All-in-one fiable pour entreprise, intégration propre et maintenance simplifiée." },
+  { id: "n22", name: "VAR N22", category: "monitor", categoryLabel: "Monitor", price: "13.000 د.ج", priceValue: 13000, inStock: true, image: n22, code: "N-22", description: "Écran 22 pouces clair et accessible pour travail, études et divertissement." },
+  { id: "t24m", name: "VAR T24M", category: "monitor", categoryLabel: "Monitor", price: "18.700 د.ج", priceValue: 18700, inStock: true, image: t24m, code: "T-24M", description: "Moniteur 24 pouces avec affichage net, idéal pour productivité et gaming léger." },
+  { id: "xps22f", name: "VAR XPS22F", category: "allinone", categoryLabel: "All In One", price: "65.000 د.ج", priceValue: 65000, inStock: true, image: xps22f, code: "XPS-22F", description: "PC All-In-One complet avec excellent rapport performance/prix pour usage quotidien." },
+  { id: "xps22m", name: "VAR XPS22M", category: "allinone", categoryLabel: "All In One", price: "65.000 د.ج", priceValue: 65000, inStock: true, image: xps22m, code: "XPS-22M", description: "All-In-One élégant pour bureau, commerce et postes connectés à forte disponibilité." },
 ];
 
 export const stats = [

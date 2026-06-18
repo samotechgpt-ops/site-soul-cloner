@@ -13,6 +13,7 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const titleY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const goTo = (selector: string) => document.querySelector(selector)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   return (
     <section ref={ref} id="home" className="relative min-h-screen overflow-hidden">
@@ -150,10 +151,10 @@ export function Hero() {
               transition={{ delay: 3.8 }}
               className="mt-10 flex flex-wrap gap-4 justify-center lg:justify-start"
             >
-              <MagneticButton>
+              <MagneticButton onClick={() => goTo("#products")}>
                 Discover <ArrowRight className="w-4 h-4" />
               </MagneticButton>
-              <MagneticButton variant="ghost">Browse Projects</MagneticButton>
+              <MagneticButton variant="ghost" onClick={() => goTo("#categories")}>Browse Products</MagneticButton>
             </motion.div>
           </div>
         </div>

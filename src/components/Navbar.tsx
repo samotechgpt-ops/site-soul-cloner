@@ -1,5 +1,6 @@
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Logo } from "./Logo";
 
 const links = [
@@ -13,6 +14,7 @@ const links = [
 export function Navbar() {
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 30);
@@ -52,13 +54,16 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-4">
+          <Link to="/admin" className="hidden sm:inline-flex border border-primary/40 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-primary transition hover:bg-primary hover:text-primary-foreground">
+            Admin
+          </Link>
           <div className="hidden md:flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-glow" />
             <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
               Sys Online
             </span>
           </div>
-          <button className="relative h-10 w-10 border border-primary/40 hover:border-primary hover:bg-primary/10 transition-all clip-corner flex items-center justify-center">
+          <button type="button" onClick={() => setOpen((v) => !v)} className="relative h-10 w-10 border border-primary/40 hover:border-primary hover:bg-primary/10 transition-all clip-corner flex items-center justify-center" aria-label="Menu">
             <span className="absolute inset-0 flex flex-col justify-center items-center gap-1.5">
               <span className="h-px w-4 bg-foreground" />
               <span className="h-px w-4 bg-foreground" />
@@ -66,6 +71,14 @@ export function Navbar() {
           </button>
         </div>
       </div>
+      {open && (
+        <div className="lg:hidden border-t border-primary/15 bg-background/95 px-6 py-4 backdrop-blur-xl">
+          <div className="grid gap-2 font-mono text-xs uppercase tracking-[0.25em]">
+            {links.map((link) => <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="py-3 text-muted-foreground hover:text-primary">{link.label}</a>)}
+            <Link to="/admin" onClick={() => setOpen(false)} className="py-3 text-primary">Admin</Link>
+          </div>
+        </div>
+      )}
     </motion.nav>
   );
 }
