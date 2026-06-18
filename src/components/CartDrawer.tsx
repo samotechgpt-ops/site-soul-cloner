@@ -60,7 +60,7 @@ export function CartDrawer() {
               <div className="mt-8 border border-primary/25 bg-primary/10 p-5">
                 <h3 className="font-display text-xl font-bold text-primary">Commande enregistrée</h3>
                 <p className="mt-2 text-sm text-muted-foreground">Elle est visible dans le panel admin. Vous pouvez aussi l’envoyer par WhatsApp.</p>
-                <a href={`https://wa.me/213555000000?text=${whatsappText}`} target="_blank" rel="noreferrer" className="mt-5 inline-flex w-full justify-center bg-primary px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] text-primary-foreground">Envoyer WhatsApp</a>
+                <a href={`https://wa.me/213770741873?text=${whatsappText}`} target="_blank" rel="noreferrer" className="mt-5 inline-flex w-full justify-center bg-primary px-4 py-3 font-mono text-xs uppercase tracking-[0.2em] text-primary-foreground">Envoyer WhatsApp</a>
                 <button type="button" onClick={() => { setDone(false); close(); }} className="mt-3 w-full border border-primary/30 px-4 py-3 font-mono text-xs uppercase tracking-[0.2em]">Fermer</button>
               </div>
             ) : (
