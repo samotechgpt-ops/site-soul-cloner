@@ -10,8 +10,9 @@ import xps22m from "@/assets/products/xps22m.jpg";
 export interface Product {
   id: string;
   name: string;
-  category: "allinone" | "monitor";
+  category: string;
   categoryLabel: string;
+  categoryId?: string;
   price: string;
   priceValue: number;
   inStock: boolean;
@@ -45,9 +46,27 @@ export const metrics = [
   { value: 88, label: "Price" },
 ];
 
-export const categories = [
+export interface Category {
+  id: string;
+  code: string;
+  title: string;
+  desc: string;
+  image?: string;
+  slug: string;
+}
+
+import allInOneImg from "@/assets/gaming-allinone-cat.jpg";
+import monitorImg from "@/assets/gaming-monitor-cat.jpg";
+import accessoriesImg from "@/assets/gaming-accessories-cat.jpg";
+import arenaImg from "@/assets/gaming-arena.jpg";
+
+export const categories: Category[] = [
   {
-    title: "All-In-One Computers",
+    id: "allinone",
+    code: "01",
+    slug: "allinone",
+    image: allInOneImg,
+    title: "All-In-One Gaming",
     desc: "Power and simplicity in a single compact unit. Integrated design saves space while delivering reliable performance and modern connectivity for home and office.",
     code: "01",
   },
