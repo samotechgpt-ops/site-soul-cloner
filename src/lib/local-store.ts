@@ -1,10 +1,12 @@
-import { products, type Product } from "./data";
+import { products, categories as defaultCategories, type Product, type Category } from "./data";
 
 export const PRODUCTS_CHANGED_EVENT = "audax-products-changed";
 export const ORDERS_CHANGED_EVENT = "audax-orders-changed";
+export const CATEGORIES_CHANGED_EVENT = "audax-categories-changed";
 
 const PRODUCTS_KEY = "audax-admin-products";
 const ORDERS_KEY = "audax-local-orders";
+const CATEGORIES_KEY = "audax-admin-categories";
 const ADMIN_PASSWORD_KEY = "audax-admin-password";
 export const DEFAULT_ADMIN_PASSWORD = "Azerty2026";
 
@@ -56,6 +58,27 @@ export function saveManagedProducts(next: Product[]) {
 
 export function resetManagedProducts() {
   if (!isBrowser()) return;
+  window.localStorage.removeItem(PRODUCTS_KEY);
+  window.dispatchEvent(new Event(PRODUCTS_CHANGED_EVENT));
+}
+
+export function loadManagedCategories(): Category[] {
+  if (!isBrowser()) return defaultCategories;
+  const saved = safeParse<Category[]>(window.localStorage.getItem(CATEGORIES_KEY), []);
+  return saved.length ? saved : defaultCategories;
+}
+
+export function saveManagedCategories(next: Category[]) {
+  if (!isBrowser()) return;
+  window.localStorage.setItem(CATEGORIES_KEY, JSON.stringify(next));
+  window.dispatchEvent(new Event(CATEGORIES_CHANGED_EVENT));
+}
+
+export function resetManagedCategories() {
+  if (!isBrowser()) return;
+  window.localStorage.removeItem(CATEGORIES_KEY);
+  window.dispatchEvent(new Event(CATEGORIES_CHANGED_EVENT));
+}
   window.localStorage.removeItem(PRODUCTS_KEY);
   window.dispatchEvent(new Event(PRODUCTS_CHANGED_EVENT));
 }
