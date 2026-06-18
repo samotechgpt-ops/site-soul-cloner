@@ -77,16 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Audax Next is a modern, animated website that showcases company information and articles." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Audax Next is a modern, animated website that showcases company information and articles." },
+      { title: "AUDAX Gaming Algérie — Moniteurs et PC All-In-One" },
+      { name: "description", content: "AUDAX Gaming Algérie : moniteurs, PC All-In-One, matériel gaming et bureautique avec commande rapide et catalogue produit." },
+      { name: "author", content: "AUDAX Gaming" },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { name: "keywords", content: "AUDAX Gaming, VAR N22, VAR T24M, VAR XPS22F, VAR XPS22M, moniteur Algérie, PC All-In-One Algérie" },
+      { property: "og:title", content: "AUDAX Gaming Algérie — Moniteurs et PC All-In-One" },
+      { property: "og:description", content: "Catalogue AUDAX Gaming : moniteurs VAR, PC All-In-One et commandes en Algérie." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "Audax Next is a modern, animated website that showcases company information and articles." },
+      { name: "twitter:site", content: "@AudaxGaming" },
+      { name: "twitter:title", content: "AUDAX Gaming Algérie" },
+      { name: "twitter:description", content: "Moniteurs et PC All-In-One AUDAX Gaming disponibles en Algérie." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/36f8ff3a-ef44-4088-8024-162f566ac223/id-preview-db0c71d3--5e675ebe-eb94-4865-9c1c-42ac3d3fb33f.lovable.app-1781516326984.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/36f8ff3a-ef44-4088-8024-162f566ac223/id-preview-db0c71d3--5e675ebe-eb94-4865-9c1c-42ac3d3fb33f.lovable.app-1781516326984.png" },
     ],
@@ -95,6 +97,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "canonical", href: "https://audax-tech.com/" },
     ],
   }),
   shellComponent: RootShell,
@@ -105,7 +108,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="fr-DZ">
       <head>
         <HeadContent />
       </head>

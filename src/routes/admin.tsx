@@ -10,6 +10,7 @@ export const Route = createFileRoute("/admin")({
     meta: [
       { title: "Admin AUDAX Gaming — Produits et commandes" },
       { name: "description", content: "Panel admin AUDAX Gaming pour gérer les produits, photos, prix et commandes clients." },
+      { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Admin AUDAX Gaming" },
       { property: "og:description", content: "Gestion produits et commandes AUDAX Gaming." },
     ],
