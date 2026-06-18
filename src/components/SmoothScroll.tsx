@@ -35,12 +35,15 @@ export function SmoothScroll() {
       const anchor = target?.closest("a") as HTMLAnchorElement | null;
       if (!anchor) return;
       const href = anchor.getAttribute("href");
-      if (!href || !href.startsWith("#") || href === "#") return;
-      const el = document.querySelector(href);
+      if (!href || href === "#") return;
+      const url = new URL(href, window.location.href);
+      if (url.origin !== window.location.origin || url.pathname !== "/" || !url.hash) return;
+      if (window.location.pathname !== "/") return;
+      const el = document.querySelector(url.hash);
       if (!el) return;
       e.preventDefault();
       lenis.scrollTo(el as HTMLElement, { offset: -80, duration: 1.4 });
-      history.pushState(null, "", href);
+      history.pushState(null, "", `/${url.hash}`);
     };
     document.addEventListener("click", onClick);
 

@@ -42,6 +42,7 @@
   --animate-float: float 6s ease-in-out infinite;
   --animate-scan: scan 4s linear infinite;
   --animate-marquee: marquee 35s linear infinite;
+  --animate-product-carousel: product-carousel 42s linear infinite;
   --animate-shimmer: shimmer 2.5s linear infinite;
   --animate-rotate-slow: rotate-slow 20s linear infinite;
   --animate-esport-sweep: esport-sweep 3.8s ease-in-out infinite;
@@ -64,6 +65,10 @@
     100% { transform: translateY(100vh); }
   }
   @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes product-carousel {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
@@ -197,5 +202,14 @@
     background: linear-gradient(90deg, transparent, oklch(0.62 0.24 25 / 0.22), transparent);
     animation: esport-sweep 4.2s ease-in-out infinite;
     pointer-events: none;
+  }
+  .product-carousel-track {
+    animation: product-carousel 42s linear infinite;
+  }
+  .product-carousel-track:hover {
+    animation-play-state: paused;
+  }
+  .gaming-scanlines {
+    background-image: repeating-linear-gradient(0deg, transparent 0 7px, oklch(0.62 0.24 25 / 0.08) 8px 9px);
   }
 }

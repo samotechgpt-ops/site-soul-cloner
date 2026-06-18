@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "AUDAX Gaming Algérie : moniteurs, PC All-In-One, matériel gaming et bureautique avec commande rapide et catalogue produit." },
       { name: "author", content: "AUDAX Gaming" },
       { name: "robots", content: "index, follow, max-image-preview:large" },
-      { name: "keywords", content: "AUDAX, AUDAX Gaming, AUDAX Algérie, audax-tech, VAR N22, VAR T24M, VAR XPS22F, VAR XPS22M, VAR GS24, moniteur gaming Algérie, écran gaming Alger, PC All-In-One Algérie, ordinateur gaming Algérie, matériel informatique Algérie, livraison 58 wilayas" },
+      { name: "keywords", content: "AUDAX, AUDAX Gaming, AUDAX Algérie, audax-tech, VAR N22, VAR T24M, VAR XPS22F, VAR XPS22M, VAR GS24, moniteur gaming Algérie, écran gaming Alger, PC All-In-One Algérie, ordinateur gaming Algérie, matériel informatique Algérie, livraison 69 wilayas" },
       { name: "geo.region", content: "DZ" },
       { name: "geo.placename", content: "Algérie" },
       { property: "og:locale", content: "fr_DZ" },

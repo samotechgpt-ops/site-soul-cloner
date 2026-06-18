@@ -33,7 +33,7 @@ export const products: Product[] = [
 
 export const stats = [
   { value: 12, suffix: "", label: "Years of Experience" },
-  { value: 58, suffix: "", label: "Wilayas Covered" },
+  { value: 69, suffix: "", label: "Wilayas Covered" },
   { value: 35, suffix: "+", label: "Products Shipped" },
   { value: 23, suffix: "", label: "Enterprise Clients" },
 ];
@@ -58,7 +58,7 @@ export const categories = [
   },
   {
     title: "Toner Cartridges",
-    desc: "Crisp, consistent printing for text and graphics. Designed for reliable performance across large print volumes while keeping office workflows efficient.",
+    desc: "Crisp, consistent printing for text and graphics. Designed for reliable performance across large print volumes while keeping office workflows efficient — available on demand through custom orders.",
     code: "03",
   },
 ];

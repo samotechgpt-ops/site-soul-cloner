@@ -10,7 +10,7 @@ export const Route = createFileRoute("/commander")({
   head: () => ({
     meta: [
       { title: "Commander AUDAX Gaming Algérie — Moniteurs VAR & PC All-In-One" },
-      { name: "description", content: "Passez votre commande AUDAX Gaming en ligne : moniteurs VAR N22, T24M, PC All-In-One XPS22F. Livraison 58 wilayas Algérie. Devis rapide." },
+      { name: "description", content: "Passez votre commande AUDAX Gaming en ligne : moniteurs VAR N22, T24M, PC All-In-One XPS22F. Livraison 69 wilayas et zones AUDAX en Algérie. Devis rapide." },
       { name: "keywords", content: "audax, audax gaming, audax algerie, var n22, var t24m, xps22f, xps22m, gs24, moniteur gaming algerie, pc all in one algerie, commander pc algerie" },
       { property: "og:title", content: "Commander AUDAX Gaming — Algérie" },
       { property: "og:description", content: "Choisissez vos produits AUDAX et recevez un devis rapide partout en Algérie." },
@@ -37,7 +37,16 @@ function LandingPage() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", wilaya: "", address: "", notes: "" });
   const [sent, setSent] = useState(false);
 
-  useEffect(() => { setProducts(loadManagedProducts()); }, []);
+  useEffect(() => {
+    setProducts(loadManagedProducts());
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("mode") === "custom") setMode("custom");
+    const category = params.get("category");
+    if (category === "allinone" || category === "monitor") {
+      const first = loadManagedProducts().find((p) => p.category === category);
+      if (first) setSelected({ [first.id]: 1 });
+    }
+  }, []);
 
   const total = useMemo(() => Object.entries(selected).reduce((sum, [id, qty]) => {
     const p = products.find((x) => x.id === id);
@@ -98,7 +107,7 @@ function LandingPage() {
             Configure ta <span className="text-primary text-glow-crimson italic">commande</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            Sélectionne tes produits AUDAX ou décris ton besoin. Livraison 58 wilayas.
+            Sélectionne tes produits AUDAX ou décris ton besoin. Livraison 69 wilayas et zones premium.
           </motion.p>
         </div>
 
@@ -173,7 +182,7 @@ function LandingPage() {
               <motion.button whileTap={{ scale: 0.96 }} type="submit" className="mt-4 inline-flex w-full items-center justify-center gap-2 bg-primary px-6 py-4 font-mono text-xs uppercase tracking-[0.3em] text-primary-foreground hover:opacity-90">
                 Envoyer la commande <ChevronRight className="h-4 w-4" />
               </motion.button>
-              <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">◉ Traitée par AUDAX Gaming · 58 wilayas</p>
+              <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">◉ Traitée par AUDAX Gaming · 69 wilayas</p>
             </div>
           </motion.aside>
         </form>
