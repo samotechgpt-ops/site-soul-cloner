@@ -8,6 +8,7 @@ import { Marquee } from "@/components/Marquee";
 import { Stats } from "@/components/Stats";
 import { Categories } from "@/components/Categories";
 import { Quality } from "@/components/Quality";
+import { ScrollVideo } from "@/components/ScrollVideo";
 import { Products } from "@/components/Products";
 import { CTA } from "@/components/CTA";
 import { Footer } from "@/components/Footer";
@@ -38,6 +39,7 @@ function Index() {
         <Stats />
         <Categories />
         <Quality />
+        <ScrollVideo />
         <Products />
         <CTA />
       </main>
