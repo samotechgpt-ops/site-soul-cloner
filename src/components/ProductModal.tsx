@@ -30,16 +30,16 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 z-[80] grid place-items-center bg-background/85 backdrop-blur-xl p-4"
+          className="fixed inset-0 z-[80] grid place-items-center overflow-y-auto bg-background/85 p-3 backdrop-blur-xl sm:p-4"
         >
-          <div className="absolute inset-0 gaming-scanlines opacity-20 pointer-events-none" />
+          <div className="pointer-events-none fixed inset-0 gaming-scanlines opacity-20" />
           <motion.article
             initial={{ y: 40, opacity: 0, scale: 0.96 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 30, opacity: 0, scale: 0.96 }}
             transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.45 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative grid w-full max-w-5xl gap-0 overflow-hidden border border-primary/30 bg-card clip-corner shadow-glow md:grid-cols-[1.1fr_1fr]"
+            className="relative my-auto grid w-full max-w-5xl gap-0 overflow-hidden border border-primary/30 bg-card shadow-glow clip-corner md:grid-cols-[1.1fr_1fr]"
           >
             <button
               type="button"
@@ -51,7 +51,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
             </button>
 
             {/* Gallery */}
-            <div className="relative bg-white p-6">
+            <div className="relative bg-white p-4 sm:p-6">
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent animate-scan" />
               {(() => {
                 const gallery = (product.images && product.images.length ? product.images : [product.image]).filter(Boolean);
@@ -79,10 +79,10 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
             </div>
 
             {/* Details */}
-            <div className="flex flex-col gap-5 bg-background p-6 md:p-8">
+            <div className="flex flex-col gap-4 bg-background p-5 sm:gap-5 sm:p-6 md:p-8">
               <div>
                 <p className="font-mono text-[10px] tracking-[0.35em] text-primary uppercase">▸ {product.categoryLabel}</p>
-                <h2 className="mt-2 font-display text-3xl md:text-4xl font-bold tracking-tighter leading-[1]">{product.name}</h2>
+                <h2 className="mt-2 font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter leading-[1] break-words">{product.name}</h2>
               </div>
 
               <div className="flex items-center gap-3">
