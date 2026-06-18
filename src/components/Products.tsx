@@ -58,7 +58,7 @@ export function Products() {
               transition={{ delay: (i % 4) * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
               <TiltCard className="group">
-                <article className="relative border border-primary/20 bg-card/50 backdrop-blur clip-corner overflow-hidden">
+                <article className="esport-panel relative border border-primary/20 bg-card/50 backdrop-blur clip-corner overflow-hidden">
                   <div className="relative aspect-square overflow-hidden bg-white">
                     <img
                       src={p.image}

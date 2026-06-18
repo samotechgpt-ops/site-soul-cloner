@@ -125,7 +125,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2.6 }}
-              className="mb-6 inline-flex items-center gap-3 border border-primary/30 bg-primary/5 px-4 py-2 font-mono text-[10px] tracking-[0.35em] text-primary uppercase"
+              className="mb-6 inline-flex animate-hud-flicker items-center gap-3 border border-primary/30 bg-primary/5 px-4 py-2 font-mono text-[10px] tracking-[0.35em] text-primary uppercase"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
               Next Generation Devices · Est. 2013

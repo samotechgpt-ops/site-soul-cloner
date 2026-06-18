@@ -49,7 +49,7 @@ export function Categories() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ delay: i * 0.12, duration: 0.8 }}
-              className="group relative bg-background p-8 md:p-12 cursor-pointer overflow-hidden"
+              className="esport-panel group relative bg-background p-8 md:p-12 cursor-pointer overflow-hidden"
               role="button"
               tabIndex={0}
               onClick={() => scrollToSection("#products")}
