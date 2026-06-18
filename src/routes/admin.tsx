@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useMemo, useState, type ChangeEvent } from "react";
 import { Boxes, ClipboardList, LogOut, Plus, RotateCcw, Save, Settings, ShieldCheck, Trash2, Upload } from "lucide-react";
 import { type Product } from "@/lib/data";
-import { DEFAULT_ADMIN_PASSWORD, formatPriceDzd, getAdminPassword, loadLocalOrders, loadManagedProducts, resetManagedProducts, saveManagedProducts, setAdminPassword, updateLocalOrderStatus, uid, type LocalOrder, type OrderStatus } from "@/lib/local-store";
+import { formatPriceDzd, getAdminPassword, loadLocalOrders, loadManagedProducts, resetManagedProducts, saveManagedProducts, setAdminPassword, updateLocalOrderStatus, uid, type LocalOrder, type OrderStatus } from "@/lib/local-store";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -110,7 +110,7 @@ function AdminPage() {
   };
 
   if (!authed) {
-    return <main className="dark min-h-screen overflow-hidden bg-background px-6 py-24 text-foreground"><div className="absolute inset-0 bg-grid opacity-20" /><motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="relative mx-auto max-w-md border border-primary/25 bg-card p-6 shadow-glow clip-corner"><div className="mb-6 flex items-center gap-3"><ShieldCheck className="h-8 w-8 text-primary" /><div><p className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">Secure access</p><h1 className="font-display text-3xl font-bold">Admin AUDAX</h1></div></div><input value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") login(); }} type="password" placeholder="Mot de passe" className="mt-2 w-full border border-input bg-background px-3 py-3 outline-none focus:border-primary" /><button type="button" onClick={login} className="mt-4 w-full bg-primary px-4 py-3 font-mono text-xs uppercase tracking-[0.25em] text-primary-foreground">Se connecter</button><p className="mt-3 text-sm text-muted-foreground">{message || `Mot de passe initial : ${DEFAULT_ADMIN_PASSWORD}`}</p></motion.div></main>;
+    return <main className="dark min-h-screen overflow-hidden bg-background px-6 py-24 text-foreground"><div className="absolute inset-0 bg-grid opacity-20" /><motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="relative mx-auto max-w-md border border-primary/25 bg-card p-6 shadow-glow clip-corner"><div className="mb-6 flex items-center gap-3"><ShieldCheck className="h-8 w-8 text-primary" /><div><p className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">Secure access</p><h1 className="font-display text-3xl font-bold">Admin AUDAX</h1></div></div><input value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") login(); }} type="password" placeholder="Mot de passe" className="mt-2 w-full border border-input bg-background px-3 py-3 outline-none focus:border-primary" /><button type="button" onClick={login} className="mt-4 w-full bg-primary px-4 py-3 font-mono text-xs uppercase tracking-[0.25em] text-primary-foreground">Se connecter</button><p className="mt-3 text-sm text-muted-foreground">{message || "Accès administrateur protégé"}</p></motion.div></main>;
   }
 
   return (
