@@ -65,7 +65,7 @@ export function Categories() {
               onClick={() => openSector(cat)}
               className="esport-panel group relative overflow-hidden border border-primary/25 bg-card/40 text-left clip-corner"
             >
-              <div className="relative aspect-[4/5] overflow-hidden">
+              <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[4/5]">
                 {cat.image && (
                   <img
                     src={cat.image}
