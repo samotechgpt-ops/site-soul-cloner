@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /api/
+
+Sitemap: https://audax-dz.tech/sitemap.xml
+Host: https://audax-dz.tech
