@@ -31,11 +31,11 @@ const cols: { title: string; links: { label: string; href: string }[] }[] = [
 
 export function Footer() {
   return (
-    <footer id="contact" className="relative border-t border-primary/20 bg-surface/40 pt-20 pb-10 overflow-hidden">
+    <footer id="contact" className="relative border-t border-primary/20 bg-surface/40 pt-14 pb-10 overflow-hidden md:pt-20">
       <div className="absolute inset-0 bg-grid opacity-10" />
 
-      <div className="relative mx-auto max-w-[1400px] px-6">
-        <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+      <div className="relative mx-auto max-w-[1400px] px-5 sm:px-6">
+        <div className="grid gap-10 sm:grid-cols-2 lg:gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
             <Logo />
             <p className="mt-6 max-w-sm text-sm text-muted-foreground leading-relaxed">

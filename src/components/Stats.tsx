@@ -15,15 +15,15 @@ export function Stats() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: i * 0.1, duration: 0.7 }}
-              className="group relative bg-background p-8 lg:p-10 hover:bg-primary/5 transition-colors duration-500"
+              className="group relative bg-background p-5 sm:p-8 lg:p-10 hover:bg-primary/5 transition-colors duration-500"
             >
-              <div className="absolute top-4 right-4 font-mono text-[10px] tracking-[0.3em] text-muted-foreground/60">
+              <div className="absolute top-3 right-3 font-mono text-[10px] tracking-[0.3em] text-muted-foreground/60">
                 0{i + 1}
               </div>
               <Counter
                 to={s.value}
                 suffix={s.suffix}
-                className="font-display text-6xl lg:text-7xl font-bold text-primary text-glow-crimson block leading-none"
+                className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold text-primary text-glow-crimson block leading-none"
               />
               <div className="mt-4 font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
                 {s.label}
