@@ -1,8 +1,11 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { MagneticButton } from "./MagneticButton";
+import { useCart } from "@/lib/stores";
 
 export function CTA() {
+  const openCart = useCart((state) => state.open);
+
   return (
     <section id="contact" className="relative py-32 overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-30" />
@@ -58,10 +61,10 @@ export function CTA() {
           transition={{ delay: 0.4 }}
           className="mt-12 flex flex-wrap justify-center gap-4"
         >
-          <MagneticButton>
-            Start a Project <ArrowRight className="w-4 h-4" />
+          <MagneticButton onClick={openCart}>
+            Commander <ArrowRight className="w-4 h-4" />
           </MagneticButton>
-          <MagneticButton variant="ghost">Book a Demo</MagneticButton>
+          <MagneticButton variant="ghost" onClick={() => window.open("tel:+213555000000", "_self")}>Appeler</MagneticButton>
         </motion.div>
       </div>
     </section>
