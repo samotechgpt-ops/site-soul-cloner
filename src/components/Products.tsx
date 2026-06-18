@@ -1,14 +1,16 @@
 import { motion } from "motion/react";
-import { ArrowUpRight, ShoppingCart } from "lucide-react";
+import { ArrowUpRight, ShoppingCart, Eye } from "lucide-react";
 import { useEffect, useState } from "react";
 import { type Product } from "@/lib/data";
 import { formatPriceDzd, loadManagedProducts, PRODUCTS_CHANGED_EVENT } from "@/lib/local-store";
 import { useCart } from "@/lib/stores";
 import { TiltCard } from "./TiltCard";
+import { ProductModal } from "./ProductModal";
 import soldierDisplay from "@/assets/audax-soldier-display.jpg";
 
 export function Products() {
   const [items, setItems] = useState<Product[]>(loadManagedProducts);
+  const [active, setActive] = useState<Product | null>(null);
   const add = useCart((s) => s.add);
 
   useEffect(() => {
@@ -80,6 +82,7 @@ export function Products() {
             >
               <TiltCard className="group">
                 <article className="esport-panel relative border border-primary/20 bg-card/50 backdrop-blur clip-corner overflow-hidden">
+                  <button type="button" onClick={() => setActive(p)} className="block w-full text-left" aria-label={`Voir ${p.name}`}>
                   <div className="relative aspect-square overflow-hidden bg-white">
                     <img
                       src={p.image}
@@ -105,40 +108,43 @@ export function Products() {
                     <div className="absolute top-3 right-3 font-mono text-[9px] tracking-[0.25em] text-foreground/70 bg-background/60 backdrop-blur px-2 py-1 uppercase">
                       {p.code}
                     </div>
-
-                    {/* Arrow */}
-                    <button
-                      type="button"
-                      onClick={() => add({ id: p.id, slug: p.id, name: p.name, price: p.priceValue, image: p.image })}
-                      className="absolute bottom-3 right-3 h-10 w-10 flex items-center justify-center border border-primary/40 bg-background/80 backdrop-blur transition-all hover:bg-primary hover:border-primary"
-                      aria-label={`Ajouter ${p.name} au panier`}
-                    >
-                      <ShoppingCart className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => add({ id: p.id, slug: p.id, name: p.name, price: p.priceValue, image: p.image })}
-                      className="absolute bottom-3 left-3 h-9 w-9 flex items-center justify-center border border-primary/40 bg-background/60 backdrop-blur group-hover:bg-primary group-hover:border-primary transition-all"
-                      aria-label={`Commander ${p.name}`}
-                    >
-                      <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
-                    </button>
                   </div>
+                  </button>
+
+                  {/* Action buttons (outside the inner button to avoid nested buttons) */}
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); add({ id: p.id, slug: p.id, name: p.name, price: p.priceValue, image: p.image }); }}
+                    className="absolute bottom-[42%] right-3 h-10 w-10 flex items-center justify-center border border-primary/40 bg-background/80 backdrop-blur transition-all hover:bg-primary hover:border-primary"
+                    aria-label={`Ajouter ${p.name} au panier`}
+                  >
+                    <ShoppingCart className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); setActive(p); }}
+                    className="absolute bottom-[42%] left-3 h-10 w-10 flex items-center justify-center border border-primary/40 bg-background/80 backdrop-blur group-hover:bg-primary group-hover:border-primary transition-all"
+                    aria-label={`Voir ${p.name}`}
+                  >
+                    <Eye className="w-4 h-4" />
+                  </button>
 
                   <div className="relative p-5 bg-background">
                     <div className="mb-1 font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
                       {p.categoryLabel}
                     </div>
-                    <h3 className="font-display text-lg font-bold tracking-tight">{p.name}</h3>
+                    <button type="button" onClick={() => setActive(p)} className="text-left">
+                      <h3 className="font-display text-lg font-bold tracking-tight hover:text-primary transition">{p.name}</h3>
+                    </button>
                     <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{p.description}</p>
                     <div className="mt-3 flex items-center justify-between gap-3">
                       <span className="font-mono text-sm text-primary tabular-nums">{p.priceValue ? formatPriceDzd(p.priceValue) : p.price}</span>
                       <button
                         type="button"
-                        onClick={() => add({ id: p.id, slug: p.id, name: p.name, price: p.priceValue, image: p.image })}
-                        className="border border-primary/40 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.2em] text-primary transition hover:bg-primary hover:text-primary-foreground"
+                        onClick={() => setActive(p)}
+                        className="inline-flex items-center gap-1 border border-primary/40 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.2em] text-primary transition hover:bg-primary hover:text-primary-foreground"
                       >
-                        {p.priceValue ? "Commander" : "Devis"}
+                        Détails <ArrowUpRight className="w-3 h-3" />
                       </button>
                     </div>
                     <div className="mt-4 h-px w-full bg-primary/20 overflow-hidden">
@@ -152,6 +158,7 @@ export function Products() {
           </div>
         </div>
       </div>
+      <ProductModal product={active} onClose={() => setActive(null)} />
     </section>
   );
 }
