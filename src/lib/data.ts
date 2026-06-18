@@ -16,7 +16,9 @@ export interface Product {
   price: string;
   priceValue: number;
   inStock: boolean;
+  stock?: number;
   image: string;
+  images?: string[];
   code: string;
   description: string;
 }
