@@ -8,19 +8,22 @@ export function CartDrawer() {
   const { items, isOpen, close, remove, setQty, clear, total, count } = useCart();
   const [form, setForm] = useState({ customer_name: "", phone: "", email: "", address: "", wilaya: "", notes: "" });
   const [done, setDone] = useState(false);
+  const [confirmationText, setConfirmationText] = useState("");
   const orderTotal = total();
   const canSubmit = form.customer_name.trim().length > 1 && form.phone.trim().length > 5 && items.length > 0;
   const whatsappText = useMemo(
-    () => encodeURIComponent(`Nouvelle commande AUDAX Gaming\n${items.map((i) => `- ${i.name} x${i.qty}`).join("\n")}\nTotal: ${formatPriceDzd(orderTotal)}\nClient: ${form.customer_name}\nTél: ${form.phone}`),
-    [form.customer_name, form.phone, items, orderTotal],
+    () => encodeURIComponent(confirmationText || `Nouvelle commande AUDAX Gaming\n${items.map((i) => `- ${i.name} x${i.qty}`).join("\n")}\nTotal: ${formatPriceDzd(orderTotal)}\nClient: ${form.customer_name}\nTél: ${form.phone}`),
+    [confirmationText, form.customer_name, form.phone, items, orderTotal],
   );
 
   const submit = () => {
     if (!canSubmit) return;
+    const savedItems = items.map((i) => ({ id: i.id, name: i.name, price: i.price, qty: i.qty }));
+    setConfirmationText(`Nouvelle commande AUDAX Gaming\n${savedItems.map((i) => `- ${i.name} x${i.qty}`).join("\n")}\nTotal: ${formatPriceDzd(orderTotal)}\nClient: ${form.customer_name}\nTél: ${form.phone}\nWilaya: ${form.wilaya}\nAdresse: ${form.address}`);
     saveLocalOrder({
       id: uid("cmd"),
       ...form,
-      items: items.map((i) => ({ id: i.id, name: i.name, price: i.price, qty: i.qty })),
+      items: savedItems,
       total_dzd: orderTotal,
       status: "new",
       created_at: new Date().toISOString(),
@@ -34,7 +37,7 @@ export function CartDrawer() {
       <button
         type="button"
         onClick={() => useCart.getState().open()}
-        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center border border-primary/50 bg-background/90 shadow-glow backdrop-blur clip-corner"
+        className="fixed bottom-24 right-5 z-50 flex h-14 w-14 items-center justify-center border border-primary/50 bg-background/90 shadow-glow backdrop-blur clip-corner sm:bottom-5"
         aria-label="Ouvrir le panier"
       >
         <ShoppingCart className="h-5 w-5 text-primary" />

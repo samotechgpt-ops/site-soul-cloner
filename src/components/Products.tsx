@@ -58,7 +58,7 @@ export function Products() {
               transition={{ delay: (i % 4) * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
               <TiltCard className="group">
-                <article className="relative border border-primary/20 bg-card/50 backdrop-blur clip-corner overflow-hidden">
+                <article className="esport-panel relative border border-primary/20 bg-card/50 backdrop-blur clip-corner overflow-hidden">
                   <div className="relative aspect-square overflow-hidden bg-white">
                     <img
                       src={p.image}
@@ -89,15 +89,19 @@ export function Products() {
                     <button
                       type="button"
                       onClick={() => add({ id: p.id, slug: p.id, name: p.name, price: p.priceValue, image: p.image })}
-                      disabled={!p.inStock || p.priceValue <= 0}
-                      className="absolute bottom-3 right-3 h-10 w-10 flex items-center justify-center border border-primary/40 bg-background/80 backdrop-blur transition-all hover:bg-primary hover:border-primary disabled:cursor-not-allowed disabled:opacity-40"
+                      className="absolute bottom-3 right-3 h-10 w-10 flex items-center justify-center border border-primary/40 bg-background/80 backdrop-blur transition-all hover:bg-primary hover:border-primary"
                       aria-label={`Ajouter ${p.name} au panier`}
                     >
                       <ShoppingCart className="w-4 h-4" />
                     </button>
-                    <div className="absolute bottom-3 left-3 h-9 w-9 flex items-center justify-center border border-primary/40 bg-background/60 backdrop-blur group-hover:bg-primary group-hover:border-primary transition-all">
+                    <button
+                      type="button"
+                      onClick={() => add({ id: p.id, slug: p.id, name: p.name, price: p.priceValue, image: p.image })}
+                      className="absolute bottom-3 left-3 h-9 w-9 flex items-center justify-center border border-primary/40 bg-background/60 backdrop-blur group-hover:bg-primary group-hover:border-primary transition-all"
+                      aria-label={`Commander ${p.name}`}
+                    >
                       <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
-                    </div>
+                    </button>
                   </div>
 
                   <div className="relative p-5 bg-background">
@@ -111,10 +115,9 @@ export function Products() {
                       <button
                         type="button"
                         onClick={() => add({ id: p.id, slug: p.id, name: p.name, price: p.priceValue, image: p.image })}
-                        disabled={!p.inStock || p.priceValue <= 0}
-                        className="border border-primary/40 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.2em] text-primary transition hover:bg-primary hover:text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"
+                        className="border border-primary/40 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.2em] text-primary transition hover:bg-primary hover:text-primary-foreground"
                       >
-                        Commander
+                        {p.priceValue ? "Commander" : "Devis"}
                       </button>
                     </div>
                     <div className="mt-4 h-px w-full bg-primary/20 overflow-hidden">

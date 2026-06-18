@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { categories } from "@/lib/data";
 import { ScrambleText } from "./ScrambleText";
 import { ArrowUpRight } from "lucide-react";
+import { scrollToSection } from "@/lib/scroll";
 
 export function Categories() {
   return (
@@ -48,7 +49,13 @@ export function Categories() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ delay: i * 0.12, duration: 0.8 }}
-              className="group relative bg-background p-8 md:p-12 cursor-pointer overflow-hidden"
+              className="esport-panel group relative bg-background p-8 md:p-12 cursor-pointer overflow-hidden"
+              role="button"
+              tabIndex={0}
+              onClick={() => scrollToSection("#products")}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") scrollToSection("#products");
+              }}
             >
               {/* Hover fill */}
               <div className="absolute inset-0 bg-primary/5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out" />
@@ -68,7 +75,7 @@ export function Categories() {
                 <div className="hidden md:block font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
                   ─── Sector
                 </div>
-                <div className="h-12 w-12 flex items-center justify-center border border-primary/40 group-hover:bg-primary group-hover:border-primary transition-all">
+                <div className="h-12 w-12 flex items-center justify-center border border-primary/40 group-hover:bg-primary group-hover:border-primary transition-all" aria-label={`Voir les produits ${cat.title}`}>
                   <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
                 </div>
               </div>

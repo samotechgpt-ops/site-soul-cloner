@@ -4,10 +4,9 @@ import { metrics } from "@/lib/data";
 import { Counter } from "./Counter";
 import { MagneticButton } from "./MagneticButton";
 import { ArrowUpRight } from "lucide-react";
+import { scrollToSection } from "@/lib/scroll";
 
 export function Quality() {
-  const goToProducts = () => document.querySelector("#products")?.scrollIntoView({ behavior: "smooth", block: "start" });
-
   return (
     <section id="about" className="relative py-32 overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-20" />
@@ -107,7 +106,7 @@ export function Quality() {
             </div>
 
             <div className="mt-10">
-              <MagneticButton variant="ghost" onClick={goToProducts}>
+              <MagneticButton variant="ghost" onClick={() => scrollToSection("#products")}>
                 View More <ArrowUpRight className="w-4 h-4" />
               </MagneticButton>
             </div>
