@@ -93,55 +93,71 @@ export function Hero() {
         <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-[1fr_1.3fr]">
           {/* Portrait card */}
           <motion.div
-            initial={{ opacity: 0, x: -80, rotate: -5 }}
-            animate={{ opacity: 1, x: 0, rotate: -2 }}
+            initial={{ opacity: 0, x: -80 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 2.4 }}
-            className="relative mx-auto w-[88%] max-w-md sm:w-full lg:max-w-none"
+            className="relative mx-auto w-full max-w-xl lg:max-w-none"
           >
-            <div className="relative aspect-[9/16] overflow-hidden border border-primary/30 clip-corner shadow-glow bg-black">
-              <video
-                src={gamingShowcase.url}
-                poster={soldierDisplay}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute inset-0 h-full w-full object-cover"
-                aria-label="Démo gaming AUDAX Technology sur moniteur"
-              />
-              {/* Top brand bar */}
-              <div className="absolute top-0 inset-x-0 z-20 flex items-center justify-between gap-2 px-3 py-2 bg-gradient-to-b from-background/90 to-transparent">
-                <img src={audaxLogo.url} alt="AUDAX Technology" className="h-7 w-auto drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]" />
-                <span className="font-mono text-[9px] tracking-[0.3em] text-primary uppercase">● LIVE</span>
+            {/* MONITOR MOCKUP */}
+            <div className="relative">
+              {/* Bezel */}
+              <div className="relative rounded-[18px] bg-gradient-to-b from-zinc-900 to-black p-3 sm:p-4 shadow-glow border border-primary/30">
+                {/* Screen */}
+                <div className="relative aspect-video overflow-hidden rounded-md bg-black border border-primary/20">
+                  <video
+                    src={gamingShowcase.url}
+                    poster={soldierDisplay}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute inset-0 h-full w-full object-cover"
+                    aria-label="Démo gaming AUDAX Technology"
+                  />
+                  {/* Subtle screen reflection */}
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent" />
+                  {/* In-screen HUD corner */}
+                  <div className="absolute top-3 right-3 z-20 flex items-center gap-2 rounded border border-primary/40 bg-background/70 px-2 py-1 font-mono text-[10px] tracking-[0.3em] text-primary uppercase backdrop-blur">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                    LIVE · 144 FPS
+                  </div>
+                  <CornerBrackets />
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-glow to-transparent animate-scan z-30" />
+                </div>
+                {/* Bottom bezel with LOGO */}
+                <div className="mt-3 flex items-center justify-between gap-3 px-2">
+                  <img
+                    src={audaxLogo.url}
+                    alt="AUDAX Technology"
+                    className="h-8 sm:h-10 w-auto drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
+                  />
+                  <div className="flex items-center gap-2 font-mono text-[9px] sm:text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
+                    <span>VAR · 240Hz</span>
+                    <span className="h-2 w-2 rotate-45 bg-primary" />
+                  </div>
+                </div>
               </div>
-              {/* Bottom gradient + caption */}
-              <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-background via-background/40 to-transparent pt-16 pb-6 px-6 font-mono">
-                <div className="mb-2 h-px w-12 bg-primary" />
-                <p className="text-xs tracking-[0.3em] text-foreground uppercase">Every pixel</p>
-                <p className="text-xs tracking-[0.3em] text-primary uppercase">combat ready</p>
-                <p className="mt-2 text-[10px] tracking-[0.25em] text-muted-foreground uppercase">AUDAX Technology · DZ</p>
-              </div>
-              <CornerBrackets />
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-glow to-transparent animate-scan z-30" />
+
+              {/* Stand */}
+              <div className="mx-auto h-6 w-24 sm:w-32 bg-gradient-to-b from-zinc-800 to-black border-x border-b border-primary/20" />
+              <div className="mx-auto h-2 w-40 sm:w-56 rounded-b-full bg-gradient-to-b from-zinc-900 to-black shadow-[0_20px_40px_-10px_rgba(220,38,38,0.4)]" />
+
+              {/* Floating tags */}
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity }}
+                className="absolute -top-4 -left-4 border border-primary/50 bg-background/80 backdrop-blur px-3 py-2 font-mono text-[10px] tracking-[0.25em] text-primary uppercase z-10"
+              >
+                ◢ ID·AX-22
+              </motion.div>
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 5, repeat: Infinity, delay: 1 }}
+                className="absolute -bottom-2 -right-4 sm:-right-6 border border-cyan-glow/50 bg-background/80 backdrop-blur px-4 py-3 font-mono text-[10px] tracking-[0.25em] text-cyan-glow uppercase shadow-cyan z-10"
+              >
+                ◉ Neural · 99.8%
+              </motion.div>
             </div>
-
-            {/* Floating tag */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity }}
-              className="absolute -bottom-6 -right-6 border border-cyan-glow/50 bg-background/80 backdrop-blur px-4 py-3 font-mono text-[10px] tracking-[0.25em] text-cyan-glow uppercase shadow-cyan"
-            >
-              ◉ Neural · 99.8%
-            </motion.div>
-
-            {/* Floating tag 2 */}
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-              className="absolute -top-4 -left-4 border border-primary/50 bg-background/80 backdrop-blur px-3 py-2 font-mono text-[10px] tracking-[0.25em] text-primary uppercase"
-            >
-              ◢ ID·AX-22
-            </motion.div>
           </motion.div>
 
           {/* Headline */}
