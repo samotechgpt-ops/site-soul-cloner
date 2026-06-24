@@ -7,6 +7,7 @@ import { scrollToSection } from "@/lib/scroll";
 import heroBg from "@/assets/hero-bg.jpg";
 import soldierDisplay from "@/assets/audax-soldier-display.jpg";
 import gamingShowcase from "@/assets/audax-gaming-showcase.mp4.asset.json";
+import audaxLogo from "@/assets/audax-technology-logo.png.asset.json";
 import gamingVideo from "@/assets/gaming-bg-loop.mp4.asset.json";
 
 const particles = Array.from({ length: 22 }, (_, i) => ({
