@@ -47,23 +47,23 @@ export function Navbar() {
             <Logo />
           </button>
 
-          <ul className="hidden lg:flex items-center gap-1 font-mono text-[11px] tracking-[0.25em] uppercase">
+          <ul className="hidden lg:flex items-center gap-2 font-display text-base xl:text-lg font-semibold tracking-wide">
             {links.map((link, i) => (
               <motion.li key={link.label} initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 2.4 + i * 0.06 }}>
                 <button
                   type="button"
                   onClick={() => goTo(link.hash)}
-                  className="relative px-4 py-2 text-muted-foreground transition-colors hover:text-foreground group"
+                  className="relative px-5 py-2 text-muted-foreground transition-colors hover:text-foreground group"
                 >
                   <span className={i === 0 ? "text-primary" : ""}>{link.label}</span>
-                  <span className="absolute bottom-0 left-1/2 h-px w-0 -translate-x-1/2 bg-primary transition-all duration-300 group-hover:w-3/4" />
+                  <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-primary transition-all duration-300 group-hover:w-3/4" />
                 </button>
               </motion.li>
             ))}
           </ul>
 
           <div className="flex items-center gap-4">
-            <a href="/commander" className="hidden sm:inline-flex bg-primary px-4 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-primary-foreground transition hover:opacity-90">
+            <a href="/commander" className="hidden sm:inline-flex bg-primary px-5 py-2.5 font-display text-sm font-bold uppercase tracking-[0.2em] text-primary-foreground transition hover:opacity-90">
               Commander
             </a>
             <button
