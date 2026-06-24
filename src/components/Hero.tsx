@@ -98,7 +98,7 @@ export function Hero() {
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 2.4 }}
             className="relative mx-auto w-[88%] max-w-md sm:w-full lg:max-w-none"
           >
-            <div className="relative aspect-[4/5] overflow-hidden border border-primary/30 clip-corner shadow-glow">
+            <div className="relative aspect-[9/16] overflow-hidden border border-primary/30 clip-corner shadow-glow bg-black">
               <video
                 src={gamingShowcase.url}
                 poster={soldierDisplay}
@@ -106,23 +106,23 @@ export function Hero() {
                 loop
                 muted
                 playsInline
-                className="h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
                 aria-label="Démo gaming AUDAX Technology sur moniteur"
               />
-              <div className="pointer-events-none absolute bottom-3 right-3 z-10 rounded bg-background/60 px-2 py-1 font-mono text-[9px] tracking-[0.25em] text-primary uppercase backdrop-blur-sm border border-primary/30">
-                ▸ AUDAX
+              {/* Top brand bar */}
+              <div className="absolute top-0 inset-x-0 z-20 flex items-center justify-between gap-2 px-3 py-2 bg-gradient-to-b from-background/90 to-transparent">
+                <img src={audaxLogo.url} alt="AUDAX Technology" className="h-7 w-auto drop-shadow-[0_0_8px_rgba(220,38,38,0.8)]" />
+                <span className="font-mono text-[9px] tracking-[0.3em] text-primary uppercase">● LIVE</span>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 font-mono">
+              {/* Bottom gradient + caption */}
+              <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-background via-background/40 to-transparent pt-16 pb-6 px-6 font-mono">
                 <div className="mb-2 h-px w-12 bg-primary" />
-                <p className="text-xs tracking-[0.3em] text-foreground uppercase">
-                  Every pixel
-                </p>
+                <p className="text-xs tracking-[0.3em] text-foreground uppercase">Every pixel</p>
                 <p className="text-xs tracking-[0.3em] text-primary uppercase">combat ready</p>
+                <p className="mt-2 text-[10px] tracking-[0.25em] text-muted-foreground uppercase">AUDAX Technology · DZ</p>
               </div>
               <CornerBrackets />
-              {/* Scan line on image */}
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-glow to-transparent animate-scan" />
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-glow to-transparent animate-scan z-30" />
             </div>
 
             {/* Floating tag */}
