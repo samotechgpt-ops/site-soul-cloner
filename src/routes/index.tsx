@@ -38,11 +38,11 @@ function Index() {
       <main>
         <Hero />
         <Marquee />
+        <Products />
         <Stats />
         <Categories />
         <Quality />
         <ScrollVideo />
-        <Products />
         <CTA />
       </main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", name: "AUDAX Algérie", alternateName: ["AUDAX DZ", "AUDAX Gaming Algérie", "AUDAX Technology", "Audax Tech"], url: "https://audax-dz.tech/", logo: "https://audax-dz.tech/favicon.ico", brand: "AUDAX", areaServed: { "@type": "Country", name: "Algeria" }, contactPoint: [{ "@type": "ContactPoint", telephone: "+213770741873", contactType: "customer service", areaServed: "DZ", availableLanguage: ["French", "Arabic"] }], sameAs: ["https://audax-dz.tech/", "https://wa.me/213770741873"] }) }} />
