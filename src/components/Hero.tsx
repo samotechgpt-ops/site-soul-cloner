@@ -98,7 +98,19 @@ export function Hero() {
             className="relative mx-auto w-[88%] max-w-md sm:w-full lg:max-w-none"
           >
             <div className="relative aspect-[4/5] overflow-hidden border border-primary/30 clip-corner shadow-glow">
-              <img src={soldierDisplay} alt="Soldat esport AUDAX Gaming devant un écran VAR" className="h-full w-full object-cover" />
+              <video
+                src={gamingShowcase.url}
+                poster={soldierDisplay}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="h-full w-full object-cover"
+                aria-label="Démo gaming AUDAX Technology sur moniteur"
+              />
+              <div className="pointer-events-none absolute bottom-3 right-3 z-10 rounded bg-background/60 px-2 py-1 font-mono text-[9px] tracking-[0.25em] text-primary uppercase backdrop-blur-sm border border-primary/30">
+                ▸ AUDAX
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 font-mono">
                 <div className="mb-2 h-px w-12 bg-primary" />
