@@ -92,22 +92,19 @@ export function Hero() {
               <div className="relative rounded-[18px] bg-gradient-to-b from-zinc-900 to-black p-3 sm:p-4 shadow-glow border border-primary/30">
                 {/* Screen */}
                 <div className="relative aspect-video overflow-hidden rounded-md bg-black border border-primary/20">
-                  <video
-                    src={gamingShowcase.url}
-                    poster={soldierDisplay}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
+                  <img
+                    src={varShowcase}
+                    alt="Moniteur VAR et PC bureau VAR — matériel informatique en Algérie"
+                    width={1600}
+                    height={1024}
                     className="absolute inset-0 h-full w-full object-cover"
-                    aria-label="Démo gaming AUDAX Technology"
                   />
                   {/* Subtle screen reflection */}
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent" />
                   {/* In-screen HUD corner */}
                   <div className="absolute top-3 right-3 z-20 flex items-center gap-2 rounded border border-primary/40 bg-background/70 px-2 py-1 font-mono text-[10px] tracking-[0.3em] text-primary uppercase backdrop-blur">
                     <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                    LIVE · 144 FPS
+                    VAR · EN STOCK
                   </div>
                   <CornerBrackets />
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-glow to-transparent animate-scan z-30" />
