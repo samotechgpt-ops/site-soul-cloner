@@ -154,15 +154,15 @@ export function Hero() {
               className="mb-6 inline-flex animate-hud-flicker items-center gap-3 border border-primary/30 bg-primary/5 px-4 py-2 font-mono text-[10px] tracking-[0.35em] text-primary uppercase"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-              Next Generation Devices · Est. 2013
+              Matériel informatique VAR · Algérie
             </motion.div>
 
             <h1 className="font-display text-[2.5rem] leading-[0.95] tracking-tighter font-bold sm:text-7xl lg:text-[7rem] lg:leading-[0.92]">
-              <AnimatedWord text="BOLD" delay={2.7} />{" "}
-              <AnimatedWord text="VISION." delay={2.85} className="text-primary text-glow-crimson italic" />
+              <AnimatedWord text="MONITEURS" delay={2.7} />{" "}
+              <AnimatedWord text="VAR." delay={2.85} className="text-primary text-glow-crimson italic" />
               <br />
-              <AnimatedWord text="SMARTER" delay={3.0} />{" "}
-              <AnimatedWord text="DISPLAYS" delay={3.15} className="text-shimmer" />
+              <AnimatedWord text="PC·VAR" delay={3.0} />{" "}
+              <AnimatedWord text="OFFICIEL" delay={3.15} className="text-shimmer" />
             </h1>
 
             <motion.div
@@ -178,7 +178,7 @@ export function Hero() {
               transition={{ delay: 3.6 }}
               className="mt-6 max-w-xl text-base text-muted-foreground leading-relaxed lg:mx-0 mx-auto"
             >
-              Precision shapes every pixel. Moniteurs VAR et PC All-In-One AUDAX livrent la clarté, la réactivité et l’énergie gaming attendues pour travailler, streamer et jouer avec confiance.
+              Achetez en ligne les moniteurs VAR, PC de bureau VAR et accessoires informatiques VAR officiels en Algérie. Prix en DZD, livraison dans les 69 wilayas, paiement à la livraison et garantie constructeur.
             </motion.p>
 
             <motion.div
