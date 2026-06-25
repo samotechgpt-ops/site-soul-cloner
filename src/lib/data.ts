@@ -6,6 +6,9 @@ import n22 from "@/assets/products/n22.jpg";
 import t24m from "@/assets/products/t24m.jpg";
 import xps22f from "@/assets/products/xps22f.jpg";
 import xps22m from "@/assets/products/xps22m.jpg";
+import varU27Pro from "@/assets/products/var-u27-pro.jpg";
+import varXps27Elite from "@/assets/products/var-xps27-elite.jpg";
+import varKbCombo from "@/assets/products/var-kb-combo.jpg";
 
 export interface Product {
   id: string;
@@ -32,6 +35,9 @@ export const products: Product[] = [
   { id: "t24m", name: "VAR T24M", category: "monitor", categoryLabel: "Monitor", price: "18.700 د.ج", priceValue: 18700, inStock: true, image: t24m, code: "T-24M", description: "Moniteur 24 pouces avec affichage net, idéal pour productivité, bureautique et usage multimédia." },
   { id: "xps22f", name: "VAR XPS22F", category: "allinone", categoryLabel: "All In One", price: "65.000 د.ج", priceValue: 65000, inStock: true, image: xps22f, code: "XPS-22F", description: "PC All-In-One complet avec excellent rapport performance/prix pour usage quotidien." },
   { id: "xps22m", name: "VAR XPS22M", category: "allinone", categoryLabel: "All In One", price: "65.000 د.ج", priceValue: 65000, inStock: true, image: xps22m, code: "XPS-22M", description: "All-In-One élégant pour bureau, commerce et postes connectés à forte disponibilité." },
+  { id: "u27pro", name: "VAR U27 PRO", category: "monitor", categoryLabel: "Monitor", price: "89.000 د.ج", priceValue: 89000, inStock: true, image: varU27Pro, code: "U-27P", description: "Moniteur ultrawide 27 pouces incurvé VAR — premium, dalle haute fidélité, idéal pour productivité avancée et stations de travail pro." },
+  { id: "xps27elite", name: "VAR XPS27 ELITE", category: "allinone", categoryLabel: "All In One", price: "145.000 د.ج", priceValue: 145000, inStock: true, image: varXps27Elite, code: "XPS-27E", description: "PC All-In-One VAR 27 pouces Elite — écran sans bordure, webcam intégrée, performances bureautiques haut de gamme pour entreprise." },
+  { id: "kbcombo", name: "VAR KB+M COMBO PRO", category: "accessories", categoryLabel: "Accessories", price: "12.500 د.ج", priceValue: 12500, inStock: true, image: varKbCombo, code: "KB-COMBO", description: "Combo clavier mécanique premium + souris ergonomique VAR — finition aluminium, rétroéclairage rouge, confort longue durée." },
 ];
 
 export const stats = [
