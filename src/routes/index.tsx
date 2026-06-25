@@ -10,6 +10,7 @@ import { Categories } from "@/components/Categories";
 import { Quality } from "@/components/Quality";
 import { ScrollVideo } from "@/components/ScrollVideo";
 import { Products } from "@/components/Products";
+import { Showcase } from "@/components/Showcase";
 import { CTA } from "@/components/CTA";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
@@ -42,6 +43,7 @@ function Index() {
         <Stats />
         <Categories />
         <Quality />
+        <Showcase />
         <ScrollVideo />
         <CTA />
       </main>
