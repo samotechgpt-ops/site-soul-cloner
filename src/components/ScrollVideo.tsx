@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import scrollVideo from "@/assets/gaming-arena-loop.mp4.asset.json";
-import arenaWide from "@/assets/gaming-arena-wide.jpg";
+import officeWide from "@/assets/var-office-wide.jpg";
 
 export function ScrollVideo() {
   const ref = useRef<HTMLDivElement>(null);
@@ -13,33 +12,31 @@ export function ScrollVideo() {
   return (
     <section ref={ref} className="relative h-[80vh] overflow-hidden">
       <motion.div style={{ y, scale }} className="absolute inset-0">
-        <video
-          src={scrollVideo.url}
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster={arenaWide}
+        <img
+          src={officeWide}
+          alt="Showroom VAR — moniteurs et PC de bureau VAR en Algérie"
+          loading="lazy"
+          width={1600}
+          height={896}
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/40 to-background" />
-        <div className="absolute inset-0 gaming-scanlines opacity-30 pointer-events-none" />
         <div className="absolute inset-0 bg-grid opacity-20" />
       </motion.div>
 
       <motion.div style={{ opacity }} className="relative z-10 mx-auto flex h-full max-w-[1400px] flex-col justify-center px-6">
-        <p className="font-mono text-[11px] tracking-[0.4em] text-primary uppercase">▸ Arena · Live feed</p>
+        <p className="font-mono text-[11px] tracking-[0.4em] text-primary uppercase">▸ Distributeur officiel VAR · Algérie</p>
         <h2 className="mt-4 max-w-3xl font-display text-4xl md:text-7xl font-bold tracking-tighter leading-[0.95]">
-          Built for the <span className="text-primary text-glow-crimson italic">arena.</span>
+          La marque <span className="text-primary text-glow-crimson italic">VAR</span>, livrée chez vous.
         </h2>
         <p className="mt-6 max-w-xl text-sm md:text-base text-muted-foreground leading-relaxed">
-          Chaque produit AUDAX est éprouvé sous la pression du jeu compétitif —
-          latence ultra-faible, contraste profond, durabilité combat-ready.
+          Moniteurs VAR, ordinateurs de bureau All-In-One VAR et accessoires informatiques —
+          neufs, sous garantie constructeur, livrés dans les 69 wilayas avec paiement à la livraison.
         </p>
         <div className="mt-10 flex flex-wrap gap-3 font-mono text-[10px] uppercase tracking-[0.3em]">
-          <span className="border border-primary/40 bg-background/40 backdrop-blur px-3 py-2 text-primary">◢ 144 Hz ready</span>
-          <span className="border border-primary/30 bg-background/40 backdrop-blur px-3 py-2 text-muted-foreground">Low input lag</span>
-          <span className="border border-primary/30 bg-background/40 backdrop-blur px-3 py-2 text-muted-foreground">Esport tuned</span>
+          <span className="border border-primary/40 bg-background/40 backdrop-blur px-3 py-2 text-primary">◢ Marque VAR officielle</span>
+          <span className="border border-primary/30 bg-background/40 backdrop-blur px-3 py-2 text-muted-foreground">Garantie constructeur</span>
+          <span className="border border-primary/30 bg-background/40 backdrop-blur px-3 py-2 text-muted-foreground">Paiement à la livraison</span>
         </div>
       </motion.div>
 
