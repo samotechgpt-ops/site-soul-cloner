@@ -133,14 +133,14 @@ export function Hero() {
                 transition={{ duration: 4, repeat: Infinity }}
                 className="absolute -top-4 -left-4 border border-primary/50 bg-background/80 backdrop-blur px-3 py-2 font-mono text-[10px] tracking-[0.25em] text-primary uppercase z-10"
               >
-                ◢ ID·AX-22
+                ◢ VAR · MONITEUR
               </motion.div>
               <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 5, repeat: Infinity, delay: 1 }}
                 className="absolute -bottom-2 -right-4 sm:-right-6 border border-cyan-glow/50 bg-background/80 backdrop-blur px-4 py-3 font-mono text-[10px] tracking-[0.25em] text-cyan-glow uppercase shadow-cyan z-10"
               >
-                ◉ Neural · 99.8%
+                ◉ Livraison 69 wilayas
               </motion.div>
             </div>
           </motion.div>
