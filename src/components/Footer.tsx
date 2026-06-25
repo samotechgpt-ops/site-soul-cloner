@@ -70,7 +70,7 @@ export function Footer() {
 
         <div className="mt-16 pt-8 border-t border-primary/10 flex flex-wrap items-center justify-between gap-4">
           <p className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
-            © 2026 AUDAX Gaming — All Rights Reserved
+            © 2026 AUDAX Technology — All Rights Reserved
           </p>
           <div className="flex gap-6 font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
             <a href="/#about" className="hover:text-primary transition-colors">About</a>
