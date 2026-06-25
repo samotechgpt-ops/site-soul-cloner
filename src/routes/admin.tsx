@@ -25,17 +25,17 @@ import {
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin AUDAX Gaming — Produits et commandes" },
-      { name: "description", content: "Panel admin AUDAX Gaming pour gérer les produits, catégories, photos, prix et commandes clients." },
+      { title: "Admin AUDAX Technology — Produits et commandes" },
+      { name: "description", content: "Panel admin AUDAX Technology pour gérer les produits, catégories, photos, prix et commandes clients." },
       { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Admin AUDAX Gaming" },
-      { property: "og:description", content: "Gestion produits et commandes AUDAX Gaming." },
+      { property: "og:title", content: "Admin AUDAX Technology" },
+      { property: "og:description", content: "Gestion produits et commandes AUDAX Technology." },
     ],
   }),
   component: AdminPage,
 });
 
-const blank: Product = { id: "", name: "", category: "monitor", categoryLabel: "Gaming Monitors", categoryId: "monitor", price: "Sur devis", priceValue: 0, inStock: true, stock: 0, image: "", images: [], code: "", description: "" };
+const blank: Product = { id: "", name: "", category: "monitor", categoryLabel: "Moniteurs VAR", categoryId: "monitor", price: "Sur devis", priceValue: 0, inStock: true, stock: 0, image: "", images: [], code: "", description: "" };
 const blankCat: Category = { id: "", code: "", slug: "", title: "", desc: "", image: "" };
 type AdminTab = "products" | "categories" | "leads" | "settings";
 
@@ -211,7 +211,7 @@ function AdminPage() {
       <div className="relative mx-auto grid min-h-screen max-w-[1500px] gap-4 px-3 py-4 sm:gap-6 sm:px-4 sm:py-6 lg:grid-cols-[280px_1fr] lg:px-6">
         <aside className="border border-primary/20 bg-card/70 p-4 backdrop-blur clip-corner lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)]">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-primary/15 pb-4 sm:pb-5">
-            <div className="min-w-0"><p className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">Panel admin</p><h1 className="truncate font-display text-xl sm:text-2xl font-bold">AUDAX Gaming</h1></div>
+            <div className="min-w-0"><p className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">Panel admin</p><h1 className="truncate font-display text-xl sm:text-2xl font-bold">AUDAX Technology</h1></div>
             <button type="button" onClick={logout} className="grid h-10 w-10 shrink-0 place-items-center border border-primary/30 hover:bg-primary/10" aria-label="Déconnexion"><LogOut className="h-4 w-4" /></button>
           </div>
           <nav className="-mx-1 mt-4 flex gap-2 overflow-x-auto px-1 pb-1 lg:mt-5 lg:grid lg:gap-2 lg:overflow-visible lg:px-0">
@@ -290,7 +290,7 @@ function AdminPage() {
                 <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur">
                   <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3"><h2 className="truncate font-display text-2xl font-bold">{editingCat.id ? "Modifier catégorie" : "Ajouter catégorie"}</h2><button type="button" onClick={() => setEditingCat(blankCat)} className="grid h-10 w-10 place-items-center border border-primary/30"><Plus className="h-4 w-4" /></button></div>
                   <div className="mt-4 grid gap-3">
-                    <input value={editingCat.title} onChange={(e) => setEditingCat({ ...editingCat, title: e.target.value })} placeholder="Titre (ex: Gaming Monitors)" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
+                    <input value={editingCat.title} onChange={(e) => setEditingCat({ ...editingCat, title: e.target.value })} placeholder="Titre (ex: Moniteurs VAR)" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
                     <input value={editingCat.code} onChange={(e) => setEditingCat({ ...editingCat, code: e.target.value })} placeholder="Code (01, 02, ...)" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
                     <input value={editingCat.slug} onChange={(e) => setEditingCat({ ...editingCat, slug: e.target.value })} placeholder="Slug (auto si vide)" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
                     <textarea value={editingCat.desc} onChange={(e) => setEditingCat({ ...editingCat, desc: e.target.value })} placeholder="Description" className="min-h-24 border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
