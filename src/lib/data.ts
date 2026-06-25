@@ -29,7 +29,7 @@ export const products: Product[] = [
   { id: "gs24pro", name: "VAR GS24PRO", category: "allinone", categoryLabel: "All In One", price: "Sold out", priceValue: 0, inStock: false, image: gs24pro, code: "GS-24P", description: "Station tout-en-un pro avec finition premium pour espace de travail moderne." },
   { id: "gs24vb", name: "VAR GS24VB", category: "allinone", categoryLabel: "All In One", price: "Sold out", priceValue: 0, inStock: false, image: gs24vb, code: "GS-24VB", description: "All-in-one fiable pour entreprise, intégration propre et maintenance simplifiée." },
   { id: "n22", name: "VAR N22", category: "monitor", categoryLabel: "Monitor", price: "13.000 د.ج", priceValue: 13000, inStock: true, image: n22, code: "N-22", description: "Écran 22 pouces clair et accessible pour travail, études et divertissement." },
-  { id: "t24m", name: "VAR T24M", category: "monitor", categoryLabel: "Monitor", price: "18.700 د.ج", priceValue: 18700, inStock: true, image: t24m, code: "T-24M", description: "Moniteur 24 pouces avec affichage net, idéal pour productivité et gaming léger." },
+  { id: "t24m", name: "VAR T24M", category: "monitor", categoryLabel: "Monitor", price: "18.700 د.ج", priceValue: 18700, inStock: true, image: t24m, code: "T-24M", description: "Moniteur 24 pouces avec affichage net, idéal pour productivité, bureautique et usage multimédia." },
   { id: "xps22f", name: "VAR XPS22F", category: "allinone", categoryLabel: "All In One", price: "65.000 د.ج", priceValue: 65000, inStock: true, image: xps22f, code: "XPS-22F", description: "PC All-In-One complet avec excellent rapport performance/prix pour usage quotidien." },
   { id: "xps22m", name: "VAR XPS22M", category: "allinone", categoryLabel: "All In One", price: "65.000 د.ج", priceValue: 65000, inStock: true, image: xps22m, code: "XPS-22M", description: "All-In-One élégant pour bureau, commerce et postes connectés à forte disponibilité." },
 ];
@@ -57,10 +57,10 @@ export interface Category {
   slug: string;
 }
 
-import allInOneImg from "@/assets/gaming-allinone-cat.jpg";
-import monitorImg from "@/assets/gaming-monitor-cat.jpg";
-import accessoriesImg from "@/assets/gaming-accessories-cat.jpg";
-import arenaImg from "@/assets/gaming-arena.jpg";
+import allInOneImg from "@/assets/var-office-allinone.jpg";
+import monitorImg from "@/assets/var-monitor-wall.jpg";
+import accessoriesImg from "@/assets/var-it-accessories.jpg";
+import showroomImg from "@/assets/var-business-showroom.jpg";
 
 export const categories: Category[] = [
   {
@@ -68,32 +68,32 @@ export const categories: Category[] = [
     code: "01",
     slug: "allinone",
     image: allInOneImg,
-    title: "All-In-One Gaming",
-    desc: "Stations tout-en-un haute performance pour streaming, esport et productivité — refroidissement RGB, écran intégré, châssis blindé.",
+    title: "PC All-In-One VAR",
+    desc: "Ordinateurs tout-en-un VAR pour bureaux, commerces, écoles et entreprises — écran intégré, encombrement réduit et installation propre.",
   },
   {
     id: "monitor",
     code: "02",
     slug: "monitor",
     image: monitorImg,
-    title: "Gaming Monitors",
-    desc: "Écrans VAR à temps de réponse rapide, calibrés esport. Couleurs vives, scanlines nettes et réactivité combat-ready.",
+    title: "Moniteurs VAR",
+    desc: "Écrans VAR pour travail, études, affichage commercial et postes professionnels — image nette, prix DZD et disponibilité en Algérie.",
   },
   {
     id: "accessories",
     code: "03",
     slug: "accessories",
     image: accessoriesImg,
-    title: "Gaming Gear",
-    desc: "Claviers mécaniques, souris esport, casques surround et tapis RGB — l'arsenal complet du joueur AUDAX.",
+    title: "Accessoires IT",
+    desc: "Claviers, souris, câbles, consommables, toners et accessoires informatiques pour équiper un poste complet.",
   },
   {
-    id: "arena",
+    id: "setup",
     code: "04",
-    slug: "arena",
-    image: arenaImg,
-    title: "Setup & Arena",
-    desc: "Configurations clé en main pour gaming café, arène esport et streaming pro — sur devis personnalisé.",
+    slug: "setup",
+    image: showroomImg,
+    title: "Solutions B2B",
+    desc: "Configurations clé en main pour bureaux, boutiques, salles de formation et entreprises — conseil, livraison et devis personnalisé.",
   },
 ];
 
