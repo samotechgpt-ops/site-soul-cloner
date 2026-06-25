@@ -6,7 +6,7 @@ import { formatPriceDzd, loadManagedProducts, PRODUCTS_CHANGED_EVENT } from "@/l
 import { useCart } from "@/lib/stores";
 import { TiltCard } from "./TiltCard";
 import { ProductModal } from "./ProductModal";
-import soldierDisplay from "@/assets/audax-soldier-display.jpg";
+import productShowroom from "@/assets/var-office-allinone.jpg";
 
 export function Products() {
   const [items, setItems] = useState<Product[]>(loadManagedProducts);
@@ -32,7 +32,7 @@ export function Products() {
               viewport={{ once: true }}
               className="mb-4 font-mono text-xs tracking-[0.35em] text-primary uppercase"
             >
-              ▸ 03 — The Catalogue
+              ▸ 03 — Catalogue VAR
             </motion.div>
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
@@ -40,7 +40,7 @@ export function Products() {
               viewport={{ once: true }}
               className="font-display text-4xl md:text-6xl font-bold tracking-tighter leading-[1]"
             >
-              Innovation built<br />for <span className="text-primary text-glow-crimson italic">tomorrow.</span>
+              Produits informatiques<br />de marque <span className="text-primary text-glow-crimson italic">VAR.</span>
             </motion.h2>
           </div>
           <motion.p
@@ -49,20 +49,20 @@ export function Products() {
             viewport={{ once: true }}
             className="max-w-sm text-muted-foreground text-sm"
           >
-            8 active references across All-In-One systems and professional monitors — engineered for performance and longevity.
+            Références disponibles en Algérie : moniteurs VAR, PC All-In-One VAR et accessoires informatiques avec prix en DZD.
           </motion.p>
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12 grid items-center gap-8 border border-primary/20 bg-card/40 p-6 backdrop-blur clip-corner lg:grid-cols-[0.95fr_1.05fr]">
+        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="business-panel mb-12 grid items-center gap-8 border border-primary/20 bg-card/40 p-6 backdrop-blur clip-corner lg:grid-cols-[0.95fr_1.05fr]">
           <div className="relative overflow-hidden border border-primary/20 bg-background/60 clip-corner">
-            <img src={soldierDisplay} alt="Soldat esport AUDAX Gaming avec écran gaming" loading="lazy" width={1280} height={960} className="aspect-[4/3] h-full w-full object-cover" />
+            <img src={productShowroom} alt="PC All-In-One VAR et matériel informatique professionnel" loading="lazy" width={1408} height={1008} className="aspect-[4/3] h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent animate-scan" />
           </div>
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">◢ Esport display protocol</p>
-            <h3 className="mt-4 font-display text-4xl font-bold leading-[0.95] tracking-tighter md:text-6xl">Bold vision.<br /><span className="text-primary text-glow-crimson italic">Smarter displays.</span></h3>
-            <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground">Une expérience visuelle inspirée gaming : écrans VAR, All-In-One performants, animations HUD, scanlines et catalogue en mouvement pour retrouver l’énergie esport demandée.</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">◢ Matériel informatique disponible</p>
+            <h3 className="mt-4 font-display text-4xl font-bold leading-[0.95] tracking-tighter md:text-6xl">VAR officiel.<br /><span className="text-primary text-glow-crimson italic">Prêt à livrer.</span></h3>
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground">Une vitrine claire pour acheter vos moniteurs VAR, PC All-In-One VAR et équipements informatiques en Algérie : prix visibles, panier, commande rapide et suivi depuis le panel admin.</p>
             <button type="button" onClick={() => { window.location.href = "/commander"; }} className="mt-7 border border-primary px-6 py-3 font-mono text-xs uppercase tracking-[0.25em] text-primary transition hover:bg-primary hover:text-primary-foreground">Commander</button>
           </div>
         </motion.div>
@@ -81,7 +81,7 @@ export function Products() {
               className="w-[280px] shrink-0 md:w-[320px]"
             >
               <TiltCard className="group">
-                <article className="esport-panel relative border border-primary/20 bg-card/50 backdrop-blur clip-corner overflow-hidden">
+                <article className="business-panel relative border border-primary/20 bg-card/50 backdrop-blur clip-corner overflow-hidden">
                   <button type="button" onClick={() => setActive(p)} className="block w-full text-left" aria-label={`Voir ${p.name}`}>
                   <div className="relative aspect-square overflow-hidden bg-white">
                     <img
