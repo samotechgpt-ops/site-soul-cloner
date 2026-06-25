@@ -7,6 +7,7 @@ import { scrollToSection } from "@/lib/scroll";
 import heroBg from "@/assets/var-business-showroom.jpg";
 import varShowcase from "@/assets/var-hero-showcase.jpg";
 import audaxLogo from "@/assets/audax-technology-logo.png.asset.json";
+import varMonitorLoop from "@/assets/var-monitor-loop.mp4.asset.json";
 
 const particles = Array.from({ length: 22 }, (_, i) => ({
   id: i,
@@ -92,11 +93,13 @@ export function Hero() {
               <div className="relative rounded-[18px] bg-gradient-to-b from-zinc-900 to-black p-3 sm:p-4 shadow-glow border border-primary/30">
                 {/* Screen */}
                 <div className="relative aspect-video overflow-hidden rounded-md bg-black border border-primary/20">
-                  <img
-                    src={varShowcase}
-                    alt="Moniteur VAR et PC bureau VAR — matériel informatique en Algérie"
-                    width={1600}
-                    height={1024}
+                  <video
+                    src={varMonitorLoop.url}
+                    poster={varShowcase}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                   {/* Subtle screen reflection */}

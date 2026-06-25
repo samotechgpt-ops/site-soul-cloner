@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import officeWide from "@/assets/var-office-wide.jpg";
+import officeWide from "@/assets/var-business-showroom.jpg";
+import showroomLoop from "@/assets/var-showroom-loop.mp4.asset.json";
 
 export function ScrollVideo() {
   const ref = useRef<HTMLDivElement>(null);
@@ -12,12 +13,13 @@ export function ScrollVideo() {
   return (
     <section ref={ref} className="relative h-[80vh] overflow-hidden">
       <motion.div style={{ y, scale }} className="absolute inset-0">
-        <img
-          src={officeWide}
-          alt="Showroom VAR — moniteurs et PC de bureau VAR en Algérie"
-          loading="lazy"
-          width={1600}
-          height={896}
+        <video
+          src={showroomLoop.url}
+          poster={officeWide}
+          autoPlay
+          loop
+          muted
+          playsInline
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/40 to-background" />
