@@ -13,14 +13,14 @@ export function CartDrawer() {
   const orderTotal = total();
   const canSubmit = form.customer_name.trim().length > 1 && form.phone.trim().length > 5 && items.length > 0;
   const whatsappText = useMemo(
-    () => encodeURIComponent(confirmationText || `Nouvelle commande AUDAX Gaming\n${items.map((i) => `- ${i.name} x${i.qty}`).join("\n")}\nTotal: ${formatPriceDzd(orderTotal)}\nClient: ${form.customer_name}\nTél: ${form.phone}`),
+    () => encodeURIComponent(confirmationText || `Nouvelle commande AUDAX Technology\n${items.map((i) => `- ${i.name} x${i.qty}`).join("\n")}\nTotal: ${formatPriceDzd(orderTotal)}\nClient: ${form.customer_name}\nTél: ${form.phone}`),
     [confirmationText, form.customer_name, form.phone, items, orderTotal],
   );
 
   const submit = () => {
     if (!canSubmit) return;
     const savedItems = items.map((i) => ({ id: i.id, name: i.name, price: i.price, qty: i.qty }));
-    setConfirmationText(`Nouvelle commande AUDAX Gaming\n${savedItems.map((i) => `- ${i.name} x${i.qty}`).join("\n")}\nTotal: ${formatPriceDzd(orderTotal)}\nClient: ${form.customer_name}\nTél: ${form.phone}\nWilaya: ${form.wilaya}\nAdresse: ${form.address}`);
+    setConfirmationText(`Nouvelle commande AUDAX Technology\n${savedItems.map((i) => `- ${i.name} x${i.qty}`).join("\n")}\nTotal: ${formatPriceDzd(orderTotal)}\nClient: ${form.customer_name}\nTél: ${form.phone}\nWilaya: ${form.wilaya}\nAdresse: ${form.address}`);
     saveLocalOrder({
       id: uid("cmd"),
       ...form,

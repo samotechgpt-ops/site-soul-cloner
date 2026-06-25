@@ -16,8 +16,8 @@ export const generateProductDescription = createServerFn({ method: "POST" })
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) throw new Error("LOVABLE_API_KEY missing — activez Lovable Cloud / AI.");
 
-    const prompt = `Tu es copywriter pour AUDAX Technology, marque algérienne d'électronique gaming et bureautique.
-Écris UNE description produit en français, 2 à 3 phrases (max 60 mots), ton premium gaming/esport, sans emojis, sans listes, sans guillemets autour du texte.
+    const prompt = `Tu es copywriter e-commerce pour AUDAX Technology, distributeur algérien de matériel informatique VAR.
+Écris UNE description produit en français, 2 à 3 phrases (max 60 mots), ton premium professionnel et vente informatique, sans emojis, sans listes, sans guillemets autour du texte.
 Mets en avant performance, fiabilité et l'usage concret. Évite le prix sauf si pertinent.
 
 Produit : ${data.name}

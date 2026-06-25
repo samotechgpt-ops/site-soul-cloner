@@ -43,7 +43,7 @@ export function Navbar() {
         }`}
       >
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6">
-          <button type="button" onClick={() => goTo("#home")} className="flex items-center" aria-label="AUDAX Gaming">
+          <button type="button" onClick={() => goTo("#home")} className="flex items-center" aria-label="AUDAX Technology">
             <Logo />
           </button>
 
@@ -91,7 +91,7 @@ export function Navbar() {
             onClick={() => setOpen(false)}
           >
             <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
-            <div className="absolute inset-0 gaming-scanlines opacity-20 pointer-events-none" />
+            <div className="absolute inset-0 precision-lines opacity-15 pointer-events-none" />
             <button
               type="button"
               onClick={() => setOpen(false)}
