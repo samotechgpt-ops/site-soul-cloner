@@ -31,7 +31,7 @@ export function Categories() {
             viewport={{ once: true }}
             className="mb-4 font-mono text-xs tracking-[0.35em] text-primary uppercase"
           >
-            ▸ 02 — Catégories Gaming
+            ▸ 02 — Catégories informatiques
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -40,7 +40,7 @@ export function Categories() {
             transition={{ duration: 0.8 }}
             className="font-display text-4xl md:text-6xl font-bold tracking-tighter leading-[1]"
           >
-            Choisis ton <span className="text-primary text-glow-crimson italic">arsenal.</span>
+            Choisissez votre <span className="text-primary text-glow-crimson italic">équipement.</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
@@ -49,7 +49,7 @@ export function Categories() {
             transition={{ delay: 0.2 }}
             className="mt-6 max-w-xl text-muted-foreground leading-relaxed"
           >
-            Chaque produit AUDAX Gaming est rattaché à une catégorie. Sélectionne la tienne pour explorer le matériel et commander directement.
+            Chaque produit AUDAX Technology est rattaché à une catégorie claire : moniteurs, PC All-In-One, accessoires et solutions professionnelles.
           </motion.p>
         </div>
 
@@ -63,7 +63,7 @@ export function Categories() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ delay: i * 0.1, duration: 0.7 }}
               onClick={() => openSector(cat)}
-              className="esport-panel group relative overflow-hidden border border-primary/25 bg-card/40 text-left clip-corner"
+              className="business-panel group relative overflow-hidden border border-primary/25 bg-card/40 text-left clip-corner"
             >
               <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[4/5]">
                 {cat.image && (
@@ -75,7 +75,7 @@ export function Categories() {
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-                <div className="absolute inset-0 gaming-scanlines opacity-40 mix-blend-overlay" />
+                <div className="absolute inset-0 precision-lines opacity-35 mix-blend-overlay" />
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent animate-scan" />
                 <span className="absolute top-3 left-3 font-mono text-[10px] tracking-[0.3em] text-primary border border-primary/40 bg-background/60 backdrop-blur px-2 py-1 uppercase">
                   ◢ {cat.code}
