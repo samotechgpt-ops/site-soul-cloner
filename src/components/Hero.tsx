@@ -4,7 +4,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { MagneticButton } from "./MagneticButton";
 import { ScrambleText } from "./ScrambleText";
 import { scrollToSection } from "@/lib/scroll";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/var-business-showroom.jpg";
 import varShowcase from "@/assets/var-hero-showcase.jpg";
 import audaxLogo from "@/assets/audax-technology-logo.png.asset.json";
 
@@ -30,7 +30,7 @@ export function Hero() {
     <section ref={ref} id="home" className="relative min-h-screen overflow-hidden">
       {/* Background layers */}
       <motion.div style={{ scale, y }} className="absolute inset-0">
-        <img src={heroBg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+        <img src={heroBg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-45" />
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/70 to-background" />
         <div className="absolute inset-0 bg-grid animate-grid-pan opacity-30" />
       </motion.div>
@@ -66,10 +66,10 @@ export function Hero() {
       {/* HUD labels */}
       <div className="absolute top-20 left-4 right-4 z-20 flex justify-between gap-2 font-mono text-[9px] tracking-[0.3em] text-muted-foreground uppercase sm:top-24 sm:left-6 sm:right-6 sm:text-[10px] sm:tracking-[0.35em]">
         <motion.span initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 2.8 }} className="truncate">
-          <ScrambleText text="[ SYS.01 ] — VISION ENGINE V12" duration={1200} />
+          <ScrambleText text="[ VAR.DZ ] — BOUTIQUE INFORMATIQUE" duration={1200} />
         </motion.span>
         <motion.span initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 2.8 }} className="hidden sm:inline">
-          <ScrambleText text="LAT 36.7538 / LON 3.0588" duration={1200} />
+          <ScrambleText text="MONITEURS · PC · ACCESSOIRES" duration={1200} />
         </motion.span>
       </div>
 
@@ -79,7 +79,7 @@ export function Hero() {
         className="relative z-20 mx-auto flex min-h-screen max-w-[1400px] flex-col justify-center px-4 pt-28 pb-20 sm:px-6 sm:pt-32"
       >
         <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-[1fr_1.3fr]">
-          {/* Portrait card */}
+            {/* Product showcase */}
           <motion.div
             initial={{ opacity: 0, x: -80 }}
             animate={{ opacity: 1, x: 0 }}
@@ -104,7 +104,7 @@ export function Hero() {
                   {/* In-screen HUD corner */}
                   <div className="absolute top-3 right-3 z-20 flex items-center gap-2 rounded border border-primary/40 bg-background/70 px-2 py-1 font-mono text-[10px] tracking-[0.3em] text-primary uppercase backdrop-blur">
                     <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                    VAR · EN STOCK
+                    VAR · DISPONIBLE
                   </div>
                   <CornerBrackets />
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-glow to-transparent animate-scan z-30" />
@@ -117,7 +117,7 @@ export function Hero() {
                     className="h-8 sm:h-10 w-auto drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
                   />
                   <div className="flex items-center gap-2 font-mono text-[9px] sm:text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
-                    <span>VAR · 240Hz</span>
+                    <span>VAR · Garantie</span>
                     <span className="h-2 w-2 rotate-45 bg-primary" />
                   </div>
                 </div>
@@ -158,11 +158,11 @@ export function Hero() {
             </motion.div>
 
             <h1 className="font-display text-[2.5rem] leading-[0.95] tracking-tighter font-bold sm:text-7xl lg:text-[7rem] lg:leading-[0.92]">
-              <AnimatedWord text="MONITEURS" delay={2.7} />{" "}
+              <AnimatedWord text="VENTE" delay={2.7} />{" "}
               <AnimatedWord text="VAR." delay={2.85} className="text-primary text-glow-crimson italic" />
               <br />
-              <AnimatedWord text="PC·VAR" delay={3.0} />{" "}
-              <AnimatedWord text="OFFICIEL" delay={3.15} className="text-shimmer" />
+              <AnimatedWord text="INFORMATIQUE" delay={3.0} />{" "}
+              <AnimatedWord text="PRO" delay={3.15} className="text-shimmer" />
             </h1>
 
             <motion.div
@@ -190,7 +190,7 @@ export function Hero() {
               <MagneticButton onClick={() => { window.location.href = "/commander"; }}>
                 Commander <ArrowRight className="w-4 h-4" />
               </MagneticButton>
-              <MagneticButton variant="ghost" onClick={() => scrollToSection("#categories")}>Browse Products</MagneticButton>
+              <MagneticButton variant="ghost" onClick={() => scrollToSection("#categories")}>Voir les produits</MagneticButton>
             </motion.div>
           </div>
         </div>
