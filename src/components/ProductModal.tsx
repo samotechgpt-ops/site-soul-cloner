@@ -32,7 +32,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
           onClick={onClose}
           className="fixed inset-0 z-[80] grid place-items-center overflow-y-auto bg-background/85 p-3 backdrop-blur-xl sm:p-4"
         >
-          <div className="pointer-events-none fixed inset-0 gaming-scanlines opacity-20" />
+          <div className="pointer-events-none fixed inset-0 precision-lines opacity-15" />
           <motion.article
             initial={{ y: 40, opacity: 0, scale: 0.96 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
