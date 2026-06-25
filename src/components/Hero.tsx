@@ -30,19 +30,9 @@ export function Hero() {
     <section ref={ref} id="home" className="relative min-h-screen overflow-hidden">
       {/* Background layers */}
       <motion.div style={{ scale, y }} className="absolute inset-0">
-        <video
-          src={gamingVideo.url}
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster={heroBg}
-          className="absolute inset-0 h-full w-full object-cover opacity-70"
-        />
-        <img src={heroBg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30 mix-blend-overlay" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/55 to-background" />
+        <img src={heroBg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/70 to-background" />
         <div className="absolute inset-0 bg-grid animate-grid-pan opacity-30" />
-        <div className="absolute inset-0 gaming-scanlines opacity-30 pointer-events-none" />
       </motion.div>
 
       {/* Floating particles */}
