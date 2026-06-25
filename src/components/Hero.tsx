@@ -5,10 +5,8 @@ import { MagneticButton } from "./MagneticButton";
 import { ScrambleText } from "./ScrambleText";
 import { scrollToSection } from "@/lib/scroll";
 import heroBg from "@/assets/hero-bg.jpg";
-import soldierDisplay from "@/assets/audax-soldier-display.jpg";
-import gamingShowcase from "@/assets/audax-gaming-showcase.mp4.asset.json";
+import varShowcase from "@/assets/var-hero-showcase.jpg";
 import audaxLogo from "@/assets/audax-technology-logo.png.asset.json";
-import gamingVideo from "@/assets/gaming-bg-loop.mp4.asset.json";
 
 const particles = Array.from({ length: 22 }, (_, i) => ({
   id: i,
@@ -32,19 +30,9 @@ export function Hero() {
     <section ref={ref} id="home" className="relative min-h-screen overflow-hidden">
       {/* Background layers */}
       <motion.div style={{ scale, y }} className="absolute inset-0">
-        <video
-          src={gamingVideo.url}
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster={heroBg}
-          className="absolute inset-0 h-full w-full object-cover opacity-70"
-        />
-        <img src={heroBg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30 mix-blend-overlay" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/55 to-background" />
+        <img src={heroBg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/70 to-background" />
         <div className="absolute inset-0 bg-grid animate-grid-pan opacity-30" />
-        <div className="absolute inset-0 gaming-scanlines opacity-30 pointer-events-none" />
       </motion.div>
 
       {/* Floating particles */}
@@ -104,22 +92,19 @@ export function Hero() {
               <div className="relative rounded-[18px] bg-gradient-to-b from-zinc-900 to-black p-3 sm:p-4 shadow-glow border border-primary/30">
                 {/* Screen */}
                 <div className="relative aspect-video overflow-hidden rounded-md bg-black border border-primary/20">
-                  <video
-                    src={gamingShowcase.url}
-                    poster={soldierDisplay}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
+                  <img
+                    src={varShowcase}
+                    alt="Moniteur VAR et PC bureau VAR — matériel informatique en Algérie"
+                    width={1600}
+                    height={1024}
                     className="absolute inset-0 h-full w-full object-cover"
-                    aria-label="Démo gaming AUDAX Technology"
                   />
                   {/* Subtle screen reflection */}
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent" />
                   {/* In-screen HUD corner */}
                   <div className="absolute top-3 right-3 z-20 flex items-center gap-2 rounded border border-primary/40 bg-background/70 px-2 py-1 font-mono text-[10px] tracking-[0.3em] text-primary uppercase backdrop-blur">
                     <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                    LIVE · 144 FPS
+                    VAR · EN STOCK
                   </div>
                   <CornerBrackets />
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-glow to-transparent animate-scan z-30" />
@@ -148,14 +133,14 @@ export function Hero() {
                 transition={{ duration: 4, repeat: Infinity }}
                 className="absolute -top-4 -left-4 border border-primary/50 bg-background/80 backdrop-blur px-3 py-2 font-mono text-[10px] tracking-[0.25em] text-primary uppercase z-10"
               >
-                ◢ ID·AX-22
+                ◢ VAR · MONITEUR
               </motion.div>
               <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 5, repeat: Infinity, delay: 1 }}
                 className="absolute -bottom-2 -right-4 sm:-right-6 border border-cyan-glow/50 bg-background/80 backdrop-blur px-4 py-3 font-mono text-[10px] tracking-[0.25em] text-cyan-glow uppercase shadow-cyan z-10"
               >
-                ◉ Neural · 99.8%
+                ◉ Livraison 69 wilayas
               </motion.div>
             </div>
           </motion.div>
@@ -169,15 +154,15 @@ export function Hero() {
               className="mb-6 inline-flex animate-hud-flicker items-center gap-3 border border-primary/30 bg-primary/5 px-4 py-2 font-mono text-[10px] tracking-[0.35em] text-primary uppercase"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-              Next Generation Devices · Est. 2013
+              Matériel informatique VAR · Algérie
             </motion.div>
 
             <h1 className="font-display text-[2.5rem] leading-[0.95] tracking-tighter font-bold sm:text-7xl lg:text-[7rem] lg:leading-[0.92]">
-              <AnimatedWord text="BOLD" delay={2.7} />{" "}
-              <AnimatedWord text="VISION." delay={2.85} className="text-primary text-glow-crimson italic" />
+              <AnimatedWord text="MONITEURS" delay={2.7} />{" "}
+              <AnimatedWord text="VAR." delay={2.85} className="text-primary text-glow-crimson italic" />
               <br />
-              <AnimatedWord text="SMARTER" delay={3.0} />{" "}
-              <AnimatedWord text="DISPLAYS" delay={3.15} className="text-shimmer" />
+              <AnimatedWord text="PC·VAR" delay={3.0} />{" "}
+              <AnimatedWord text="OFFICIEL" delay={3.15} className="text-shimmer" />
             </h1>
 
             <motion.div
@@ -193,7 +178,7 @@ export function Hero() {
               transition={{ delay: 3.6 }}
               className="mt-6 max-w-xl text-base text-muted-foreground leading-relaxed lg:mx-0 mx-auto"
             >
-              Precision shapes every pixel. Moniteurs VAR et PC All-In-One AUDAX livrent la clarté, la réactivité et l’énergie gaming attendues pour travailler, streamer et jouer avec confiance.
+              Achetez en ligne les moniteurs VAR, PC de bureau VAR et accessoires informatiques VAR officiels en Algérie. Prix en DZD, livraison dans les 69 wilayas, paiement à la livraison et garantie constructeur.
             </motion.p>
 
             <motion.div
