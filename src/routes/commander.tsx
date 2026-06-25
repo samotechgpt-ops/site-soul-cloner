@@ -9,10 +9,10 @@ import { WILAYAS } from "@/lib/wilayas";
 export const Route = createFileRoute("/commander")({
   head: () => ({
     meta: [
-      { title: "Commander AUDAX Gaming Algérie — Moniteurs VAR & PC All-In-One" },
-      { name: "description", content: "Passez votre commande AUDAX Gaming en ligne : moniteurs VAR N22, T24M, PC All-In-One XPS22F. Livraison 69 wilayas et zones AUDAX en Algérie. Devis rapide." },
-      { name: "keywords", content: "audax, audax gaming, audax algerie, var n22, var t24m, xps22f, xps22m, gs24, moniteur gaming algerie, pc all in one algerie, commander pc algerie" },
-      { property: "og:title", content: "Commander AUDAX Gaming — Algérie" },
+      { title: "Commander produits VAR Algérie — Moniteurs & PC All-In-One" },
+      { name: "description", content: "Commandez vos produits informatiques VAR en Algérie : moniteurs VAR N22, T24M, PC All-In-One XPS22F/XPS22M, accessoires IT. Livraison 69 wilayas et devis rapide." },
+      { name: "keywords", content: "commander VAR Algérie, moniteur VAR N22, VAR T24M, PC VAR XPS22F, XPS22M, ordinateur VAR Algérie, matériel informatique Alger, livraison 69 wilayas" },
+      { property: "og:title", content: "Commander produits VAR — Algérie" },
       { property: "og:description", content: "Choisissez vos produits AUDAX et recevez un devis rapide partout en Algérie." },
       { property: "og:url", content: "/commander" },
       { property: "og:type", content: "website" },
@@ -87,7 +87,7 @@ function LandingPage() {
       <main className="dark relative min-h-screen overflow-hidden bg-background text-foreground">
         <AnimatedBg />
         <div className="relative mx-auto grid min-h-screen max-w-2xl place-items-center px-6 text-center">
-          <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="esport-panel border border-primary/40 bg-card/70 p-10 clip-corner shadow-glow">
+          <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="business-panel border border-primary/40 bg-card/70 p-10 clip-corner shadow-glow">
             <motion.div initial={{ rotate: -180, scale: 0 }} animate={{ rotate: 0, scale: 1 }} transition={{ type: "spring" }} className="mx-auto grid h-20 w-20 place-items-center rounded-full border-2 border-primary bg-primary/10"><Check className="h-10 w-10 text-primary" /></motion.div>
             <h1 className="mt-6 font-display text-4xl font-bold tracking-tighter">Commande reçue.</h1>
             <p className="mt-3 text-muted-foreground">Nous vous contactons sous 24h pour validation.</p>
@@ -118,7 +118,7 @@ function LandingPage() {
 
         <form onSubmit={submit} className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
           {/* Left: products */}
-          <motion.section initial={false} animate={{ opacity: 1, x: 0 }} className="esport-panel border border-primary/25 bg-card/60 p-4 backdrop-blur clip-corner sm:p-6">
+          <motion.section initial={false} animate={{ opacity: 1, x: 0 }} className="business-panel border border-primary/25 bg-card/60 p-4 backdrop-blur clip-corner sm:p-6">
             <div className="mb-5 flex flex-wrap gap-2">
               {requestTypes.map((r) => {
                 const Icon = r.icon;
@@ -134,7 +134,7 @@ function LandingPage() {
             <h2 className="font-display text-2xl font-bold">{mode === "products" ? "Choisis tes produits" : "Décris ton besoin"}</h2>
 
             {mode === "custom" && (
-              <textarea value={customRequest} onChange={(e) => setCustomRequest(e.target.value)} placeholder="Ex : Imprimante laser couleur, écran 27 pouces gaming 144Hz, PC bureautique..." className="mt-4 min-h-32 w-full border border-input bg-background px-4 py-3 outline-none focus:border-primary" />
+              <textarea value={customRequest} onChange={(e) => setCustomRequest(e.target.value)} placeholder="Ex : Imprimante laser couleur, écran 27 pouces, PC bureautique, onduleur, toner..." className="mt-4 min-h-32 w-full border border-input bg-background px-4 py-3 outline-none focus:border-primary" />
             )}
 
             <div className="mt-4 max-h-[480px] space-y-2 overflow-auto pr-1">
@@ -167,7 +167,7 @@ function LandingPage() {
           </motion.section>
 
           {/* Right: form */}
-          <motion.aside initial={false} animate={{ opacity: 1, x: 0 }} className="esport-panel border border-primary/25 bg-card/60 p-4 backdrop-blur clip-corner sm:p-6">
+          <motion.aside initial={false} animate={{ opacity: 1, x: 0 }} className="business-panel border border-primary/25 bg-card/60 p-4 backdrop-blur clip-corner sm:p-6">
             <h2 className="font-display text-2xl font-bold">Tes coordonnées</h2>
             <div className="mt-4 grid gap-3">
               <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Nom complet *" className="border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
@@ -189,7 +189,7 @@ function LandingPage() {
               <motion.button whileTap={{ scale: 0.96 }} type="submit" className="mt-4 inline-flex w-full items-center justify-center gap-2 bg-primary px-6 py-4 font-mono text-xs uppercase tracking-[0.3em] text-primary-foreground hover:opacity-90">
                 Envoyer la commande <ChevronRight className="h-4 w-4" />
               </motion.button>
-              <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">◉ Traitée par AUDAX Gaming · 69 wilayas</p>
+              <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">◉ Traitée par AUDAX Technology · 69 wilayas</p>
             </div>
           </motion.aside>
         </form>
