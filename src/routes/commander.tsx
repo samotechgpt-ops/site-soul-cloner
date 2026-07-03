@@ -1,9 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Check, ChevronRight, Sparkles, Zap, ArrowLeft } from "lucide-react";
-import { type Product } from "@/lib/data";
-import { loadManagedProducts, saveLocalOrder, uid, formatPriceDzd } from "@/lib/local-store";
+import { products as seedProducts, type Product } from "@/lib/data";
+import { saveLocalOrder, uid, formatPriceDzd } from "@/lib/local-store";
+import { listPublicProducts } from "@/lib/products.functions";
+import { mapPublicProduct } from "@/lib/product-mapping";
 import { WILAYAS } from "@/lib/wilayas";
 
 export const Route = createFileRoute("/commander")({
