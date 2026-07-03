@@ -87,17 +87,17 @@ function AdminPage() {
   const [uploading, setUploading] = useState(false);
   const [security, setSecurity] = useState({ current: "", next: "", confirm: "" });
 
-  const authQuery = useQuery({ queryKey: ["admin-authed"], queryFn: () => callCheck({ data: undefined as unknown as void }) });
+  const authQuery = useQuery({ queryKey: ["admin-authed"], queryFn: () => (callCheck as any)() });
   const authed = authQuery.data?.authed === true;
 
   const productsQuery = useQuery({
     queryKey: ["admin-products"],
-    queryFn: () => callList({ data: undefined as unknown as void }),
+    queryFn: () => (callList as any)(),
     enabled: authed,
   });
   const catsQuery = useQuery({
     queryKey: ["admin-categories"],
-    queryFn: () => callListCats({ data: undefined as unknown as void }),
+    queryFn: () => (callListCats as any)(),
     enabled: authed,
   });
 
@@ -130,7 +130,7 @@ function AdminPage() {
   };
 
   const logout = async () => {
-    await callLogout({ data: undefined as unknown as void });
+    await (callLogout as any)();
     qc.invalidateQueries({ queryKey: ["admin-authed"] });
     setMessage("Déconnecté");
   };
