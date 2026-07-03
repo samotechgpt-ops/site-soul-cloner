@@ -76,9 +76,9 @@ function LandingPage() {
   const toggle = (id: string) => setSelected((s) => ({ ...s, [id]: s[id] ? 0 : 1 }));
   const setQty = (id: string, qty: number) => setSelected((s) => ({ ...s, [id]: Math.max(0, qty) }));
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.phone || !form.wilaya) return;
+    if (!form.name || !form.phone || !form.wilaya || submitting) return;
     const items = Object.entries(selected).filter(([, q]) => q > 0).map(([id, qty]) => {
       const p = products.find((x) => x.id === id)!;
       return { id, name: p.name, price: p.priceValue, qty };
@@ -87,14 +87,28 @@ function LandingPage() {
       items.push({ id: uid("custom"), name: `Autre : ${customRequest.trim()}`, price: 0, qty: 1 });
     }
     if (items.length === 0) return;
-    saveLocalOrder({
-      id: uid("lead"),
-      customer_name: form.name, phone: form.phone, email: form.email,
-      wilaya: form.wilaya, address: form.address, notes: form.notes,
-      items, total_dzd: total, status: "new",
-      created_at: new Date().toISOString(),
-    });
-    setSent(true);
+    setSubmitting(true);
+    setError("");
+    try {
+      await submitOrder({
+        data: {
+          customer_name: form.name,
+          phone: form.phone,
+          email: form.email || undefined,
+          wilaya: form.wilaya || undefined,
+          address: form.address || undefined,
+          notes: form.notes || undefined,
+          items,
+          total_dzd: total,
+          whatsapp_sent: false,
+        },
+      });
+      setSent(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur lors de l'envoi");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (sent) {
