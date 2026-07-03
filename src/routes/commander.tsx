@@ -5,8 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Check, ChevronRight, Sparkles, Zap, ArrowLeft } from "lucide-react";
 import { products as seedProducts, type Product } from "@/lib/data";
-import { saveLocalOrder, uid, formatPriceDzd } from "@/lib/local-store";
+import { uid, formatPriceDzd } from "@/lib/local-store";
 import { listPublicProducts } from "@/lib/products.functions";
+import { createOrder } from "@/lib/leads.functions";
 import { mapPublicProduct } from "@/lib/product-mapping";
 import { WILAYAS } from "@/lib/wilayas";
 
@@ -35,6 +36,7 @@ const orbs = Array.from({ length: 14 }, (_, i) => ({ id: i, x: (i * 73) % 100, y
 
 function LandingPage() {
   const call = useServerFn(listPublicProducts);
+  const submitOrder = useServerFn(createOrder);
   const { data } = useQuery({
     queryKey: ["public-products"],
     queryFn: () => call({ data: {} }),
@@ -49,6 +51,8 @@ function LandingPage() {
   const [customRequest, setCustomRequest] = useState("");
   const [form, setForm] = useState({ name: "", phone: "", email: "", wilaya: "", address: "", notes: "" });
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -72,9 +76,9 @@ function LandingPage() {
   const toggle = (id: string) => setSelected((s) => ({ ...s, [id]: s[id] ? 0 : 1 }));
   const setQty = (id: string, qty: number) => setSelected((s) => ({ ...s, [id]: Math.max(0, qty) }));
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.phone || !form.wilaya) return;
+    if (!form.name || !form.phone || !form.wilaya || submitting) return;
     const items = Object.entries(selected).filter(([, q]) => q > 0).map(([id, qty]) => {
       const p = products.find((x) => x.id === id)!;
       return { id, name: p.name, price: p.priceValue, qty };
@@ -83,14 +87,28 @@ function LandingPage() {
       items.push({ id: uid("custom"), name: `Autre : ${customRequest.trim()}`, price: 0, qty: 1 });
     }
     if (items.length === 0) return;
-    saveLocalOrder({
-      id: uid("lead"),
-      customer_name: form.name, phone: form.phone, email: form.email,
-      wilaya: form.wilaya, address: form.address, notes: form.notes,
-      items, total_dzd: total, status: "new",
-      created_at: new Date().toISOString(),
-    });
-    setSent(true);
+    setSubmitting(true);
+    setError("");
+    try {
+      await submitOrder({
+        data: {
+          customer_name: form.name,
+          phone: form.phone,
+          email: form.email || undefined,
+          wilaya: form.wilaya || undefined,
+          address: form.address || undefined,
+          notes: form.notes || undefined,
+          items,
+          total_dzd: total,
+          whatsapp_sent: false,
+        },
+      });
+      setSent(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur lors de l'envoi");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (sent) {
@@ -197,8 +215,9 @@ function LandingPage() {
                 <span className="text-muted-foreground">Total estimé</span>
                 <span className="text-primary">{total ? formatPriceDzd(total) : "Sur devis"}</span>
               </div>
-              <motion.button whileTap={{ scale: 0.96 }} type="submit" className="mt-4 inline-flex w-full items-center justify-center gap-2 bg-primary px-6 py-4 font-mono text-xs uppercase tracking-[0.3em] text-primary-foreground hover:opacity-90">
-                Envoyer la commande <ChevronRight className="h-4 w-4" />
+              {error && <p className="mt-3 border border-red-500/40 bg-red-500/10 px-3 py-2 text-xs text-red-300">{error}</p>}
+              <motion.button whileTap={{ scale: 0.96 }} type="submit" disabled={submitting} className="mt-4 inline-flex w-full items-center justify-center gap-2 bg-primary px-6 py-4 font-mono text-xs uppercase tracking-[0.3em] text-primary-foreground hover:opacity-90 disabled:opacity-50">
+                {submitting ? "Envoi…" : "Envoyer la commande"} <ChevronRight className="h-4 w-4" />
               </motion.button>
               <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">◉ Traitée par AUDAX Technology · 69 wilayas</p>
             </div>

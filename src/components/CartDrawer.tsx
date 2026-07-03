@@ -1,36 +1,54 @@
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Minus, Plus, ShoppingCart, Trash2, X } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
 import { useCart } from "@/lib/stores";
-import { formatPriceDzd, saveLocalOrder, uid } from "@/lib/local-store";
+import { formatPriceDzd } from "@/lib/local-store";
+import { createOrder } from "@/lib/leads.functions";
 import { WILAYAS } from "@/lib/wilayas";
 
 export function CartDrawer() {
   const { items, isOpen, close, remove, setQty, clear, total, count } = useCart();
+  const submitOrder = useServerFn(createOrder);
   const [form, setForm] = useState({ customer_name: "", phone: "", email: "", address: "", wilaya: "", notes: "" });
   const [done, setDone] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const [confirmationText, setConfirmationText] = useState("");
   const orderTotal = total();
-  const canSubmit = form.customer_name.trim().length > 1 && form.phone.trim().length > 5 && items.length > 0;
+  const canSubmit = form.customer_name.trim().length > 1 && form.phone.trim().length > 5 && items.length > 0 && !submitting;
   const whatsappText = useMemo(
-    () => encodeURIComponent(confirmationText || `Nouvelle commande AUDAX Technology\n${items.map((i) => `- ${i.name} x${i.qty}`).join("\n")}\nTotal: ${formatPriceDzd(orderTotal)}\nClient: ${form.customer_name}\nTél: ${form.phone}`),
+    () => encodeURIComponent(confirmationText || `Nouvelle commande VAR Algérie\n${items.map((i) => `- ${i.name} x${i.qty}`).join("\n")}\nTotal: ${formatPriceDzd(orderTotal)}\nClient: ${form.customer_name}\nTél: ${form.phone}`),
     [confirmationText, form.customer_name, form.phone, items, orderTotal],
   );
 
-  const submit = () => {
+  const submit = async () => {
     if (!canSubmit) return;
+    setSubmitting(true);
+    setError("");
     const savedItems = items.map((i) => ({ id: i.id, name: i.name, price: i.price, qty: i.qty }));
-    setConfirmationText(`Nouvelle commande AUDAX Technology\n${savedItems.map((i) => `- ${i.name} x${i.qty}`).join("\n")}\nTotal: ${formatPriceDzd(orderTotal)}\nClient: ${form.customer_name}\nTél: ${form.phone}\nWilaya: ${form.wilaya}\nAdresse: ${form.address}`);
-    saveLocalOrder({
-      id: uid("cmd"),
-      ...form,
-      items: savedItems,
-      total_dzd: orderTotal,
-      status: "new",
-      created_at: new Date().toISOString(),
-    });
-    clear();
-    setDone(true);
+    try {
+      await submitOrder({
+        data: {
+          customer_name: form.customer_name,
+          phone: form.phone,
+          email: form.email || undefined,
+          address: form.address || undefined,
+          wilaya: form.wilaya || undefined,
+          notes: form.notes || undefined,
+          items: savedItems,
+          total_dzd: orderTotal,
+          whatsapp_sent: false,
+        },
+      });
+      setConfirmationText(`Nouvelle commande VAR Algérie\n${savedItems.map((i) => `- ${i.name} x${i.qty}`).join("\n")}\nTotal: ${formatPriceDzd(orderTotal)}\nClient: ${form.customer_name}\nTél: ${form.phone}\nWilaya: ${form.wilaya}\nAdresse: ${form.address}`);
+      clear();
+      setDone(true);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Erreur lors de l'envoi");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -91,7 +109,8 @@ export function CartDrawer() {
                       {WILAYAS.map((wilaya) => <option key={wilaya} value={wilaya}>{wilaya}</option>)}
                     </select>
                     <textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} placeholder="Note optionnelle" className="min-h-20 border border-input bg-background px-3 py-3 text-sm outline-none focus:border-primary" />
-                    <button type="button" disabled={!canSubmit} onClick={submit} className="bg-primary px-4 py-4 font-mono text-xs uppercase tracking-[0.25em] text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">Valider la commande</button>
+                    {error && <p className="border border-red-500/40 bg-red-500/10 px-3 py-2 text-xs text-red-300">{error}</p>}
+                    <button type="button" disabled={!canSubmit} onClick={submit} className="bg-primary px-4 py-4 font-mono text-xs uppercase tracking-[0.25em] text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40">{submitting ? "Envoi…" : "Valider la commande"}</button>
                   </div>
                 </div>
               </>
