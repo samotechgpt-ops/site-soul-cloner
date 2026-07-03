@@ -264,9 +264,22 @@ function AdminPage() {
     });
   };
 
-  const setStatus = (id: string, status: OrderStatus) => {
-    updateLocalOrderStatus(id, status);
-    setOrders(loadLocalOrders());
+  const setStatus = async (id: string, status: string) => {
+    try {
+      await callUpdateOrder({ data: { id, status } });
+      qc.invalidateQueries({ queryKey: ["admin-orders"] });
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : "Erreur mise à jour");
+    }
+  };
+
+  const setLeadStatus = async (id: string, status: string) => {
+    try {
+      await callUpdateLead({ data: { id, status } });
+      qc.invalidateQueries({ queryKey: ["admin-leads"] });
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : "Erreur mise à jour");
+    }
   };
 
   const changePassword = async () => {
