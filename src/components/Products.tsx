@@ -1,23 +1,30 @@
 import { motion } from "motion/react";
 import { ArrowUpRight, ShoppingCart, Eye } from "lucide-react";
-import { useEffect, useState } from "react";
-import { type Product } from "@/lib/data";
-import { formatPriceDzd, loadManagedProducts, PRODUCTS_CHANGED_EVENT } from "@/lib/local-store";
+import { useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { products as seedProducts, type Product } from "@/lib/data";
+import { formatPriceDzd } from "@/lib/local-store";
+import { listPublicProducts } from "@/lib/products.functions";
+import { mapPublicProduct } from "@/lib/product-mapping";
 import { useCart } from "@/lib/stores";
 import { TiltCard } from "./TiltCard";
 import { ProductModal } from "./ProductModal";
 import productShowroom from "@/assets/var-office-allinone.jpg";
 
 export function Products() {
-  const [items, setItems] = useState<Product[]>(loadManagedProducts);
   const [active, setActive] = useState<Product | null>(null);
   const add = useCart((s) => s.add);
-
-  useEffect(() => {
-    const sync = () => setItems(loadManagedProducts());
-    window.addEventListener(PRODUCTS_CHANGED_EVENT, sync);
-    return () => window.removeEventListener(PRODUCTS_CHANGED_EVENT, sync);
-  }, []);
+  const call = useServerFn(listPublicProducts);
+  const { data } = useQuery({
+    queryKey: ["public-products"],
+    queryFn: () => call({ data: {} }),
+    staleTime: 30_000,
+  });
+  const items: Product[] = useMemo(() => {
+    const mapped = (data ?? []).map(mapPublicProduct);
+    return mapped.length > 0 ? mapped : seedProducts;
+  }, [data]);
 
   return (
     <section id="products" className="relative py-20 md:py-32 overflow-hidden">
