@@ -480,31 +480,68 @@ function AdminPage() {
             )}
 
             {tab === "leads" && (
-              <motion.section key="leads" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 border border-primary/20 bg-card/70 p-5 backdrop-blur">
-                <h2 className="font-display text-2xl font-bold">Commandes / leads</h2>
-                <div className="mt-4 grid gap-3">
-                  {orders.length === 0 && <p className="text-sm text-muted-foreground">Aucune commande pour l'instant.</p>}
-                  {orders.map((o) => (
-                    <article key={o.id} className="border border-primary/15 bg-background p-4">
-                      <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
-                        <div className="min-w-0">
-                          <h3 className="truncate font-bold">{o.customer_name} · {o.phone}</h3>
-                          <p className="text-sm text-muted-foreground">{o.email}</p>
-                          <p className="text-sm text-muted-foreground">{o.wilaya} {o.address}</p>
-                          <p className="mt-2 font-mono text-xs text-primary">{formatPriceDzd(o.total_dzd)}</p>
+              <motion.section key="leads" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6">
+                <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur">
+                  <div className="flex items-center justify-between gap-3">
+                    <h2 className="font-display text-2xl font-bold">Commandes ({orders.length})</h2>
+                    <button type="button" onClick={() => qc.invalidateQueries({ queryKey: ["admin-orders"] })} className="border border-primary/30 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em]">Actualiser</button>
+                  </div>
+                  {ordersQuery.isLoading && <p className="mt-4 text-sm text-muted-foreground">Chargement…</p>}
+                  {ordersQuery.error && <p className="mt-4 text-sm text-red-400">Erreur : {(ordersQuery.error as Error).message}</p>}
+                  <div className="mt-4 grid gap-3">
+                    {!ordersQuery.isLoading && orders.length === 0 && <p className="text-sm text-muted-foreground">Aucune commande enregistrée.</p>}
+                    {orders.map((o: any) => (
+                      <article key={o.id} className="border border-primary/15 bg-background p-4">
+                        <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
+                          <div className="min-w-0">
+                            <h3 className="truncate font-bold">{o.customer_name} · {o.phone}</h3>
+                            <p className="text-sm text-muted-foreground">{o.email}</p>
+                            <p className="text-sm text-muted-foreground">{o.wilaya} {o.address}</p>
+                            <p className="mt-2 font-mono text-xs text-primary">{formatPriceDzd(o.total_dzd || 0)}</p>
+                            <p className="mt-1 font-mono text-[10px] text-muted-foreground">{new Date(o.created_at).toLocaleString("fr-DZ")}</p>
+                          </div>
+                          <select value={o.status || "new"} onChange={(e) => setStatus(o.id, e.target.value)} className="h-10 border border-input bg-background px-3">
+                            <option value="new">Nouveau</option>
+                            <option value="confirmed">Confirmé</option>
+                            <option value="processing">Traitement</option>
+                            <option value="done">Terminé</option>
+                            <option value="cancelled">Annulé</option>
+                          </select>
                         </div>
-                        <select value={o.status} onChange={(e) => setStatus(o.id, e.target.value as OrderStatus)} className="h-10 border border-input bg-background px-3">
-                          <option value="new">Nouveau</option>
-                          <option value="confirmed">Confirmé</option>
-                          <option value="processing">Traitement</option>
-                          <option value="done">Terminé</option>
-                          <option value="cancelled">Annulé</option>
-                        </select>
-                      </div>
-                      <ul className="mt-3 text-sm text-muted-foreground">{o.items.map((i) => <li key={i.id}>{i.name} x{i.qty} — {formatPriceDzd(i.price)}</li>)}</ul>
-                      {o.notes && <p className="mt-3 border-l border-primary/40 pl-3 text-sm text-muted-foreground">{o.notes}</p>}
-                    </article>
-                  ))}
+                        <ul className="mt-3 text-sm text-muted-foreground">{(o.items || []).map((i: any, idx: number) => <li key={`${i.id}-${idx}`}>{i.name} x{i.qty} — {formatPriceDzd(i.price)}</li>)}</ul>
+                        {o.notes && <p className="mt-3 border-l border-primary/40 pl-3 text-sm text-muted-foreground">{o.notes}</p>}
+                      </article>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur">
+                  <div className="flex items-center justify-between gap-3">
+                    <h2 className="font-display text-2xl font-bold">Leads / contacts ({leads.length})</h2>
+                    <button type="button" onClick={() => qc.invalidateQueries({ queryKey: ["admin-leads"] })} className="border border-primary/30 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em]">Actualiser</button>
+                  </div>
+                  <div className="mt-4 grid gap-3">
+                    {!leadsQuery.isLoading && leads.length === 0 && <p className="text-sm text-muted-foreground">Aucun lead enregistré.</p>}
+                    {leads.map((l: any) => (
+                      <article key={l.id} className="border border-primary/15 bg-background p-4">
+                        <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
+                          <div className="min-w-0">
+                            <h3 className="truncate font-bold">{l.name} · {l.phone}</h3>
+                            <p className="text-sm text-muted-foreground">{l.email}</p>
+                            <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-primary">{l.source} · {new Date(l.created_at).toLocaleString("fr-DZ")}</p>
+                            {l.products && <p className="mt-1 text-xs text-muted-foreground">Produit : {l.products.name_fr}</p>}
+                            {l.message && <p className="mt-2 text-sm text-muted-foreground">{l.message}</p>}
+                          </div>
+                          <select value={l.status || "new"} onChange={(e) => setLeadStatus(l.id, e.target.value)} className="h-10 border border-input bg-background px-3">
+                            <option value="new">Nouveau</option>
+                            <option value="contacted">Contacté</option>
+                            <option value="qualified">Qualifié</option>
+                            <option value="closed">Clôturé</option>
+                          </select>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
                 </div>
               </motion.section>
             )}
