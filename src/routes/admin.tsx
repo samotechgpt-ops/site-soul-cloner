@@ -71,12 +71,15 @@ function AdminPage() {
   const callUpsertCat = useServerFn(upsertCategory);
   const callDeleteCat = useServerFn(deleteCategory);
   const callGenDesc = useServerFn(generateProductDescription);
+  const callOrders = useServerFn(listAdminOrders);
+  const callUpdateOrder = useServerFn(updateOrderStatus);
+  const callLeads = useServerFn(listAdminLeads);
+  const callUpdateLead = useServerFn(updateLeadStatus);
 
   const [tab, setTab] = useState<AdminTab>("products");
   const [password, setPassword] = useState("");
   const [editing, setEditing] = useState<ProductForm>(blankProduct);
   const [editingCat, setEditingCat] = useState<CategoryForm>(blankCat);
-  const [orders, setOrders] = useState<LocalOrder[]>([]);
   const [message, setMessage] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -95,23 +98,30 @@ function AdminPage() {
     queryFn: () => (callListCats as any)(),
     enabled: authed,
   });
+  const ordersQuery = useQuery({
+    queryKey: ["admin-orders"],
+    queryFn: () => (callOrders as any)(),
+    enabled: authed,
+    refetchInterval: 15000,
+  });
+  const leadsQuery = useQuery({
+    queryKey: ["admin-leads"],
+    queryFn: () => (callLeads as any)(),
+    enabled: authed,
+    refetchInterval: 15000,
+  });
 
   const products = (productsQuery.data ?? []) as any[];
   const cats: PublicCategory[] = (catsQuery.data ?? []);
-
-  useEffect(() => {
-    setOrders(loadLocalOrders());
-    const refresh = () => setOrders(loadLocalOrders());
-    window.addEventListener("audax-orders-changed", refresh);
-    return () => window.removeEventListener("audax-orders-changed", refresh);
-  }, []);
+  const orders = (ordersQuery.data ?? []) as any[];
+  const leads = (leadsQuery.data ?? []) as any[];
 
   const dashboard = useMemo(() => ({
     products: products.length,
-    leads: orders.length,
-    revenue: orders.reduce((s, o) => s + o.total_dzd, 0),
-    pending: orders.filter((o) => o.status === "new" || o.status === "processing").length,
-  }), [orders, products]);
+    leads: orders.length + leads.length,
+    revenue: orders.reduce((s: number, o: any) => s + (o.total_dzd || 0), 0),
+    pending: orders.filter((o: any) => o.status === "new" || o.status === "processing").length,
+  }), [orders, leads, products]);
 
   const login = async () => {
     try {
