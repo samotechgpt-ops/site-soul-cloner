@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useMemo, useState, type ChangeEvent } from "react";
+import { useMemo, useState, type ChangeEvent } from "react";
 import { Boxes, ClipboardList, LogOut, Plus, Save, Settings, ShieldCheck, Sparkles, Tag, Trash2, Upload, X } from "lucide-react";
 import { generateProductDescription } from "@/lib/ai.functions";
 import { adminLogin, adminLogout, adminCheck, adminChangePassword } from "@/lib/admin.functions";
