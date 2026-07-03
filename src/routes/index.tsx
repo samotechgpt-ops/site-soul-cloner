@@ -40,6 +40,7 @@ function Index() {
       <main>
         <Hero />
         <Marquee />
+        <VideoBanner />
         <Products />
         <Stats />
         <Categories />
