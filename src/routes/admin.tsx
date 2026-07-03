@@ -8,13 +8,8 @@ import { generateProductDescription } from "@/lib/ai.functions";
 import { adminLogin, adminLogout, adminCheck, adminChangePassword } from "@/lib/admin.functions";
 import { listAdminProducts, upsertProduct, deleteProduct, type PublicProduct } from "@/lib/products.functions";
 import { listCategories, upsertCategory, deleteCategory, type PublicCategory } from "@/lib/categories.functions";
-import {
-  formatPriceDzd,
-  loadLocalOrders,
-  updateLocalOrderStatus,
-  type LocalOrder,
-  type OrderStatus,
-} from "@/lib/local-store";
+import { listAdminOrders, updateOrderStatus, listAdminLeads, updateLeadStatus } from "@/lib/leads.functions";
+import { formatPriceDzd } from "@/lib/local-store";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
