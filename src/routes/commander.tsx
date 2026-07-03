@@ -215,8 +215,9 @@ function LandingPage() {
                 <span className="text-muted-foreground">Total estimé</span>
                 <span className="text-primary">{total ? formatPriceDzd(total) : "Sur devis"}</span>
               </div>
-              <motion.button whileTap={{ scale: 0.96 }} type="submit" className="mt-4 inline-flex w-full items-center justify-center gap-2 bg-primary px-6 py-4 font-mono text-xs uppercase tracking-[0.3em] text-primary-foreground hover:opacity-90">
-                Envoyer la commande <ChevronRight className="h-4 w-4" />
+              {error && <p className="mt-3 border border-red-500/40 bg-red-500/10 px-3 py-2 text-xs text-red-300">{error}</p>}
+              <motion.button whileTap={{ scale: 0.96 }} type="submit" disabled={submitting} className="mt-4 inline-flex w-full items-center justify-center gap-2 bg-primary px-6 py-4 font-mono text-xs uppercase tracking-[0.3em] text-primary-foreground hover:opacity-90 disabled:opacity-50">
+                {submitting ? "Envoi…" : "Envoyer la commande"} <ChevronRight className="h-4 w-4" />
               </motion.button>
               <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">◉ Traitée par AUDAX Technology · 69 wilayas</p>
             </div>
