@@ -34,7 +34,16 @@ const requestTypes = [
 const orbs = Array.from({ length: 14 }, (_, i) => ({ id: i, x: (i * 73) % 100, y: (i * 41) % 100, d: 14 + (i % 6) * 2 }));
 
 function LandingPage() {
-  const [products, setProducts] = useState<Product[]>(() => loadManagedProducts());
+  const call = useServerFn(listPublicProducts);
+  const { data } = useQuery({
+    queryKey: ["public-products"],
+    queryFn: () => call({ data: {} }),
+    staleTime: 30_000,
+  });
+  const products: Product[] = useMemo(() => {
+    const mapped = (data ?? []).map(mapPublicProduct);
+    return mapped.length > 0 ? mapped : seedProducts;
+  }, [data]);
   const [selected, setSelected] = useState<Record<string, number>>({});
   const [mode, setMode] = useState<"products" | "custom">("products");
   const [customRequest, setCustomRequest] = useState("");
@@ -42,20 +51,18 @@ function LandingPage() {
   const [sent, setSent] = useState(false);
 
   useEffect(() => {
-    const list = loadManagedProducts();
-    setProducts(list);
     const params = new URLSearchParams(window.location.search);
     if (params.get("mode") === "custom") setMode("custom");
     const category = params.get("category");
-    if (category) {
-      const matches = list.filter((p) => (p.categoryId || p.category) === category);
+    if (category && products.length) {
+      const matches = products.filter((p: Product) => (p.categoryId || p.category) === category);
       if (matches.length) {
         const pre: Record<string, number> = {};
         for (const m of matches) pre[m.id] = 1;
         setSelected(pre);
       }
     }
-  }, []);
+  }, [products]);
 
   const total = useMemo(() => Object.entries(selected).reduce((sum, [id, qty]) => {
     const p = products.find((x) => x.id === id);
