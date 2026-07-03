@@ -5,8 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Check, ChevronRight, Sparkles, Zap, ArrowLeft } from "lucide-react";
 import { products as seedProducts, type Product } from "@/lib/data";
-import { saveLocalOrder, uid, formatPriceDzd } from "@/lib/local-store";
+import { uid, formatPriceDzd } from "@/lib/local-store";
 import { listPublicProducts } from "@/lib/products.functions";
+import { createOrder } from "@/lib/leads.functions";
 import { mapPublicProduct } from "@/lib/product-mapping";
 import { WILAYAS } from "@/lib/wilayas";
 
