@@ -9,6 +9,7 @@ import { Stats } from "@/components/Stats";
 import { Categories } from "@/components/Categories";
 import { Quality } from "@/components/Quality";
 import { ScrollVideo } from "@/components/ScrollVideo";
+import { VideoBanner } from "@/components/VideoBanner";
 import { Products } from "@/components/Products";
 import { Showcase } from "@/components/Showcase";
 import { CTA } from "@/components/CTA";
