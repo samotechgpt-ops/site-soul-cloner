@@ -356,7 +356,7 @@ function AdminPage() {
 
           <AnimatePresence mode="wait">
             {tab === "products" && (
-              <motion.div key="products" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-[420px_1fr]">
+              <motion.div key="products" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
                 <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur">
                   <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
                     <h2 className="truncate font-display text-2xl font-bold">{editing.id ? "Modifier produit" : "Ajouter produit"}</h2>
@@ -447,7 +447,7 @@ function AdminPage() {
             )}
 
             {tab === "categories" && (
-              <motion.div key="categories" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-[420px_1fr]">
+              <motion.div key="categories" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
                 <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur">
                   <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
                     <h2 className="truncate font-display text-2xl font-bold">{editingCat.id ? "Modifier catégorie" : "Ajouter catégorie"}</h2>
