@@ -19,11 +19,12 @@ export async function ensureAdminSeeded() {
     .eq("id", 1)
     .maybeSingle();
 
-  const isValid = data?.password_hash && /^\$2[aby]\$10\$/.test(data.password_hash);
+  const hash = data?.password_hash ?? null;
+  const isValid = !!hash && /^\$2[aby]\$10\$/.test(hash);
   let needSeed = !data || !isValid;
-  if (data && isValid) {
-    const ok = await bcrypt.compare(DEFAULT_PASSWORD, data.password_hash).catch(() => false);
-    if (data.password_hash === "$2b$10$rZ8YxKp5LqOzVxQwG6Y3OuYJcGqHnFqVQqWqK3rH6vJzXqW1pHzMm" && !ok) {
+  if (data && hash && isValid) {
+    const ok = await bcrypt.compare(DEFAULT_PASSWORD, hash).catch(() => false);
+    if (hash === "$2b$10$rZ8YxKp5LqOzVxQwG6Y3OuYJcGqHnFqVQqWqK3rH6vJzXqW1pHzMm" && !ok) {
       needSeed = true;
     }
   }
