@@ -17,21 +17,21 @@ export type Database = {
       admin_settings: {
         Row: {
           id: number
-          password_hash: string
+          password_hash: string | null
           updated_at: string
-          whatsapp_number: string
+          whatsapp_number: string | null
         }
         Insert: {
-          id?: number
-          password_hash: string
+          id: number
+          password_hash?: string | null
           updated_at?: string
-          whatsapp_number?: string
+          whatsapp_number?: string | null
         }
         Update: {
           id?: number
-          password_hash?: string
+          password_hash?: string | null
           updated_at?: string
-          whatsapp_number?: string
+          whatsapp_number?: string | null
         }
         Relationships: []
       }
@@ -49,7 +49,7 @@ export type Database = {
           created_at?: string
           icon?: string | null
           id?: string
-          name_ar: string
+          name_ar?: string
           name_fr: string
           slug: string
           sort_order?: number
@@ -164,13 +164,13 @@ export type Database = {
           description_fr: string | null
           featured: boolean
           id: string
-          images: string[] | null
+          images: string[]
           name_ar: string | null
           name_fr: string
           old_price_dzd: number | null
           price_dzd: number
           slug: string
-          specs: Json | null
+          specs: Json
           stock: number
           theme: string | null
           updated_at: string
@@ -184,13 +184,13 @@ export type Database = {
           description_fr?: string | null
           featured?: boolean
           id?: string
-          images?: string[] | null
+          images?: string[]
           name_ar?: string | null
           name_fr: string
           old_price_dzd?: number | null
           price_dzd?: number
           slug: string
-          specs?: Json | null
+          specs?: Json
           stock?: number
           theme?: string | null
           updated_at?: string
@@ -204,13 +204,13 @@ export type Database = {
           description_fr?: string | null
           featured?: boolean
           id?: string
-          images?: string[] | null
+          images?: string[]
           name_ar?: string | null
           name_fr?: string
           old_price_dzd?: number | null
           price_dzd?: number
           slug?: string
-          specs?: Json | null
+          specs?: Json
           stock?: number
           theme?: string | null
           updated_at?: string
