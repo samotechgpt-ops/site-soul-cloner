@@ -12,6 +12,7 @@ import { WILAYAS } from "@/lib/wilayas";
 export function CartDrawer() {
   const { items, isOpen, close, remove, setQty, clear, total, count } = useCart();
   const submitOrder = useServerFn(createOrder);
+  const submitLead = useServerFn(createLead);
   const [form, setForm] = useState({ customer_name: "", phone: "", email: "", address: "", wilaya: "", notes: "" });
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
