@@ -39,6 +39,7 @@ const orbs = Array.from({ length: 14 }, (_, i) => ({ id: i, x: (i * 73) % 100, y
 function LandingPage() {
   const call = useServerFn(listPublicProducts);
   const submitOrder = useServerFn(createOrder);
+  const submitLead = useServerFn(createLead);
   const { data } = useQuery({
     queryKey: ["public-products"],
     queryFn: () => call({ data: {} }),
