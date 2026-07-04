@@ -6,7 +6,7 @@ import { ScrambleText } from "./ScrambleText";
 import { scrollToSection } from "@/lib/scroll";
 import heroBg from "@/assets/var-business-showroom.jpg";
 import varShowcase from "@/assets/var-hero-showcase.jpg";
-import audaxLogo from "@/assets/audax-technology-logo.png.asset.json";
+import varLogo from "@/assets/var-logo-transparent.png.asset.json";
 import varMonitorLoop from "@/assets/var-monitor-loop.mp4.asset.json";
 
 const particles = Array.from({ length: 22 }, (_, i) => ({
@@ -115,9 +115,9 @@ export function Hero() {
                 {/* Bottom bezel with LOGO */}
                 <div className="mt-3 flex items-center justify-between gap-3 px-2">
                   <img
-                    src={audaxLogo.url}
-                    alt="AUDAX Technology"
-                    className="h-8 sm:h-10 w-auto drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
+                    src={varLogo.url}
+                    alt="VAR"
+                    className="h-7 w-auto drop-shadow-[0_0_10px_rgba(220,38,38,0.7)] sm:h-9"
                   />
                   <div className="flex items-center gap-2 font-mono text-[9px] sm:text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
                     <span>VAR · Garantie</span>

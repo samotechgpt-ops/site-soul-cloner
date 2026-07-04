@@ -20,7 +20,7 @@ export async function uploadProductImage(file: File): Promise<string> {
 
 export async function getSignedUrl(path: string): Promise<string> {
   if (!path) return "";
-  if (path.startsWith("http")) return path;
+  if (path.startsWith("http") || path.startsWith("/") || path.startsWith("data:")) return path;
   const { data } = await supabaseAdmin.storage.from(BUCKET).createSignedUrl(path, SIGNED_EXPIRY);
   return data?.signedUrl ?? "";
 }
@@ -31,6 +31,6 @@ export async function signImageArray(paths: string[] | null | undefined): Promis
 }
 
 export async function deleteProductImage(path: string) {
-  if (!path || path.startsWith("http")) return;
+  if (!path || path.startsWith("http") || path.startsWith("/") || path.startsWith("data:")) return;
   await supabaseAdmin.storage.from(BUCKET).remove([path]);
 }

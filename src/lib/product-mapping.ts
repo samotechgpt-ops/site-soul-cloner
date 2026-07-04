@@ -4,7 +4,9 @@ import { formatPriceDzd } from "@/lib/local-store";
 
 export function mapPublicProduct(p: PublicProduct): Product {
   const image = p.images?.[0] || "";
-  const code = (p.slug || "").slice(0, 10).toUpperCase() || "VAR";
+  const code = typeof p.specs?.code === "string" && p.specs.code.trim()
+    ? p.specs.code.trim()
+    : (p.slug || "").slice(0, 10).toUpperCase() || "VAR";
   return {
     id: p.id,
     name: p.name_fr,

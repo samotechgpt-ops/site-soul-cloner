@@ -59,7 +59,7 @@ function LandingPage() {
     if (params.get("mode") === "custom") setMode("custom");
     const category = params.get("category");
     if (category && products.length) {
-      const matches = products.filter((p: Product) => (p.categoryId || p.category) === category);
+      const matches = products.filter((p: Product) => p.category === category || p.categoryId === category);
       if (matches.length) {
         const pre: Record<string, number> = {};
         for (const m of matches) pre[m.id] = 1;
