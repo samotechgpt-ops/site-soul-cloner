@@ -4,7 +4,9 @@ import { Minus, Plus, ShoppingCart, Trash2, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { useCart } from "@/lib/stores";
 import { formatPriceDzd } from "@/lib/local-store";
-import { createOrder } from "@/lib/leads.functions";
+import { createOrder, createLead } from "@/lib/leads.functions";
+
+const WHATSAPP_NUMBER = "213770741873";
 import { WILAYAS } from "@/lib/wilayas";
 
 export function CartDrawer() {
