@@ -7,9 +7,11 @@ import { Check, ChevronRight, Sparkles, Zap, ArrowLeft } from "lucide-react";
 import { products as seedProducts, type Product } from "@/lib/data";
 import { uid, formatPriceDzd } from "@/lib/local-store";
 import { listPublicProducts } from "@/lib/products.functions";
-import { createOrder } from "@/lib/leads.functions";
+import { createOrder, createLead } from "@/lib/leads.functions";
 import { mapPublicProduct } from "@/lib/product-mapping";
 import { WILAYAS } from "@/lib/wilayas";
+
+const WHATSAPP_NUMBER = "213770741873";
 
 export const Route = createFileRoute("/commander")({
   head: () => ({
@@ -37,6 +39,7 @@ const orbs = Array.from({ length: 14 }, (_, i) => ({ id: i, x: (i * 73) % 100, y
 function LandingPage() {
   const call = useServerFn(listPublicProducts);
   const submitOrder = useServerFn(createOrder);
+  const submitLead = useServerFn(createLead);
   const { data } = useQuery({
     queryKey: ["public-products"],
     queryFn: () => call({ data: {} }),
@@ -78,7 +81,11 @@ function LandingPage() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.phone || !form.wilaya || submitting) return;
+    if (submitting) return;
+    if (!form.name || !form.phone || !form.wilaya) {
+      setError("Merci de renseigner nom, téléphone et wilaya.");
+      return;
+    }
     const items = Object.entries(selected).filter(([, q]) => q > 0).map(([id, qty]) => {
       const p = products.find((x) => x.id === id)!;
       return { id, name: p.name, price: p.priceValue, qty };
@@ -86,9 +93,13 @@ function LandingPage() {
     if (mode === "custom" && customRequest.trim()) {
       items.push({ id: uid("custom"), name: `Autre : ${customRequest.trim()}`, price: 0, qty: 1 });
     }
-    if (items.length === 0) return;
+    if (items.length === 0) {
+      setError(mode === "custom" ? "Merci de décrire votre besoin." : "Merci de sélectionner au moins un produit.");
+      return;
+    }
     setSubmitting(true);
     setError("");
+    const waMessage = `🛒 Nouvelle commande VAR Algérie\n\n${items.map((i) => `• ${i.name} x${i.qty}${i.price ? ` — ${formatPriceDzd(i.price * i.qty)}` : ""}`).join("\n")}\n\n💰 Total: ${total ? formatPriceDzd(total) : "Sur devis"}\n\n👤 Client: ${form.name}\n📞 Tél: ${form.phone}${form.email ? `\n✉️ Email: ${form.email}` : ""}${form.wilaya ? `\n📍 Wilaya: ${form.wilaya}` : ""}${form.address ? `\n🏠 Adresse: ${form.address}` : ""}${form.notes ? `\n📝 Note: ${form.notes}` : ""}`;
     try {
       await submitOrder({
         data: {
@@ -100,9 +111,23 @@ function LandingPage() {
           notes: form.notes || undefined,
           items,
           total_dzd: total,
-          whatsapp_sent: false,
+          whatsapp_sent: true,
         },
       });
+      try {
+        await submitLead({
+          data: {
+            name: form.name,
+            phone: form.phone,
+            email: form.email || "",
+            message: waMessage,
+            source: "commande",
+          },
+        });
+      } catch { /* non-blocking */ }
+      if (typeof window !== "undefined") {
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waMessage)}`, "_blank");
+      }
       setSent(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur lors de l'envoi");
