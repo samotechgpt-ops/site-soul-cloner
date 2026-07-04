@@ -344,7 +344,7 @@ function AdminPage() {
           {message && <p className="mt-4 border border-primary/20 bg-primary/10 p-3 text-sm text-primary">{message}</p>}
         </aside>
 
-        <section className="min-w-0">
+        <section className="min-w-0 w-full">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {[{ label: "Produits", value: dashboard.products }, { label: "Catégories", value: cats.length }, { label: "Leads", value: dashboard.leads }, { label: "Total", value: formatPriceDzd(dashboard.revenue) }].map((stat) => (
               <motion.div key={stat.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="border border-primary/15 bg-card/70 p-4 backdrop-blur">
