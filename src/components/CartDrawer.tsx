@@ -30,6 +30,7 @@ export function CartDrawer() {
     setSubmitting(true);
     setError("");
     const savedItems = items.map((i) => ({ id: i.id, name: i.name, price: i.price, qty: i.qty }));
+    const waMessage = `🛒 Nouvelle commande VAR Algérie\n\n${savedItems.map((i) => `• ${i.name} x${i.qty} — ${formatPriceDzd(i.price * i.qty)}`).join("\n")}\n\n💰 Total: ${formatPriceDzd(orderTotal)}\n\n👤 Client: ${form.customer_name}\n📞 Tél: ${form.phone}${form.email ? `\n✉️ Email: ${form.email}` : ""}${form.wilaya ? `\n📍 Wilaya: ${form.wilaya}` : ""}${form.address ? `\n🏠 Adresse: ${form.address}` : ""}${form.notes ? `\n📝 Note: ${form.notes}` : ""}`;
     try {
       await submitOrder({
         data: {
@@ -41,12 +42,28 @@ export function CartDrawer() {
           notes: form.notes || undefined,
           items: savedItems,
           total_dzd: orderTotal,
-          whatsapp_sent: false,
+          whatsapp_sent: true,
         },
       });
-      setConfirmationText(`Nouvelle commande VAR Algérie\n${savedItems.map((i) => `- ${i.name} x${i.qty}`).join("\n")}\nTotal: ${formatPriceDzd(orderTotal)}\nClient: ${form.customer_name}\nTél: ${form.phone}\nWilaya: ${form.wilaya}\nAdresse: ${form.address}`);
+      // Also register as lead in the admin panel
+      try {
+        await submitLead({
+          data: {
+            name: form.customer_name,
+            phone: form.phone,
+            email: form.email || "",
+            message: waMessage,
+            source: "commande",
+          },
+        });
+      } catch { /* non-blocking */ }
+      setConfirmationText(waMessage);
       clear();
       setDone(true);
+      // Auto-open WhatsApp with predefined message
+      if (typeof window !== "undefined") {
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waMessage)}`, "_blank");
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Erreur lors de l'envoi");
     } finally {
