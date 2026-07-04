@@ -317,10 +317,11 @@ function AdminPage() {
   }
 
   return (
-    <main className="dark min-h-screen bg-background text-foreground">
+    <main className="dark min-h-screen w-full overflow-x-hidden bg-background text-foreground">
       <div className="fixed inset-0 bg-grid opacity-20" />
-      <div className="relative mx-auto grid min-h-screen max-w-[1500px] gap-4 px-3 py-4 sm:gap-6 sm:px-4 sm:py-6 lg:grid-cols-[280px_1fr] lg:px-6">
-        <aside className="border border-primary/20 bg-card/70 p-4 backdrop-blur clip-corner lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)]">
+      <div className="relative mx-auto flex min-h-screen w-full max-w-[1500px] flex-col gap-4 px-3 py-4 sm:gap-6 sm:px-4 sm:py-6 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:px-6">
+
+        <aside className="min-w-0 w-full border border-primary/20 bg-card/70 p-4 backdrop-blur clip-corner lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)]">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-primary/15 pb-4 sm:pb-5">
             <div className="min-w-0">
               <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">Panel admin</p>
@@ -343,7 +344,7 @@ function AdminPage() {
           {message && <p className="mt-4 border border-primary/20 bg-primary/10 p-3 text-sm text-primary">{message}</p>}
         </aside>
 
-        <section className="min-w-0">
+        <section className="min-w-0 w-full">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {[{ label: "Produits", value: dashboard.products }, { label: "Catégories", value: cats.length }, { label: "Leads", value: dashboard.leads }, { label: "Total", value: formatPriceDzd(dashboard.revenue) }].map((stat) => (
               <motion.div key={stat.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="border border-primary/15 bg-card/70 p-4 backdrop-blur">
@@ -355,7 +356,7 @@ function AdminPage() {
 
           <AnimatePresence mode="wait">
             {tab === "products" && (
-              <motion.div key="products" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-[420px_1fr]">
+              <motion.div key="products" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
                 <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur">
                   <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
                     <h2 className="truncate font-display text-2xl font-bold">{editing.id ? "Modifier produit" : "Ajouter produit"}</h2>
@@ -446,7 +447,7 @@ function AdminPage() {
             )}
 
             {tab === "categories" && (
-              <motion.div key="categories" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-[420px_1fr]">
+              <motion.div key="categories" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} className="mt-6 grid gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
                 <div className="border border-primary/20 bg-card/70 p-5 backdrop-blur">
                   <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
                     <h2 className="truncate font-display text-2xl font-bold">{editingCat.id ? "Modifier catégorie" : "Ajouter catégorie"}</h2>
