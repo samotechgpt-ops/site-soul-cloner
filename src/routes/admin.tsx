@@ -317,9 +317,10 @@ function AdminPage() {
   }
 
   return (
-    <main className="dark min-h-screen bg-background text-foreground">
+    <main className="dark min-h-screen w-full overflow-x-hidden bg-background text-foreground">
       <div className="fixed inset-0 bg-grid opacity-20" />
-      <div className="relative mx-auto grid min-h-screen max-w-[1500px] gap-4 px-3 py-4 sm:gap-6 sm:px-4 sm:py-6 lg:grid-cols-[280px_1fr] lg:px-6">
+      <div className="relative mx-auto flex min-h-screen w-full max-w-[1500px] flex-col gap-4 px-3 py-4 sm:gap-6 sm:px-4 sm:py-6 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:px-6">
+
         <aside className="border border-primary/20 bg-card/70 p-4 backdrop-blur clip-corner lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)]">
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-primary/15 pb-4 sm:pb-5">
             <div className="min-w-0">
