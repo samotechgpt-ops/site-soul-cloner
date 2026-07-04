@@ -7,9 +7,11 @@ import { Check, ChevronRight, Sparkles, Zap, ArrowLeft } from "lucide-react";
 import { products as seedProducts, type Product } from "@/lib/data";
 import { uid, formatPriceDzd } from "@/lib/local-store";
 import { listPublicProducts } from "@/lib/products.functions";
-import { createOrder } from "@/lib/leads.functions";
+import { createOrder, createLead } from "@/lib/leads.functions";
 import { mapPublicProduct } from "@/lib/product-mapping";
 import { WILAYAS } from "@/lib/wilayas";
+
+const WHATSAPP_NUMBER = "213770741873";
 
 export const Route = createFileRoute("/commander")({
   head: () => ({
