@@ -93,14 +93,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@AudaxTechnology" },
       { name: "twitter:title", content: "VAR Algérie — Moniteurs VAR, PC VAR & Ordinateurs | audax-dz.tech" },
       { name: "twitter:description", content: "Achetez la marque VAR en Algérie : moniteurs VAR N22 / T24M, PC de bureau VAR XPS22F / XPS22M et accessoires informatiques VAR. Prix DZD, livraison 69 wilayas, paiement à la livraison." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/36f8ff3a-ef44-4088-8024-162f566ac223/id-preview-db0c71d3--5e675ebe-eb94-4865-9c1c-42ac3d3fb33f.lovable.app-1781516326984.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/36f8ff3a-ef44-4088-8024-162f566ac223/id-preview-db0c71d3--5e675ebe-eb94-4865-9c1c-42ac3d3fb33f.lovable.app-1781516326984.png" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "icon", type: "image/png", href: "/favicon-var.png" },
     ],
   }),
   shellComponent: RootShell,
