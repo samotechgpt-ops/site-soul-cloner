@@ -66,7 +66,7 @@ export async function issueSession() {
   setCookie(COOKIE_NAME, token, {
     httpOnly: true,
     secure: true,
-    sameSite: "lax",
+    sameSite: "none",
     path: "/",
     maxAge: 60 * 60 * 24 * 7,
   });
