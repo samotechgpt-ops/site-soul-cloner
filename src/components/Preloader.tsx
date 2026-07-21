@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Logo } from "./Logo";
+import iconAsset from "@/assets/audax-icon.png.asset.json";
 
 export function Preloader() {
   const [visible, setVisible] = useState(true);
@@ -32,12 +32,27 @@ export function Preloader() {
           <div className="absolute inset-0 bg-grid opacity-30" />
 
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
+            initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            className="relative"
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="relative flex flex-col items-center gap-6"
           >
-            <Logo className="scale-150" />
+            <img
+              src={iconAsset.url}
+              alt="AUDAX"
+              className="h-40 w-auto sm:h-52 drop-shadow-[0_0_40px_rgba(227,6,19,0.55)]"
+            />
+            <span
+              aria-label="AUDAX"
+              className="select-none text-4xl sm:text-6xl text-white"
+              style={{
+                fontFamily: '"Exo 2", "Segoe UI", system-ui, sans-serif',
+                fontWeight: 900,
+                letterSpacing: "0.14em",
+              }}
+            >
+              AUDAX
+            </span>
           </motion.div>
 
           <div className="relative mt-12 w-64">
