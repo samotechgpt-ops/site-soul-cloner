@@ -1,4 +1,4 @@
-import logoAsset from "@/assets/audax-technology-logo.png.asset.json";
+import logoAsset from "@/assets/audax-logo.png.asset.json";
 
 interface LogoProps {
   className?: string;
