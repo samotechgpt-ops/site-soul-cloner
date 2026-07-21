@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Logo } from "./Logo";
+import iconAsset from "@/assets/audax-icon.png.asset.json";
 
 export function Preloader() {
   const [visible, setVisible] = useState(true);
