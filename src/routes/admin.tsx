@@ -14,8 +14,8 @@ import { formatPriceDzd } from "@/lib/local-store";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin VAR Algérie — Produits et commandes" },
-      { name: "description", content: "Panel admin AUDAX / VAR : gérer produits, catégories, photos, prix et commandes clients." },
+      { title: "Admin AUDAX Technology — Produits et commandes" },
+      { name: "description", content: "Panel admin AUDAX Technology : gérer produits VAR, catégories, photos, prix et commandes clients." },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
