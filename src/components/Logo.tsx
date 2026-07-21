@@ -1,4 +1,4 @@
-import logoAsset from "@/assets/var-logo-transparent.png.asset.json";
+import logoAsset from "@/assets/audax-technology-logo.png.asset.json";
 
 interface LogoProps {
   className?: string;
@@ -6,13 +6,12 @@ interface LogoProps {
 }
 
 export function Logo({ className = "", showText = false }: LogoProps) {
-  // showText kept for prop compatibility; the VAR logo embeds its own wordmark.
   void showText;
   return (
     <div className={`inline-flex items-center ${className}`}>
       <img
         src={logoAsset.url}
-        alt="VAR"
+        alt="AUDAX Technology"
         className="h-8 w-auto shrink-0 drop-shadow-[0_0_18px_oklch(0.62_0.24_25_/_0.45)] sm:h-10"
       />
     </div>
