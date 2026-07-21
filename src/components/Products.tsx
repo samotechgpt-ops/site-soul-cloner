@@ -47,7 +47,7 @@ export function Products() {
               viewport={{ once: true }}
               className="font-display text-4xl md:text-6xl font-bold tracking-tighter leading-[1]"
             >
-              Produits informatiques<br />de marque <span className="text-primary text-glow-crimson italic">VAR.</span>
+              Produits <span className="text-primary text-glow-crimson italic">VAR</span><br />par AUDAX Technology.
             </motion.h2>
           </div>
           <motion.p

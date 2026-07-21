@@ -67,7 +67,7 @@ export function Hero() {
       {/* HUD labels */}
       <div className="absolute top-20 left-4 right-4 z-20 flex justify-between gap-2 font-mono text-[9px] tracking-[0.3em] text-muted-foreground uppercase sm:top-24 sm:left-6 sm:right-6 sm:text-[10px] sm:tracking-[0.35em]">
         <motion.span initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 2.8 }} className="truncate">
-          <ScrambleText text="[ VAR.DZ ] — BOUTIQUE INFORMATIQUE" duration={1200} />
+          <ScrambleText text="[ AUDAX TECHNOLOGY ] — DISTRIBUTEUR OFFICIEL VAR" duration={1200} />
         </motion.span>
         <motion.span initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 2.8 }} className="hidden sm:inline">
           <ScrambleText text="MONITEURS · PC · ACCESSOIRES" duration={1200} />
@@ -157,15 +157,15 @@ export function Hero() {
               className="mb-6 inline-flex animate-hud-flicker items-center gap-3 border border-primary/30 bg-primary/5 px-4 py-2 font-mono text-[10px] tracking-[0.35em] text-primary uppercase"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-              Matériel informatique VAR · Algérie
+              AUDAX Technology · Distributeur VAR · Algérie
             </motion.div>
 
             <h1 className="font-display text-[2.5rem] leading-[0.95] tracking-tighter font-bold sm:text-7xl lg:text-[7rem] lg:leading-[0.92]">
-              <AnimatedWord text="VENTE" delay={2.7} />{" "}
-              <AnimatedWord text="VAR." delay={2.85} className="text-primary text-glow-crimson italic" />
+              <AnimatedWord text="AUDAX" delay={2.7} className="text-primary text-glow-crimson italic" />{" "}
+              <AnimatedWord text="TECHNOLOGY." delay={2.85} />
               <br />
-              <AnimatedWord text="INFORMATIQUE" delay={3.0} />{" "}
-              <AnimatedWord text="PRO" delay={3.15} className="text-shimmer" />
+              <AnimatedWord text="PRODUITS" delay={3.0} />{" "}
+              <AnimatedWord text="VAR" delay={3.15} className="text-shimmer" />
             </h1>
 
             <motion.div

@@ -14,8 +14,8 @@ import { formatPriceDzd } from "@/lib/local-store";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin VAR Algérie — Produits et commandes" },
-      { name: "description", content: "Panel admin AUDAX / VAR : gérer produits, catégories, photos, prix et commandes clients." },
+      { title: "Admin AUDAX Technology — Produits et commandes" },
+      { name: "description", content: "Panel admin AUDAX Technology : gérer produits VAR, catégories, photos, prix et commandes clients." },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -305,7 +305,7 @@ function AdminPage() {
             <ShieldCheck className="h-8 w-8 text-primary" />
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">Secure access</p>
-              <h1 className="font-display text-3xl font-bold">Admin VAR</h1>
+              <h1 className="font-display text-3xl font-bold">Admin AUDAX</h1>
             </div>
           </div>
           <input value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") login(); }} type="password" placeholder="Mot de passe" className="mt-2 w-full border border-input bg-background px-3 py-3 outline-none focus:border-primary" />
@@ -325,7 +325,7 @@ function AdminPage() {
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-primary/15 pb-4 sm:pb-5">
             <div className="min-w-0">
               <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-primary">Panel admin</p>
-              <h1 className="truncate font-display text-xl sm:text-2xl font-bold">VAR Algérie</h1>
+              <h1 className="truncate font-display text-xl sm:text-2xl font-bold">AUDAX Technology</h1>
             </div>
             <button type="button" onClick={logout} className="grid h-10 w-10 shrink-0 place-items-center border border-primary/30 hover:bg-primary/10" aria-label="Déconnexion"><LogOut className="h-4 w-4" /></button>
           </div>

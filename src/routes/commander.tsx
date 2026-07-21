@@ -16,10 +16,10 @@ const WHATSAPP_NUMBER = "213770741873";
 export const Route = createFileRoute("/commander")({
   head: () => ({
     meta: [
-      { title: "Commander produits VAR Algérie — Moniteurs & PC All-In-One" },
-      { name: "description", content: "Commandez vos produits informatiques VAR en Algérie : moniteurs VAR N22, T24M, PC All-In-One XPS22F/XPS22M, accessoires IT. Livraison 69 wilayas et devis rapide." },
-      { name: "keywords", content: "commander VAR Algérie, moniteur VAR N22, VAR T24M, PC VAR XPS22F, XPS22M, ordinateur VAR Algérie, matériel informatique Alger, livraison 69 wilayas" },
-      { property: "og:title", content: "Commander produits VAR — Algérie" },
+      { title: "Commander — AUDAX Technology · Produits VAR en Algérie" },
+      { name: "description", content: "Commandez chez AUDAX Technology vos produits VAR en Algérie : moniteurs VAR N22, T24M, PC All-In-One XPS22F/XPS22M, accessoires IT. Livraison 69 wilayas et devis rapide." },
+      { name: "keywords", content: "commander AUDAX, AUDAX Technology, commander VAR Algérie, moniteur VAR N22, VAR T24M, PC VAR XPS22F, XPS22M, matériel informatique Alger, livraison 69 wilayas" },
+      { property: "og:title", content: "Commander — AUDAX Technology · Produits VAR" },
       { property: "og:description", content: "Choisissez vos produits AUDAX et recevez un devis rapide partout en Algérie." },
       { property: "og:url", content: "/commander" },
       { property: "og:type", content: "website" },
